@@ -136,6 +136,46 @@
     color:var(--muted);font-size:.85rem;text-align:center;padding:60px 20px;
   }
 
+  /* ===== TEMPLATE SELECTOR ===== */
+  .tpl-select{display:flex;gap:8px;margin-bottom:18px;}
+  .tpl-opt{
+    flex:1;border:1.5px solid var(--line);border-radius:3px;padding:10px 12px;cursor:pointer;
+    font-size:.78rem;font-weight:600;text-align:center;transition:all .15s;
+  }
+  .tpl-opt.active{border-color:var(--ink);background:var(--ink);color:var(--white);}
+  .tpl-block{display:none;}
+  .tpl-block.active{display:block;}
+
+  /* ===== FORMAL / TAHLILAN CARD ===== */
+  #invitation.formal{
+    width:420px;height:594px;padding:0;border:2px solid var(--ink);overflow:hidden;
+  }
+  #invitation.formal::before{
+    content:'';position:absolute;inset:6px;border:1px solid var(--ink);pointer-events:none;
+  }
+  .formal-inner{position:relative;padding:16px 22px 18px;font-size:.94em;}
+  .formal-kop{display:flex;justify-content:space-between;align-items:flex-start;font-size:.62rem;line-height:1.4;padding-bottom:8px;border-bottom:2px solid var(--ink);margin-bottom:10px;}
+  .formal-kop-left b,.formal-kop-right b{display:block;font-size:.64rem;}
+  .formal-kop-right{text-align:right;}
+  .formal-title-box{text-align:center;margin-bottom:8px;}
+  .formal-title-box .kicker{font-size:.66rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);}
+  .formal-title-box h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:2rem;margin:0;line-height:1.15;}
+  .formal-title-box .sub{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.1rem;}
+  .formal-divline{border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);padding:4px 0;text-align:center;font-size:.78rem;font-weight:700;margin-bottom:9px;letter-spacing:.5px;}
+  .formal-bismillah{text-align:center;font-family:'Cormorant Garamond',serif;font-size:.95rem;font-weight:600;margin-bottom:8px;}
+  .formal-salam{font-size:.74rem;font-weight:700;margin-bottom:6px;}
+  .formal-body{font-size:.72rem;line-height:1.5;text-align:justify;margin-bottom:8px;white-space:pre-wrap;}
+  .formal-almarhum{text-align:center;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:1.02rem;margin:9px 0;padding:6px 0;border-top:1px dashed var(--line);border-bottom:1px dashed var(--line);}
+  .formal-details{font-size:.72rem;line-height:1.55;margin-bottom:9px;}
+  .formal-details .row{display:flex;gap:8px;}
+  .formal-details .row .lb{width:64px;flex-shrink:0;}
+  .formal-details .row .colon{width:8px;flex-shrink:0;}
+  .formal-closing{font-size:.72rem;line-height:1.5;text-align:justify;margin-bottom:8px;white-space:pre-wrap;}
+  .formal-wassalam{font-size:.74rem;font-weight:700;margin-bottom:14px;}
+  .formal-sign{text-align:right;font-size:.74rem;}
+  .formal-sign .role{margin-bottom:22px;}
+  .formal-sign .name{font-weight:700;text-decoration:underline;}
+
   .note{
     font-size:.72rem;color:var(--muted);background:var(--paper);border:1px dashed var(--line);
     padding:9px 12px;margin-top:16px;line-height:1.5;
@@ -170,54 +210,161 @@
     </div>
     <div class="card-body">
 
-      <div class="section-divider">Judul & Pembuka</div>
-      <div class="field">
-        <label class="lbl">Kicker <span class="desc">(teks kecil di atas judul)</span></label>
-        <input type="text" id="kicker" placeholder="UNDANGAN" />
-      </div>
-      <div class="field">
-        <label class="lbl">Judul Acara</label>
-        <input type="text" id="judul" placeholder="Syukuran Rumah Baru" />
-      </div>
-      <div class="field">
-        <label class="lbl">Kalimat Pembuka</label>
-        <textarea id="pembuka" placeholder="Dengan memohon rahmat dan ridho Allah SWT, kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara:"></textarea>
+      <div class="tpl-select">
+        <div class="tpl-opt active" id="tplBtnUmum" onclick="setTemplate('umum')">Umum</div>
+        <div class="tpl-opt" id="tplBtnFormal" onclick="setTemplate('formal')">Formal / Tahlilan</div>
       </div>
 
-      <div class="section-divider">Penyelenggara</div>
-      <div class="field">
-        <label class="lbl">Nama Penyelenggara / Tuan Rumah</label>
-        <input type="text" id="host" placeholder="Keluarga Bapak Ahmad Santoso" />
-      </div>
+      <!-- ===== TEMPLATE UMUM ===== -->
+      <div class="tpl-block active" id="blockUmum">
 
-      <div class="section-divider">Waktu & Tempat</div>
-      <div class="row2">
+        <div class="section-divider">Judul & Pembuka</div>
         <div class="field">
-          <label class="lbl">Tanggal</label>
-          <input type="date" id="tanggal" />
+          <label class="lbl">Kicker <span class="desc">(teks kecil di atas judul)</span></label>
+          <input type="text" id="kicker" placeholder="UNDANGAN" />
         </div>
         <div class="field">
-          <label class="lbl">Jam</label>
-          <input type="time" id="jam" />
+          <label class="lbl">Judul Acara</label>
+          <input type="text" id="judul" placeholder="Syukuran Rumah Baru" />
         </div>
-      </div>
-      <div class="field">
-        <label class="lbl">Tempat / Lokasi</label>
-        <input type="text" id="tempat" placeholder="Jl. Merdeka No. 12, Kel. Sukamaju, Bandung" />
-      </div>
-      <div class="field">
-        <label class="lbl">Detail tambahan <span class="desc">(opsional — 1 baris = 1 baris info, mis. "Dress code: Batik")</span></label>
-        <textarea id="detail" placeholder="Dress code: Bebas rapi&#10;Konfirmasi kehadiran: 0812-xxxx-xxxx"></textarea>
+        <div class="field">
+          <label class="lbl">Kalimat Pembuka</label>
+          <textarea id="pembuka" placeholder="Dengan memohon rahmat dan ridho Allah SWT, kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara:"></textarea>
+        </div>
+
+        <div class="section-divider">Penyelenggara</div>
+        <div class="field">
+          <label class="lbl">Nama Penyelenggara / Tuan Rumah</label>
+          <input type="text" id="host" placeholder="Keluarga Bapak Ahmad Santoso" />
+        </div>
+
+        <div class="section-divider">Waktu & Tempat</div>
+        <div class="row2">
+          <div class="field">
+            <label class="lbl">Tanggal</label>
+            <input type="date" id="tanggal" />
+          </div>
+          <div class="field">
+            <label class="lbl">Jam</label>
+            <input type="time" id="jam" />
+          </div>
+        </div>
+        <div class="field">
+          <label class="lbl">Tempat / Lokasi</label>
+          <input type="text" id="tempat" placeholder="Jl. Merdeka No. 12, Kel. Sukamaju, Bandung" />
+        </div>
+        <div class="field">
+          <label class="lbl">Detail tambahan <span class="desc">(opsional — 1 baris = 1 baris info, mis. "Dress code: Batik")</span></label>
+          <textarea id="detail" placeholder="Dress code: Bebas rapi&#10;Konfirmasi kehadiran: 0812-xxxx-xxxx"></textarea>
+        </div>
+
+        <div class="section-divider">Pesan Penutup</div>
+        <div class="field">
+          <label class="lbl">Kalimat Penutup</label>
+          <textarea id="penutup" placeholder="Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu."></textarea>
+        </div>
+        <div class="field">
+          <label class="lbl">Teks Footer <span class="desc">(baris paling bawah kartu)</span></label>
+          <input type="text" id="footer" placeholder="Terima kasih atas perhatian dan kehadirannya" />
+        </div>
+
       </div>
 
-      <div class="section-divider">Pesan Penutup</div>
-      <div class="field">
-        <label class="lbl">Kalimat Penutup</label>
-        <textarea id="penutup" placeholder="Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu."></textarea>
-      </div>
-      <div class="field">
-        <label class="lbl">Teks Footer <span class="desc">(baris paling bawah kartu)</span></label>
-        <input type="text" id="footer" placeholder="Terima kasih atas perhatian dan kehadirannya" />
+      <!-- ===== TEMPLATE FORMAL / TAHLILAN ===== -->
+      <div class="tpl-block" id="blockFormal">
+
+        <div class="section-divider">Kop Surat</div>
+        <div class="field">
+          <label class="lbl">Nama Pengirim</label>
+          <input type="text" id="f_pengirim" placeholder="Keluarga Alm. Bpk Sahri" />
+        </div>
+        <div class="field">
+          <label class="lbl">Alamat Pengirim</label>
+          <input type="text" id="f_alamat" placeholder="Baletbaru" />
+        </div>
+        <div class="field">
+          <label class="lbl">Kepada Yang Terhormat <span class="desc">(dibiarkan kosong jika tanpa nama tujuan)</span></label>
+          <input type="text" id="f_tujuan" placeholder="Bapak/Ibu/Saudara/i" />
+        </div>
+
+        <div class="section-divider">Judul Acara</div>
+        <div class="field">
+          <label class="lbl">Kicker <span class="desc">(teks kecil di atas judul)</span></label>
+          <input type="text" id="f_kicker" placeholder="UNDANGAN" />
+        </div>
+        <div class="field">
+          <label class="lbl">Judul Acara</label>
+          <input type="text" id="f_judul" placeholder="Tahlil 1 Tahun" />
+        </div>
+        <div class="field">
+          <label class="lbl">Hari, Tanggal <span class="desc">(baris kotak di bawah judul)</span></label>
+          <input type="text" id="f_haritanggal" placeholder="Sabtu, 16 Oktober 2021" />
+        </div>
+
+        <div class="section-divider">Salam & Kalimat Pengantar</div>
+        <div class="field">
+          <label class="lbl">Salam Pembuka</label>
+          <input type="text" id="f_salam" placeholder="Assalamu'alaikum Wr.Wb." />
+        </div>
+        <div class="field">
+          <label class="lbl">Kalimat Pengantar</label>
+          <textarea id="f_pengantar" placeholder="Dengan menyebut nama rahmat Allah SWT, kami selaku keluarga bermaksud mengundang Bapak/Ibu/Saudara/i dalam rangka acara:"></textarea>
+        </div>
+
+        <div class="section-divider">Data Almarhum / Acara</div>
+        <div class="field">
+          <label class="lbl">Nama Almarhum/Almarhumah <span class="desc">(kosongkan jika tidak perlu)</span></label>
+          <input type="text" id="f_almarhum" placeholder="Alm. SAHRI P. ABDUL HADI BIN JUMADIN" />
+        </div>
+        <div class="field">
+          <label class="lbl">Kalimat sebelum detail</label>
+          <input type="text" id="f_yangakan" placeholder="Yang Insya Allah akan dilaksanakan pada:" />
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label class="lbl">Hari</label>
+            <input type="text" id="f_hari" placeholder="Sabtu" />
+          </div>
+          <div class="field">
+            <label class="lbl">Tanggal</label>
+            <input type="text" id="f_tanggal" placeholder="16 Oktober 2021" />
+          </div>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label class="lbl">Pukul</label>
+            <input type="text" id="f_pukul" placeholder="16.00 WIB (Ba'da Ashar)" />
+          </div>
+          <div class="field">
+            <label class="lbl">Tempat</label>
+            <input type="text" id="f_tempat" placeholder="Mushola Fauzul Hasan" />
+          </div>
+        </div>
+        <div class="field">
+          <label class="lbl">Acara</label>
+          <input type="text" id="f_acara" placeholder="Do'a Tasla dan Tahlil" />
+        </div>
+
+        <div class="section-divider">Penutup</div>
+        <div class="field">
+          <label class="lbl">Kalimat Penutup</label>
+          <textarea id="f_penutup" placeholder="Demikian undangan ini kami sampaikan atas perhatian, kerjasama dan kehadirannya sangat kami harapkan. Atas kehadiran dan doanya kami sampaikan terima kasih."></textarea>
+        </div>
+        <div class="field">
+          <label class="lbl">Salam Penutup</label>
+          <input type="text" id="f_wassalam" placeholder="Wassalamu'alaikum Wr.Wb." />
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label class="lbl">Teks Tanda Tangan</label>
+            <input type="text" id="f_hormat" placeholder="Hormat kami," />
+          </div>
+          <div class="field">
+            <label class="lbl">Nama Penanda Tangan</label>
+            <input type="text" id="f_nama_ttd" placeholder="Keluarga Alm. Bpk Sahri" />
+          </div>
+        </div>
+
       </div>
 
       <div class="actions">
@@ -276,8 +423,25 @@ function escapeHtml(s){ const p=document.createElement("p"); p.textContent=s; re
 function nl2br(s){ return escapeHtml(s).replace(/\n/g,"<br>"); }
 
 let hasGenerated = false;
+let currentTemplate = "umum";
+
+function setTemplate(tpl){
+  currentTemplate = tpl;
+  document.getElementById("tplBtnUmum").classList.toggle("active", tpl==="umum");
+  document.getElementById("tplBtnFormal").classList.toggle("active", tpl==="formal");
+  document.getElementById("blockUmum").classList.toggle("active", tpl==="umum");
+  document.getElementById("blockFormal").classList.toggle("active", tpl==="formal");
+  document.getElementById("invitation").className = tpl==="formal" ? "formal" : "";
+  document.getElementById("invitation").innerHTML = emptyMsg();
+  hasGenerated = false;
+}
+
+function emptyMsg(){
+  return '<div class="inv-empty">Isi form di kiri, lalu klik "Buat Undangan".<br>Pratinjau kartu undangan muncul di sini.</div>';
+}
 
 function generate(){
+  if(currentTemplate === "formal"){ generateFormal(); return; }
   const kicker = val("kicker") || "UNDANGAN";
   const judul = val("judul") || "Nama Acara";
   const pembuka = val("pembuka");
@@ -322,10 +486,76 @@ function generate(){
   toast("Undangan dibuat");
 }
 
+function generateFormal(){
+  const pengirim = val("f_pengirim");
+  const alamat = val("f_alamat");
+  const tujuan = val("f_tujuan") || "Bapak/Ibu/Saudara/i";
+  const kicker = val("f_kicker") || "UNDANGAN";
+  const judul = val("f_judul") || "Nama Acara";
+  const haritanggal = val("f_haritanggal");
+  const salam = val("f_salam");
+  const pengantar = val("f_pengantar");
+  const almarhum = val("f_almarhum");
+  const yangakan = val("f_yangakan");
+  const hari = val("f_hari");
+  const tanggal = val("f_tanggal");
+  const pukul = val("f_pukul");
+  const tempat = val("f_tempat");
+  const acara = val("f_acara");
+  const penutup = val("f_penutup");
+  const wassalam = val("f_wassalam");
+  const hormat = val("f_hormat") || "Hormat kami,";
+  const namaTtd = val("f_nama_ttd");
+
+  let detailRows = "";
+  if(hari) detailRows += `<div class="row"><div class="lb">Hari</div><div class="colon">:</div><div>${escapeHtml(hari)}</div></div>`;
+  if(tanggal) detailRows += `<div class="row"><div class="lb">Tanggal</div><div class="colon">:</div><div>${escapeHtml(tanggal)}</div></div>`;
+  if(pukul) detailRows += `<div class="row"><div class="lb">Pukul</div><div class="colon">:</div><div>${escapeHtml(pukul)}</div></div>`;
+  if(tempat) detailRows += `<div class="row"><div class="lb">Tempat</div><div class="colon">:</div><div>${escapeHtml(tempat)}</div></div>`;
+  if(acara) detailRows += `<div class="row"><div class="lb">Acara</div><div class="colon">:</div><div>${escapeHtml(acara)}</div></div>`;
+
+  const html = `
+    <div class="formal-inner">
+      ${(pengirim||alamat||tujuan) ? `<div class="formal-kop">
+        <div class="formal-kop-left">${pengirim?`<b>${escapeHtml(pengirim)}</b>`:""}${alamat?escapeHtml(alamat):""}</div>
+        <div class="formal-kop-right">Kepada Yang<br><b>${escapeHtml(tujuan)}</b></div>
+      </div>` : ""}
+
+      <div class="formal-title-box">
+        <div class="kicker">${escapeHtml(kicker)}</div>
+        <h1>${escapeHtml(judul)}</h1>
+      </div>
+      ${haritanggal ? `<div class="formal-divline">${escapeHtml(haritanggal)}</div>` : ""}
+
+      <div class="formal-bismillah">Bismillahirrohmanirrohim</div>
+      ${salam ? `<div class="formal-salam">${escapeHtml(salam)}</div>` : ""}
+      ${pengantar ? `<div class="formal-body">${nl2br(pengantar)}</div>` : ""}
+
+      ${almarhum ? `<div class="formal-almarhum">${escapeHtml(almarhum)}</div>` : ""}
+      ${yangakan ? `<div class="formal-body">${escapeHtml(yangakan)}</div>` : ""}
+      ${detailRows ? `<div class="formal-details">${detailRows}</div>` : ""}
+
+      ${penutup ? `<div class="formal-closing">${nl2br(penutup)}</div>` : ""}
+      ${wassalam ? `<div class="formal-wassalam">${escapeHtml(wassalam)}</div>` : ""}
+
+      <div class="formal-sign">
+        <div class="role">${escapeHtml(hormat)}</div>
+        ${namaTtd ? `<div class="name">${escapeHtml(namaTtd)}</div>` : ""}
+      </div>
+    </div>
+  `;
+
+  document.getElementById("invitation").innerHTML = html;
+  hasGenerated = true;
+  toast("Undangan dibuat");
+}
+
 function resetForm(){
-  ["kicker","judul","pembuka","host","tanggal","jam","tempat","detail","penutup","footer"]
+  ["kicker","judul","pembuka","host","tanggal","jam","tempat","detail","penutup","footer",
+   "f_pengirim","f_alamat","f_tujuan","f_kicker","f_judul","f_haritanggal","f_salam","f_pengantar",
+   "f_almarhum","f_yangakan","f_hari","f_tanggal","f_pukul","f_tempat","f_acara","f_penutup","f_wassalam","f_hormat","f_nama_ttd"]
     .forEach(id=>document.getElementById(id).value="");
-  document.getElementById("invitation").innerHTML = '<div class="inv-empty">Isi form di kiri, lalu klik "Buat Undangan".<br>Pratinjau kartu undangan muncul di sini.</div>';
+  document.getElementById("invitation").innerHTML = emptyMsg();
   hasGenerated = false;
   toast("Form dikosongkan");
 }
