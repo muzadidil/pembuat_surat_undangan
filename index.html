@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Pembuat Surat Undangan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --ink:#111111;
+    --ink-soft:#3a3a3a;
+    --muted:#767676;
+    --line:#d8d8d8;
+    --paper:#f5f5f4;
+    --white:#ffffff;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:'Plus Jakarta Sans',system-ui,sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  header{
+    background:var(--ink);
+    color:var(--white);
+    padding:20px 5%;
+  }
+  .head-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:12px;}
+  .head-title{font-size:1.15rem;font-weight:700;letter-spacing:-.2px;}
+  .head-sub{font-size:.78rem;color:#b8b8b8;margin-top:1px;}
+
+  .wrap{max-width:1200px;margin:0 auto;padding:32px 5% 70px;display:grid;grid-template-columns:1fr 1fr;gap:28px;}
+  @media(max-width:900px){.wrap{grid-template-columns:1fr;}}
+
+  .card{
+    background:var(--white);border:1px solid var(--line);border-radius:4px;
+    overflow:hidden;
+  }
+  .card-head{
+    padding:16px 20px;border-bottom:1px solid var(--line);
+    display:flex;align-items:center;gap:9px;
+  }
+  .card-head h2{margin:0;font-size:.95rem;font-weight:700;letter-spacing:.2px;text-transform:uppercase;}
+  .card-head .hint{margin-left:auto;font-size:.72rem;color:var(--muted);}
+  .card-body{padding:22px;}
+
+  .field{margin-bottom:16px;}
+  .field:last-child{margin-bottom:0;}
+  label.lbl{display:block;font-size:.78rem;font-weight:600;color:var(--ink);margin-bottom:6px;letter-spacing:.2px;}
+  .desc{font-size:.7rem;color:var(--muted);font-weight:400;}
+  input[type=text],input[type=date],input[type=time],textarea,select{
+    width:100%;font-family:inherit;font-size:.88rem;color:var(--ink);
+    background:var(--paper);border:1px solid var(--line);border-radius:3px;
+    padding:10px 12px;transition:border-color .15s;
+  }
+  input:focus,textarea:focus,select:focus{
+    outline:none;border-color:var(--ink);background:var(--white);
+  }
+  textarea{resize:vertical;min-height:70px;line-height:1.5;}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+  @media(max-width:480px){.row2,.row3{grid-template-columns:1fr;}}
+
+  .section-divider{
+    font-size:.72rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;
+    color:var(--muted);margin:22px 0 12px;padding-top:16px;border-top:1px dashed var(--line);
+  }
+  .section-divider:first-child{margin-top:0;padding-top:0;border-top:none;}
+
+  .actions{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;}
+  .btn{
+    font-family:inherit;font-size:.85rem;font-weight:700;cursor:pointer;
+    border:none;border-radius:3px;padding:12px 20px;transition:opacity .15s,transform .08s;
+    letter-spacing:.2px;
+  }
+  .btn:active{transform:translateY(1px);}
+  .btn-primary{background:var(--ink);color:var(--white);flex:1;}
+  .btn-primary:hover{opacity:.85;}
+  .btn-pdf{background:var(--white);color:var(--ink);border:1.5px solid var(--ink);}
+  .btn-pdf:hover{background:var(--ink);color:var(--white);}
+  .btn-ghost{background:transparent;border:1px solid var(--line);color:var(--muted);}
+  .btn-ghost:hover{border-color:var(--ink);color:var(--ink);}
+
+  /* ===== PREVIEW / KARTU UNDANGAN ===== */
+  .preview-shell{
+    background:#e8e8e6;padding:26px 16px;display:flex;justify-content:center;
+    overflow:auto;
+  }
+  #invitation{
+    width:420px;min-height:594px;background:var(--white);
+    border:1px solid #cfcfcf;
+    padding:46px 38px 40px;
+    position:relative;
+    font-family:'Plus Jakarta Sans',sans-serif;
+    color:var(--ink);
+  }
+  #invitation::before{
+    content:'';position:absolute;inset:14px;border:1px solid #cfcfcf;pointer-events:none;
+  }
+  .inv-kicker{
+    text-align:center;font-size:.68rem;letter-spacing:2.5px;text-transform:uppercase;
+    color:var(--muted);margin-bottom:18px;
+  }
+  .inv-title{
+    text-align:center;font-family:'Cormorant Garamond',serif;font-weight:700;
+    font-size:2.3rem;line-height:1.2;margin-bottom:6px;
+  }
+  .inv-rule{width:46px;height:1px;background:var(--ink);margin:18px auto;}
+  .inv-lead{
+    text-align:center;font-size:.82rem;color:var(--ink-soft);line-height:1.75;
+    margin-bottom:22px;white-space:pre-wrap;
+  }
+  .inv-host{
+    text-align:center;font-family:'Cormorant Garamond',serif;font-weight:600;
+    font-size:1.25rem;margin-bottom:22px;
+  }
+  .inv-details{display:grid;gap:10px;margin-bottom:24px;}
+  .inv-detail-row{display:flex;gap:10px;font-size:.8rem;}
+  .inv-detail-label{width:88px;flex-shrink:0;color:var(--muted);letter-spacing:.4px;text-transform:uppercase;font-size:.66rem;padding-top:2px;}
+  .inv-detail-value{flex:1;font-weight:600;line-height:1.5;}
+  .inv-message{
+    text-align:center;font-size:.78rem;color:var(--ink-soft);line-height:1.7;
+    padding-top:18px;border-top:1px dashed var(--line);white-space:pre-wrap;
+  }
+  .inv-footer{
+    text-align:center;font-size:.68rem;color:var(--muted);letter-spacing:1px;
+    text-transform:uppercase;margin-top:22px;
+  }
+  .inv-empty{
+    color:var(--muted);font-size:.85rem;text-align:center;padding:60px 20px;
+  }
+
+  .note{
+    font-size:.72rem;color:var(--muted);background:var(--paper);border:1px dashed var(--line);
+    padding:9px 12px;margin-top:16px;line-height:1.5;
+  }
+  .toast{
+    position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);
+    background:var(--ink);color:var(--white);font-size:.82rem;font-weight:600;
+    padding:11px 20px;border-radius:3px;
+    opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:50;
+  }
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="head-inner">
+    <div>
+      <div class="head-title">Pembuat Surat Undangan</div>
+      <div class="head-sub">Isi data acara — kartu undangan siap cetak PDF</div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- KIRI: FORM -->
+  <div class="card">
+    <div class="card-head">
+      <h2>Data Acara</h2>
+      <span class="hint">semua field opsional</span>
+    </div>
+    <div class="card-body">
+
+      <div class="section-divider">Judul & Pembuka</div>
+      <div class="field">
+        <label class="lbl">Kicker <span class="desc">(teks kecil di atas judul)</span></label>
+        <input type="text" id="kicker" placeholder="UNDANGAN" />
+      </div>
+      <div class="field">
+        <label class="lbl">Judul Acara</label>
+        <input type="text" id="judul" placeholder="Syukuran Rumah Baru" />
+      </div>
+      <div class="field">
+        <label class="lbl">Kalimat Pembuka</label>
+        <textarea id="pembuka" placeholder="Dengan memohon rahmat dan ridho Allah SWT, kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara:"></textarea>
+      </div>
+
+      <div class="section-divider">Penyelenggara</div>
+      <div class="field">
+        <label class="lbl">Nama Penyelenggara / Tuan Rumah</label>
+        <input type="text" id="host" placeholder="Keluarga Bapak Ahmad Santoso" />
+      </div>
+
+      <div class="section-divider">Waktu & Tempat</div>
+      <div class="row2">
+        <div class="field">
+          <label class="lbl">Tanggal</label>
+          <input type="date" id="tanggal" />
+        </div>
+        <div class="field">
+          <label class="lbl">Jam</label>
+          <input type="time" id="jam" />
+        </div>
+      </div>
+      <div class="field">
+        <label class="lbl">Tempat / Lokasi</label>
+        <input type="text" id="tempat" placeholder="Jl. Merdeka No. 12, Kel. Sukamaju, Bandung" />
+      </div>
+      <div class="field">
+        <label class="lbl">Detail tambahan <span class="desc">(opsional — 1 baris = 1 baris info, mis. "Dress code: Batik")</span></label>
+        <textarea id="detail" placeholder="Dress code: Bebas rapi&#10;Konfirmasi kehadiran: 0812-xxxx-xxxx"></textarea>
+      </div>
+
+      <div class="section-divider">Pesan Penutup</div>
+      <div class="field">
+        <label class="lbl">Kalimat Penutup</label>
+        <textarea id="penutup" placeholder="Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu."></textarea>
+      </div>
+      <div class="field">
+        <label class="lbl">Teks Footer <span class="desc">(baris paling bawah kartu)</span></label>
+        <input type="text" id="footer" placeholder="Terima kasih atas perhatian dan kehadirannya" />
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-primary" onclick="generate()">Buat Undangan</button>
+        <button class="btn btn-ghost" onclick="resetForm()">Kosongkan</button>
+      </div>
+
+      <div class="note">
+        <b>Catatan:</b> pratinjau di kanan mengikuti isian secara langsung. Setelah desain sesuai, klik "Unduh PDF" pada panel kanan.
+      </div>
+
+    </div>
+  </div>
+
+  <!-- KANAN: PREVIEW -->
+  <div class="card">
+    <div class="card-head">
+      <h2>Pratinjau Undangan</h2>
+      <span class="hint">A5 potret</span>
+    </div>
+    <div class="preview-shell">
+      <div id="invitation">
+        <div class="inv-empty">Isi form di kiri, lalu klik "Buat Undangan".<br>Pratinjau kartu undangan muncul di sini.</div>
+      </div>
+    </div>
+    <div class="card-body" style="padding-top:16px;">
+      <div class="actions" style="margin-top:0;">
+        <button class="btn btn-pdf" style="flex:1" onclick="downloadPdf()">Unduh PDF</button>
+        <button class="btn btn-ghost" onclick="window.print()">Print</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script>
+function val(id){ return document.getElementById(id).value.trim(); }
+
+function fmtTanggal(iso){
+  if(!iso) return "";
+  const bulan = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+  const [y,m,d] = iso.split("-").map(Number);
+  const hari = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"][new Date(y,m-1,d).getDay()];
+  return `${hari}, ${d} ${bulan[m-1]} ${y}`;
+}
+
+function fmtJam(t){
+  if(!t) return "";
+  return t + " WIB";
+}
+
+function escapeHtml(s){ const p=document.createElement("p"); p.textContent=s; return p.innerHTML; }
+function nl2br(s){ return escapeHtml(s).replace(/\n/g,"<br>"); }
+
+let hasGenerated = false;
+
+function generate(){
+  const kicker = val("kicker") || "UNDANGAN";
+  const judul = val("judul") || "Nama Acara";
+  const pembuka = val("pembuka");
+  const host = val("host");
+  const tanggal = fmtTanggal(val("tanggal"));
+  const jam = fmtJam(val("jam"));
+  const tempat = val("tempat");
+  const detailRaw = val("detail");
+  const penutup = val("penutup");
+  const footer = val("footer");
+
+  let rows = "";
+  if(tanggal) rows += `<div class="inv-detail-row"><div class="inv-detail-label">Tanggal</div><div class="inv-detail-value">${escapeHtml(tanggal)}</div></div>`;
+  if(jam) rows += `<div class="inv-detail-row"><div class="inv-detail-label">Waktu</div><div class="inv-detail-value">${escapeHtml(jam)}</div></div>`;
+  if(tempat) rows += `<div class="inv-detail-row"><div class="inv-detail-label">Tempat</div><div class="inv-detail-value">${escapeHtml(tempat)}</div></div>`;
+  if(detailRaw){
+    detailRaw.split("\n").map(s=>s.trim()).filter(Boolean).forEach(line=>{
+      const idx = line.indexOf(":");
+      if(idx > -1){
+        const label = line.slice(0,idx).trim();
+        const value = line.slice(idx+1).trim();
+        rows += `<div class="inv-detail-row"><div class="inv-detail-label">${escapeHtml(label)}</div><div class="inv-detail-value">${escapeHtml(value)}</div></div>`;
+      } else {
+        rows += `<div class="inv-detail-row"><div class="inv-detail-label">&nbsp;</div><div class="inv-detail-value">${escapeHtml(line)}</div></div>`;
+      }
+    });
+  }
+
+  const html = `
+    <div class="inv-kicker">${escapeHtml(kicker)}</div>
+    <div class="inv-title">${escapeHtml(judul)}</div>
+    <div class="inv-rule"></div>
+    ${pembuka ? `<div class="inv-lead">${nl2br(pembuka)}</div>` : ""}
+    ${host ? `<div class="inv-host">${escapeHtml(host)}</div>` : ""}
+    ${rows ? `<div class="inv-details">${rows}</div>` : ""}
+    ${penutup ? `<div class="inv-message">${nl2br(penutup)}</div>` : ""}
+    ${footer ? `<div class="inv-footer">${escapeHtml(footer)}</div>` : ""}
+  `;
+
+  document.getElementById("invitation").innerHTML = html;
+  hasGenerated = true;
+  toast("Undangan dibuat");
+}
+
+function resetForm(){
+  ["kicker","judul","pembuka","host","tanggal","jam","tempat","detail","penutup","footer"]
+    .forEach(id=>document.getElementById(id).value="");
+  document.getElementById("invitation").innerHTML = '<div class="inv-empty">Isi form di kiri, lalu klik "Buat Undangan".<br>Pratinjau kartu undangan muncul di sini.</div>';
+  hasGenerated = false;
+  toast("Form dikosongkan");
+}
+
+function downloadPdf(){
+  if(!hasGenerated){ toast("Buat undangan dulu"); return; }
+  const el = document.getElementById("invitation");
+  const opt = {
+    margin: 0,
+    filename: 'undangan.pdf',
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 2, useCORS: true },
+    jsPDF: { unit: 'mm', format: 'a5', orientation: 'portrait' }
+  };
+  toast("Menyiapkan PDF...");
+  html2pdf().set(opt).from(el).save();
+}
+
+let toastT=null;
+function toast(msg){
+  const t=document.getElementById("toast");
+  t.textContent=msg; t.classList.add("show");
+  clearTimeout(toastT);
+  toastT=setTimeout(()=>t.classList.remove("show"),1900);
+}
+</script>
+</body>
+</html>
