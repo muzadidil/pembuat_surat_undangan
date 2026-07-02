@@ -369,6 +369,7 @@
 
       <div class="actions">
         <button class="btn btn-primary" onclick="generate()">Buat Undangan</button>
+        <button class="btn btn-pdf" onclick="fillExample()">Isi Contoh</button>
         <button class="btn btn-ghost" onclick="resetForm()">Kosongkan</button>
       </div>
 
@@ -558,6 +559,50 @@ function resetForm(){
   document.getElementById("invitation").innerHTML = emptyMsg();
   hasGenerated = false;
   toast("Form dikosongkan");
+}
+
+const EXAMPLE_UMUM = {
+  kicker: "UNDANGAN",
+  judul: "Syukuran Rumah Baru",
+  pembuka: "Dengan memohon rahmat dan ridho Allah SWT, kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara:",
+  host: "Keluarga Bapak Ahmad Santoso",
+  tanggal: "2026-08-15",
+  jam: "19:00",
+  tempat: "Jl. Merdeka No. 12, Kel. Sukamaju, Bandung",
+  detail: "Dress code: Bebas rapi\nKonfirmasi kehadiran: 0812-3456-7890",
+  penutup: "Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu.",
+  footer: "Terima kasih atas perhatian dan kehadirannya"
+};
+
+const EXAMPLE_FORMAL = {
+  f_pengirim: "Keluarga Alm. Bpk Sahri",
+  f_alamat: "Baletbaru",
+  f_tujuan: "Bapak/Ibu/Saudara/i",
+  f_kicker: "UNDANGAN",
+  f_judul: "Tahlil 1 Tahun",
+  f_haritanggal: "Sabtu, 16 Oktober 2021",
+  f_salam: "Assalamu'alaikum Wr.Wb.",
+  f_pengantar: "Dengan menyebut nama rahmat Allah SWT, kami selaku keluarga bermaksud mengundang Bapak/Ibu/Saudara/i dalam rangka acara:",
+  f_almarhum: "Alm. SAHRI P. ABDUL HADI BIN JUMADIN",
+  f_yangakan: "Yang Insya Allah akan dilaksanakan pada:",
+  f_hari: "Sabtu",
+  f_tanggal: "16 Oktober 2021",
+  f_pukul: "16.00 WIB (Ba'da Ashar)",
+  f_tempat: "Mushola Fauzul Hasan",
+  f_acara: "Do'a Tasla dan Tahlil",
+  f_penutup: "Demikian undangan ini kami sampaikan atas perhatian, kerjasama dan kehadirannya sangat kami harapkan. Atas kehadiran dan doanya kami sampaikan terima kasih.",
+  f_wassalam: "Wassalamu'alaikum Wr.Wb.",
+  f_hormat: "Hormat kami,",
+  f_nama_ttd: ""
+};
+
+function fillExample(){
+  const data = currentTemplate === "formal" ? EXAMPLE_FORMAL : EXAMPLE_UMUM;
+  Object.entries(data).forEach(([id, value])=>{
+    document.getElementById(id).value = value;
+  });
+  generate();
+  toast("Contoh diisi");
 }
 
 function downloadPdf(){
