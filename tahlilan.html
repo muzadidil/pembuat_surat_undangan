@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Pembuat Surat Undangan — Tahlilan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Amiri&family=Anton&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=Great+Vibes&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header>
+  <div class="head-inner">
+    <div>
+      <div class="head-title">Pembuat Surat Undangan</div>
+      <div class="head-sub">Isi data acara — kartu undangan siap cetak PDF</div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- KIRI: FORM -->
+  <div class="card">
+    <div class="card-head">
+      <h2>Data Acara</h2>
+      <span class="hint">kalimat baku sudah terisi otomatis</span>
+    </div>
+    <div class="card-body">
+
+      <div class="tpl-select">
+        <a class="tpl-opt" href="index.html">
+          <div class="t">Umum</div><div class="s">Surat resmi berkop</div>
+        </a>
+        <a class="tpl-opt active" href="tahlilan.html">
+          <div class="t">Tahlilan</div><div class="s">Hitam putih</div>
+        </a>
+        <a class="tpl-opt" href="nikah.html">
+          <div class="t">Pernikahan</div><div class="s">Berwarna elegan</div>
+        </a>
+      </div>
+
+      <!-- ===== FORM TAHLILAN ===== -->
+      <div class="tpl-block active" id="block-tahlilan">
+
+        <div class="section-divider">Desain / Frame</div>
+        <div class="field">
+          <label class="lbl">Pilih Frame <span class="desc">(layout tetap, hanya bingkai yang berganti)</span></label>
+          <select id="t_desain" onchange="setDesain(this.value)">
+            <option value="klasik" selected>1. Klasik — bunga &amp; sulur (hitam putih)</option>
+            <option value="ornamen">2. Ornamen — bingkai tebal + rosette (hitam putih)</option>
+            <option value="garis">3. Garis Ganda — minimalis (hitam putih)</option>
+            <option value="geo">4. Geometris — art deco (hitam putih)</option>
+            <option value="daun">5. Daun — ranting berdaun (hitam putih)</option>
+            <option value="bunga">6. Bunga Sudut — hitam putih</option>
+            <option value="islami">7. Islami — bintang segi delapan (hitam putih)</option>
+            <option value="biru">8. Klasik Abu-abu Tua (hitam putih)</option>
+            <option value="emas">9. Klasik Kertas Krem (hitam putih)</option>
+            <option value="floral">10. Floral — hitam putih</option>
+          </select>
+        </div>
+
+        <div class="section-divider">Cover (Panel Atas)</div>
+        <div class="field">
+          <label class="lbl">Judul di Cover <span class="desc">(mis. Yasin &amp; Tahlil / Peringatan 100 Hari)</span></label>
+          <input type="text" id="t_judul" value="Yasin & Tahlil" />
+        </div>
+        <div class="field">
+          <label class="lbl">Kepada Yth. <span class="desc">(kosongkan agar jadi garis isian ___ untuk ditulis tangan)</span></label>
+          <input type="text" id="t_tujuan" placeholder="" />
+        </div>
+        <div class="field">
+          <label class="chk-row">
+            <input type="checkbox" id="t_tanpa_buwuhan" />
+            <span class="lbltext">Tanpa Buwuhan/Muslimat</span>
+          </label>
+          <div class="desc" style="margin-top:4px;margin-left:24px;">Centang untuk menampilkan keterangan ini di bawah judul cover</div>
+        </div>
+
+        <div class="section-divider">Salam &amp; Kalimat Pengantar <span class="desc">(kalimat baku — biasanya tidak diubah)</span></div>
+        <div class="field">
+          <label class="lbl">Salam Pembuka</label>
+          <input type="text" id="t_salam" value="Assalamu'alaikum Wr. Wb." />
+        </div>
+        <div class="field">
+          <label class="lbl">Kalimat Pengantar <span class="desc">(ganti angka harinya saja: 7 / 40 / 100 / 1000 hari)</span></label>
+          <textarea id="t_pengantar">Dengan mengharap ridho dan rahmat Allah SWT, kami mengharap kehadiran Bapak/Ibu/Saudara untuk memberikan do'a dan tahlil pada acara 40 (empat puluh) hari meninggalnya:</textarea>
+        </div>
+
+        <div class="section-divider">Data Almarhum / Acara</div>
+        <div class="field">
+          <label class="lbl">Nama Almarhum/Almarhumah</label>
+          <input type="text" id="t_almarhum" placeholder="Almh. Ibu Listiya" />
+        </div>
+        <div class="field">
+          <label class="lbl">Kalimat sebelum detail</label>
+          <input type="text" id="t_yangakan" value="Yang Insya Allah akan kami laksanakan pada :" />
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label class="lbl">Hari</label>
+            <input type="text" id="t_hari" placeholder="Minggu" />
+          </div>
+          <div class="field">
+            <label class="lbl">Tanggal</label>
+            <input type="text" id="t_tanggal" placeholder="16 Agustus 2026" />
+          </div>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label class="lbl">Waktu</label>
+            <input type="text" id="t_pukul" placeholder="18.00 WIB (Ba'da Maghrib)" />
+          </div>
+          <div class="field">
+            <label class="lbl">Tempat</label>
+            <input type="text" id="t_tempat" placeholder="Rumah Bapak Tono, RT/RW 04/02" />
+          </div>
+        </div>
+        <div class="field">
+          <label class="lbl">Acara <span class="desc">(opsional)</span></label>
+          <input type="text" id="t_acara" placeholder="Pembacaan Surat Yasin dan Tahlil" />
+        </div>
+
+        <div class="section-divider">Penutup <span class="desc">(kalimat baku — biasanya tidak diubah)</span></div>
+        <div class="field">
+          <label class="lbl">Kalimat Penutup</label>
+          <textarea id="t_penutup">Merupakan suatu kehormatan dan kebahagiaan bagi kami sekeluarga apabila Bapak/Ibu/Saudara berkenan hadir untuk memberikan do'a.
+Atas perhatian dan kehadiran Bapak/Ibu/Saudara, kami sekeluarga sampaikan terima kasih.</textarea>
+        </div>
+        <div class="field">
+          <label class="lbl">Salam Penutup</label>
+          <input type="text" id="t_wassalam" value="Wassalamu'alaikum Wr. Wb." />
+        </div>
+        <div class="row3">
+          <div class="field">
+            <label class="lbl">Teks Tanda Tangan</label>
+            <input type="text" id="t_hormat" value="Shohibul Hajah" />
+          </div>
+          <div class="field">
+            <label class="lbl">Nama Penanda Tangan</label>
+            <input type="text" id="t_nama_ttd" placeholder="Bpk. Tono" />
+          </div>
+          <div class="field">
+            <label class="lbl">Baris bawah</label>
+            <input type="text" id="t_ttd_bawah" value="Sekeluarga" />
+          </div>
+        </div>
+
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-primary" onclick="generate()">Buat Undangan</button>
+        <button class="btn btn-pdf" onclick="fillExample()">Isi Contoh</button>
+        <button class="btn btn-ghost" onclick="resetForm()">Kosongkan</button>
+      </div>
+
+      <div class="note">
+        <b>Catatan:</b> kalimat pembuka dan penutup baku sudah terisi otomatis sesuai kebiasaan surat undangan Indonesia — cukup lengkapi nama, tanggal, dan tempat. Setelah kartu dibuat, pratinjau ikut berubah langsung saat Anda mengetik.
+      </div>
+
+    </div>
+  </div>
+
+  <!-- KANAN: PREVIEW -->
+  <div class="card">
+    <div class="card-head">
+      <h2>Pratinjau Undangan</h2>
+      <span class="hint">A5 potret</span>
+    </div>
+    <div class="preview-shell">
+      <div id="invitation" class="tahlilan ds-klasik">
+        <div class="inv-empty">Isi form di kiri, lalu klik "Buat Undangan".<br>Pratinjau kartu undangan muncul di sini.</div>
+      </div>
+    </div>
+    <div class="card-body" style="padding-top:16px;">
+      <div class="actions" style="margin-top:0;">
+        <button class="btn btn-pdf" style="flex:1" onclick="downloadPdf()">Unduh PDF</button>
+        <button class="btn btn-ghost" onclick="window.print()">Print</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="common.js"></script>
+<script>
+const PAGE = { format: "a5", filename: "undangan-tahlilan" };
+
+let currentDesain = "klasik";
+function setDesain(d){
+  currentDesain = d;
+  document.getElementById("invitation").className = "tahlilan ds-" + d;
+  generate();
+}
+
+const EXAMPLE = {
+  t_judul: "Yasin & Tahlil",
+  t_almarhum: "Almh. Ibu Listiya",
+  t_hari: "Minggu",
+  t_tanggal: "16 Agustus 2026",
+  t_pukul: "18.00 WIB (Ba'da Maghrib)",
+  t_tempat: "Rumah Bapak Tono, RT/RW 04/02, Wonokoyo",
+  t_acara: "Pembacaan Surat Yasin dan Tahlil",
+  t_nama_ttd: "Bpk. Tono"
+};
+
+/* kartu tahlilan/yasin: 2 panel (cover + isi) dengan 10 pilihan frame */
+function generate(){
+  const tujuan = val("t_tujuan");
+  const judul = val("t_judul") || "Yasin & Tahlil";
+  const tanpaBuwuhan = checked("t_tanpa_buwuhan");
+  const salam = val("t_salam");
+  const pengantar = val("t_pengantar");
+  const almarhum = val("t_almarhum") || "Nama Almarhum/Almarhumah";
+  const yangakan = val("t_yangakan");
+  const penutup = val("t_penutup");
+  const wassalam = val("t_wassalam");
+  const hormat = val("t_hormat");
+  const namaTtd = val("t_nama_ttd");
+  const bawah = val("t_ttd_bawah");
+
+  let detailRows = "";
+  [["Hari","t_hari"],["Tanggal","t_tanggal"],["Waktu","t_pukul"],["Tempat","t_tempat"],["Acara","t_acara"]].forEach(([lb,id])=>{
+    const v = val(id);
+    if(v) detailRows += `<div class="row"><div class="lb">${lb}</div><div class="colon">:</div><div class="vl">${escapeHtml(v)}</div></div>`;
+  });
+
+  const COR = '<i class="cor c1"></i><i class="cor c2"></i><i class="cor c3"></i><i class="cor c4"></i>';
+  const MID = '<i class="mid mt"></i><i class="mid mb"></i>';
+  const undanganTxt = currentDesain==="floral" ? "Undangan" : "UNDANGAN";
+
+  document.getElementById("invitation").innerHTML = `
+    <i class="flcor f1"></i><i class="flcor f2"></i><i class="flcor f3"></i><i class="flcor f4"></i>
+    <div class="tj-panel tj-cover">${COR}
+      <div class="tj-cover-row">
+        <div class="tj-cover-left">
+          <div class="tj-undangan">${undanganTxt}</div>
+          <div class="tj-sub">${escapeHtml(judul)}</div>
+          ${tanpaBuwuhan ? `<div class="tj-tag">Tanpa Buwuhan/Muslimat</div>` : ""}
+        </div>
+        <div class="tj-kepada">
+          <div class="b">Kepada :</div>
+          <div>Yth. Bpk/Ibu/Sdr.</div>
+          <div class="isi">${tujuan?escapeHtml(tujuan):"&nbsp;"}</div>
+          <div class="di">Di</div>
+          <div class="di"><b>Tempat</b></div>
+        </div>
+      </div>
+    </div>
+    <div class="tj-panel tj-content">${COR}${MID}
+      <div class="tj-bismillah">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</div>
+      ${salam ? `<div class="tj-salam">${escapeHtml(salam)}</div>` : ""}
+      ${pengantar ? `<div class="tj-body">${nl2br(pengantar)}</div>` : ""}
+      <div class="tj-almarhum">${escapeHtml(almarhum)}</div>
+      ${yangakan ? `<div class="tj-body">${escapeHtml(yangakan)}</div>` : ""}
+      ${detailRows ? `<div class="tj-det-wrap"><div class="tj-details">${detailRows}</div></div>` : ""}
+      ${penutup ? `<div class="tj-body">${nl2br(penutup)}</div>` : ""}
+      ${wassalam ? `<div class="tj-wassalam">${escapeHtml(wassalam)}</div>` : ""}
+      <div class="tj-sign">
+        ${hormat ? `<div class="role">${escapeHtml(hormat)}</div>` : ""}
+        ${namaTtd ? `<div class="name">${escapeHtml(namaTtd)}</div>` : ""}
+        ${bawah ? `<div class="bawah">${escapeHtml(bawah)}</div>` : ""}
+      </div>
+    </div>
+  `;
+  hasGenerated = true;
+}
+
+initPage();
+</script>
+</body>
+</html>

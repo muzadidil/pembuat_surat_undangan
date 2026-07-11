@@ -1,0 +1,336 @@
+:root{
+  --ink:#111111;
+  --ink-soft:#3a3a3a;
+  --muted:#767676;
+  --line:#d8d8d8;
+  --paper:#f5f5f4;
+  --white:#ffffff;
+  /* warna template nikah */
+  --wed-bg:#fbf7ee;
+  --wed-green:#1f4d40;
+  --wed-green-soft:#4a6f64;
+  --wed-gold:#b08d43;
+  --wed-gold-soft:#d3bc8a;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:'Plus Jakarta Sans',system-ui,sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+
+header{
+  background:var(--ink);
+  color:var(--white);
+  padding:20px 5%;
+}
+.head-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:12px;}
+.head-title{font-size:1.15rem;font-weight:700;letter-spacing:-.2px;}
+.head-sub{font-size:.78rem;color:#b8b8b8;margin-top:1px;}
+
+.wrap{max-width:1200px;margin:0 auto;padding:32px 5% 70px;display:grid;grid-template-columns:1fr 1fr;gap:28px;}
+@media(max-width:900px){.wrap{grid-template-columns:1fr;}}
+
+.card{
+  background:var(--white);border:1px solid var(--line);border-radius:4px;
+  overflow:hidden;
+}
+.card-head{
+  padding:16px 20px;border-bottom:1px solid var(--line);
+  display:flex;align-items:center;gap:9px;
+}
+.card-head h2{margin:0;font-size:.95rem;font-weight:700;letter-spacing:.2px;text-transform:uppercase;}
+.card-head .hint{margin-left:auto;font-size:.72rem;color:var(--muted);}
+.card-body{padding:22px;}
+
+.field{margin-bottom:16px;}
+.field:last-child{margin-bottom:0;}
+label.lbl{display:block;font-size:.78rem;font-weight:600;color:var(--ink);margin-bottom:6px;letter-spacing:.2px;}
+.desc{font-size:.7rem;color:var(--muted);font-weight:400;}
+input[type=text],input[type=date],input[type=time],textarea,select{
+  width:100%;font-family:inherit;font-size:.88rem;color:var(--ink);
+  background:var(--paper);border:1px solid var(--line);border-radius:3px;
+  padding:10px 12px;transition:border-color .15s;
+}
+input:focus,textarea:focus,select:focus{
+  outline:none;border-color:var(--ink);background:var(--white);
+}
+textarea{resize:vertical;min-height:70px;line-height:1.5;}
+.chk-row{display:flex;align-items:center;gap:8px;cursor:pointer;}
+.chk-row input[type=checkbox]{width:16px;height:16px;flex-shrink:0;accent-color:var(--ink);cursor:pointer;}
+.chk-row .lbltext{font-size:.82rem;font-weight:600;color:var(--ink);}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+@media(max-width:480px){.row2,.row3,.tpl-select{grid-template-columns:1fr;}}
+
+.section-divider{
+  font-size:.72rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;
+  color:var(--muted);margin:22px 0 12px;padding-top:16px;border-top:1px dashed var(--line);
+}
+.section-divider:first-child{margin-top:0;padding-top:0;border-top:none;}
+
+.actions{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;}
+.btn{
+  font-family:inherit;font-size:.85rem;font-weight:700;cursor:pointer;
+  border:none;border-radius:3px;padding:12px 20px;transition:opacity .15s,transform .08s;
+  letter-spacing:.2px;
+}
+.btn:active{transform:translateY(1px);}
+.btn-primary{background:var(--ink);color:var(--white);flex:1;}
+.btn-primary:hover{opacity:.85;}
+.btn-pdf{background:var(--white);color:var(--ink);border:1.5px solid var(--ink);}
+.btn-pdf:hover{background:var(--ink);color:var(--white);}
+.btn-ghost{background:transparent;border:1px solid var(--line);color:var(--muted);}
+.btn-ghost:hover{border-color:var(--ink);color:var(--ink);}
+
+/* ===== TAB TEMPLATE (link antar halaman) ===== */
+.tpl-select{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:18px;}
+.tpl-opt{
+  display:block;text-decoration:none;color:inherit;
+  border:1.5px solid var(--line);border-radius:3px;padding:9px 10px;cursor:pointer;
+  text-align:center;transition:all .15s;
+}
+.tpl-opt .t{font-size:.8rem;font-weight:700;}
+.tpl-opt .s{font-size:.64rem;color:var(--muted);margin-top:1px;}
+.tpl-opt:hover{border-color:var(--ink);}
+.tpl-opt.active{border-color:var(--ink);background:var(--ink);color:var(--white);}
+.tpl-opt.active .s{color:#c9c9c9;}
+.tpl-block{display:none;}
+.tpl-block.active{display:block;}
+
+/* ===== PREVIEW SHELL ===== */
+.preview-shell{
+  background:#e8e8e6;padding:26px 16px;display:flex;justify-content:center;
+  overflow:auto;
+}
+.inv-empty{
+  color:var(--muted);font-size:.85rem;text-align:center;padding:60px 20px;
+}
+
+/* ===== KARTU: DASAR ===== */
+#invitation{
+  width:420px;min-height:594px;background:var(--white);
+  border:1px solid #cfcfcf;
+  padding:46px 38px 40px;
+  position:relative;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  color:var(--ink);
+  flex-shrink:0;
+}
+#invitation::before{
+  content:'';position:absolute;inset:14px;border:1px solid #cfcfcf;pointer-events:none;
+}
+
+/* ===== KARTU: UMUM = surat undangan resmi dengan kop — format A4 (500px : 210mm, font 10px : 12pt) ===== */
+#invitation.umum{width:500px;height:707px;min-height:0;padding:40px 48px 36px;overflow:hidden;display:flex;flex-direction:column;font-family:Arial,Helvetica,sans-serif;}
+#invitation.umum::before{display:none;}
+.um-kop{position:relative;margin:0 -20px;padding-bottom:10px;display:flex;align-items:center;justify-content:center;}
+.um-kop.has-logo{min-height:66px;}
+.um-logo{position:absolute;left:0;top:calc(50% - 5px);transform:translateY(-50%);width:62px;height:62px;object-fit:contain;}
+.um-kop-teks{text-align:center;padding:0 66px;}
+.um-kop-teks .org{font-weight:700;font-size:14px;letter-spacing:.3px;text-transform:uppercase;line-height:1.35;}
+.um-kop-teks .sub{font-size:8.5px;color:var(--ink-soft);line-height:1.5;margin-top:3px;}
+.um-rule{border-top:2.5px solid var(--ink);margin:0 -20px 18px;}
+.um-meta{display:flex;justify-content:space-between;gap:14px;font-size:10px;line-height:1.55;margin-bottom:16px;}
+.um-nomor{flex:1;}
+.um-nomor .r{display:flex;gap:6px;}
+.um-nomor .l{width:58px;flex-shrink:0;}
+.um-nomor .c{flex-shrink:0;}
+.um-nomor .v{flex:1;}
+.um-nomor .v.b{font-weight:700;}
+.um-tgl{text-align:right;flex-shrink:0;}
+.um-yth{font-size:10px;line-height:1.55;margin-bottom:16px;}
+.um-p{font-size:10px;line-height:1.6;text-align:justify;text-indent:34px;margin:0 0 10px;}
+.um-rincian{font-size:10px;line-height:1.75;margin:2px 0 12px 12px;}
+.um-rincian .r{display:flex;gap:7px;}
+.um-rincian .l{width:92px;flex-shrink:0;font-weight:700;}
+.um-rincian .c{flex-shrink:0;font-weight:700;}
+.um-rincian .v{flex:1;font-weight:700;}
+.um-hormat{text-align:center;font-size:10px;margin-top:14px;}
+.um-sign{display:flex;justify-content:flex-end;text-align:center;font-size:10px;margin-top:14px;}
+.um-sign.dua{justify-content:space-between;margin-top:6px;padding:0 10px;}
+.um-sign .blok{min-width:150px;}
+.um-sign .hor{margin-bottom:3px;}
+.um-sign .jab{margin-bottom:52px;}
+.um-sign .nama{font-weight:700;}
+.um-tembusan{font-size:10px;line-height:1.55;margin-top:18px;}
+.um-tembusan ol{margin:3px 0 0 18px;padding:0;}
+
+/* ===== KARTU: TAHLILAN / YASIN (2 panel: cover + isi, 10 pilihan frame) ===== */
+#invitation.tahlilan{
+  width:420px;height:594px;min-height:0;padding:12px 12px 8px;border:none;overflow:hidden;
+  display:flex;flex-direction:column;gap:8px;
+}
+#invitation.tahlilan::before{display:none;}
+.tj-panel{position:relative;}
+.tj-cover{flex-shrink:0;height:136px;display:flex;flex-direction:column;justify-content:center;padding:14px 18px 7px;}
+.tj-content{flex:1;display:flex;flex-direction:column;min-height:0;padding:14px 24px 6px;}
+.tj-cover-row{display:flex;align-items:center;gap:14px;}
+.tj-cover-left{flex:1;text-align:center;}
+.tj-undangan{font-family:'Anton',sans-serif;font-size:1.8rem;letter-spacing:1.5px;line-height:1.05;}
+.tj-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:700;font-size:1.02rem;margin-top:4px;}
+.tj-tag{display:inline-block;font-size:.56rem;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);border:1px solid var(--muted);border-radius:2px;padding:1px 7px;margin-top:5px;}
+.tj-kepada{width:148px;flex-shrink:0;border:1.4px solid var(--ink);border-radius:9px;padding:7px 10px;font-size:.6rem;line-height:1.45;text-align:left;background:var(--white);position:relative;z-index:2;}
+.tj-kepada .b{font-weight:700;letter-spacing:.6px;}
+.tj-kepada .isi{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:.74rem;border-bottom:1px solid var(--ink);min-height:15px;padding-bottom:1px;margin:1px 0 3px;}
+.tj-kepada .di{margin-left:14px;}
+.tj-bismillah{text-align:center;font-family:'Amiri',serif;font-size:.95rem;line-height:1.45;margin-bottom:2px;}
+.tj-salam{text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:700;font-size:.78rem;margin-bottom:4px;}
+.tj-body{text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:.72rem;line-height:1.42;margin-bottom:4px;white-space:pre-wrap;}
+.tj-almarhum{text-align:center;font-family:'Great Vibes',cursive;font-size:1.28rem;line-height:1.2;margin:2px 0 5px;}
+.tj-det-wrap{text-align:center;margin-bottom:5px;}
+.tj-details{display:inline-block;text-align:left;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:.74rem;line-height:1.45;}
+.tj-details .row{display:flex;gap:6px;}
+.tj-details .lb{width:64px;flex-shrink:0;}
+.tj-details .colon{width:10px;flex-shrink:0;}
+.tj-details .vl{font-weight:700;}
+.tj-wassalam{text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:700;font-size:.78rem;margin:2px 0 5px;}
+.tj-sign{text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.76rem;margin-top:8px;}
+.tj-sign .role{font-weight:600;margin-bottom:4px;}
+.tj-sign .name{font-weight:700;font-size:.82rem;text-decoration:underline;}
+.tj-sign .bawah{font-weight:600;}
+.cor,.flcor,.mid{display:none;position:absolute;background-repeat:no-repeat;background-size:contain;pointer-events:none;}
+.tj-panel .c1{top:-6px;left:-6px;}
+.tj-panel .c2{top:-6px;right:-6px;transform:rotate(90deg);}
+.tj-panel .c3{bottom:-6px;right:-6px;transform:rotate(180deg);}
+.tj-panel .c4{bottom:-6px;left:-6px;transform:rotate(270deg);}
+
+/* --- desain KLASIK: bingkai ganda + flourish sudut (hitam putih) --- */
+.ds-klasik .tj-panel{border:1.5px solid var(--ink);}
+.ds-klasik .tj-panel::before{content:'';position:absolute;inset:4px;border:1px solid var(--ink);pointer-events:none;}
+.ds-klasik .cor{display:block;width:62px;height:62px;background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'><g fill='none' stroke='%23111' stroke-width='2' stroke-linecap='round'><path d='M32 15 C44 5 52 22 64 13 C72 7 82 8 90 13'/><path d='M90 13 C98 18 94 28 87 25 C82 23 84 16 89 17'/><path d='M15 32 C5 44 22 52 13 64 C7 72 8 82 13 90'/><path d='M13 90 C18 98 28 94 25 87 C23 82 16 84 17 89'/><path d='M46 14 C50 22 58 20 60 14'/><path d='M14 46 C22 50 20 58 14 60'/></g><g fill='%23111'><path d='M52 13 C56 4 66 4 66 10 C66 16 56 18 52 13 Z'/><path d='M13 52 C4 56 4 66 10 66 C16 66 18 56 13 52 Z'/><circle cx='71' cy='10' r='2'/><circle cx='10' cy='71' r='2'/><circle cx='97' cy='20' r='1.7'/><circle cx='20' cy='97' r='1.7'/><ellipse cx='20' cy='7.5' rx='3' ry='7'/><ellipse cx='20' cy='32.5' rx='3' ry='7'/><ellipse cx='7.5' cy='20' rx='7' ry='3'/><ellipse cx='32.5' cy='20' rx='7' ry='3'/><ellipse cx='11.2' cy='11.2' rx='2.8' ry='6.6' transform='rotate(-45 11.2 11.2)'/><ellipse cx='28.8' cy='28.8' rx='2.8' ry='6.6' transform='rotate(-45 28.8 28.8)'/><ellipse cx='28.8' cy='11.2' rx='2.8' ry='6.6' transform='rotate(45 28.8 11.2)'/><ellipse cx='11.2' cy='28.8' rx='2.8' ry='6.6' transform='rotate(45 11.2 28.8)'/></g><circle cx='20' cy='20' r='6' fill='%23111' stroke='white' stroke-width='1.6'/><circle cx='20' cy='20' r='2.2' fill='white'/><path d='M30 30 C40 36 38 46 30 44' fill='none' stroke='%23111' stroke-width='1.8' stroke-linecap='round'/><circle cx='30' cy='44' r='1.6' fill='%23111'/></svg>");}
+.ds-klasik .c1{top:-7px;left:-7px;}
+.ds-klasik .c2{top:-7px;right:-7px;transform:rotate(90deg);}
+.ds-klasik .c3{bottom:-7px;right:-7px;transform:rotate(180deg);}
+.ds-klasik .c4{bottom:-7px;left:-7px;transform:rotate(270deg);}
+
+/* --- desain ORNAMEN: bingkai tebal ganda + rosette sudut (hitam putih) --- */
+.ds-ornamen .tj-panel{border:4px double var(--ink);}
+.ds-ornamen .tj-panel::before{content:'';position:absolute;inset:3px;border:1.5px solid var(--ink);pointer-events:none;}
+.ds-ornamen .cor{display:block;width:58px;height:58px;background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'><circle cx='22' cy='22' r='21' fill='white'/><g fill='none' stroke='%23111' stroke-width='3' stroke-linecap='round'><path d='M40 16 C56 8 66 24 82 15 C90 11 98 13 103 18'/><path d='M103 18 C108 24 102 31 96 27'/><path d='M16 40 C8 56 24 66 15 82 C11 90 13 98 18 103'/><path d='M18 103 C24 108 31 102 27 96'/></g><g fill='%23111'><path d='M58 14 C62 5 72 5 72 11 C72 17 62 19 58 14 Z'/><path d='M14 58 C5 62 5 72 11 72 C17 72 19 62 14 58 Z'/><circle cx='88' cy='13' r='2.2'/><circle cx='13' cy='88' r='2.2'/><ellipse cx='22' cy='7' rx='3.6' ry='8.4'/><ellipse cx='22' cy='37' rx='3.6' ry='8.4'/><ellipse cx='7' cy='22' rx='8.4' ry='3.6'/><ellipse cx='37' cy='22' rx='8.4' ry='3.6'/><ellipse cx='11.4' cy='11.4' rx='3.4' ry='8' transform='rotate(-45 11.4 11.4)'/><ellipse cx='32.6' cy='32.6' rx='3.4' ry='8' transform='rotate(-45 32.6 32.6)'/><ellipse cx='32.6' cy='11.4' rx='3.4' ry='8' transform='rotate(45 32.6 11.4)'/><ellipse cx='11.4' cy='32.6' rx='3.4' ry='8' transform='rotate(45 11.4 32.6)'/><circle cx='36' cy='36' r='2'/><circle cx='42' cy='42' r='1.6'/><circle cx='47' cy='47' r='1.2'/></g><circle cx='22' cy='22' r='7.5' fill='%23111' stroke='white' stroke-width='2'/><circle cx='22' cy='22' r='2.8' fill='white'/></svg>");}
+.ds-ornamen .c1{top:-9px;left:-9px;}
+.ds-ornamen .c2{top:-9px;right:-9px;transform:rotate(90deg);}
+.ds-ornamen .c3{bottom:-9px;right:-9px;transform:rotate(180deg);}
+.ds-ornamen .c4{bottom:-9px;left:-9px;transform:rotate(270deg);}
+.ds-ornamen .mid{display:block;width:22px;height:22px;background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><circle cx='20' cy='20' r='19' fill='white'/><g fill='%23111'><circle cx='20' cy='20' r='3.2'/><ellipse cx='20' cy='9.5' rx='2.5' ry='5'/><ellipse cx='20' cy='30.5' rx='2.5' ry='5'/><ellipse cx='9.5' cy='20' rx='5' ry='2.5'/><ellipse cx='30.5' cy='20' rx='5' ry='2.5'/><ellipse cx='12.6' cy='12.6' rx='2.3' ry='4.6' transform='rotate(-45 12.6 12.6)'/><ellipse cx='27.4' cy='27.4' rx='2.3' ry='4.6' transform='rotate(-45 27.4 27.4)'/><ellipse cx='27.4' cy='12.6' rx='2.3' ry='4.6' transform='rotate(45 27.4 12.6)'/><ellipse cx='12.6' cy='27.4' rx='2.3' ry='4.6' transform='rotate(45 12.6 27.4)'/></g><circle cx='20' cy='20' r='6.3' fill='none' stroke='%23111' stroke-width='1.2'/></svg>");}
+.ds-ornamen .mt{top:-11px;left:50%;margin-left:-11px;}
+.ds-ornamen .mb{bottom:-11px;left:50%;margin-left:-11px;}
+
+/* --- desain FLORAL: satu bingkai + bunga sudut (hitam putih) --- */
+#invitation.tahlilan.ds-floral{padding:28px 32px 22px;gap:6px;}
+#invitation.tahlilan.ds-floral::before{display:block;content:'';position:absolute;inset:8px;border:1.4px solid #5a5a5a;pointer-events:none;}
+#invitation.tahlilan.ds-floral::after{content:'';position:absolute;inset:12px;border:1px solid #b3b3b3;pointer-events:none;}
+.ds-floral .tj-cover{height:auto;padding:0 0 6px;}
+.ds-floral .tj-kepada{border-color:#5a5a5a;}
+.ds-floral .tj-kepada .isi{border-bottom-color:#5a5a5a;}
+.ds-floral .flcor{display:block;width:88px;height:88px;z-index:1;background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 140 140'><g fill='none' stroke='%23888888' stroke-width='1.6'><path d='M30 26 C55 18 80 26 108 20'/><path d='M26 30 C18 55 26 80 20 108'/></g><g fill='%23999999'><path d='M56 21 Q62 11 70 17 Q63 25 56 21 Z'/><path d='M84 24 Q90 14 98 20 Q91 28 84 24 Z'/><path d='M21 56 Q11 62 17 70 Q25 63 21 56 Z'/><path d='M24 84 Q14 90 20 98 Q28 91 24 84 Z'/></g><g fill='%23bbbbbb'><ellipse cx='26' cy='12' rx='6' ry='11' transform='rotate(0 26 26)'/><ellipse cx='26' cy='12' rx='6' ry='11' transform='rotate(72 26 26)'/><ellipse cx='26' cy='12' rx='6' ry='11' transform='rotate(144 26 26)'/><ellipse cx='26' cy='12' rx='6' ry='11' transform='rotate(216 26 26)'/><ellipse cx='26' cy='12' rx='6' ry='11' transform='rotate(288 26 26)'/></g><g fill='%23a0a0a0'><ellipse cx='26' cy='17' rx='4' ry='7.5' transform='rotate(36 26 26)'/><ellipse cx='26' cy='17' rx='4' ry='7.5' transform='rotate(108 26 26)'/><ellipse cx='26' cy='17' rx='4' ry='7.5' transform='rotate(180 26 26)'/><ellipse cx='26' cy='17' rx='4' ry='7.5' transform='rotate(252 26 26)'/><ellipse cx='26' cy='17' rx='4' ry='7.5' transform='rotate(324 26 26)'/></g><circle cx='26' cy='26' r='5' fill='%23444444'/><g fill='%23e0e0e0'><circle cx='26' cy='22.6' r='.9'/><circle cx='29.2' cy='24.9' r='.9'/><circle cx='28' cy='28.8' r='.9'/><circle cx='24' cy='28.8' r='.9'/><circle cx='22.8' cy='24.9' r='.9'/></g><g fill='%23aeaeae'><ellipse cx='66' cy='9' rx='3.6' ry='6.6' transform='rotate(0 66 16)'/><ellipse cx='66' cy='9' rx='3.6' ry='6.6' transform='rotate(72 66 16)'/><ellipse cx='66' cy='9' rx='3.6' ry='6.6' transform='rotate(144 66 16)'/><ellipse cx='66' cy='9' rx='3.6' ry='6.6' transform='rotate(216 66 16)'/><ellipse cx='66' cy='9' rx='3.6' ry='6.6' transform='rotate(288 66 16)'/><ellipse cx='16' cy='59' rx='3.6' ry='6.6' transform='rotate(0 16 66)'/><ellipse cx='16' cy='59' rx='3.6' ry='6.6' transform='rotate(72 16 66)'/><ellipse cx='16' cy='59' rx='3.6' ry='6.6' transform='rotate(144 16 66)'/><ellipse cx='16' cy='59' rx='3.6' ry='6.6' transform='rotate(216 16 66)'/><ellipse cx='16' cy='59' rx='3.6' ry='6.6' transform='rotate(288 16 66)'/></g><circle cx='66' cy='16' r='3.2' fill='%23444444'/><circle cx='16' cy='66' r='3.2' fill='%23444444'/><g fill='%23aeaeae'><circle cx='96' cy='18' r='4'/><circle cx='18' cy='96' r='4'/></g><g fill='%23444444'><circle cx='96' cy='18' r='1.6'/><circle cx='18' cy='96' r='1.6'/></g><g fill='%23bbbbbb'><circle cx='114' cy='22' r='2.6'/><circle cx='22' cy='114' r='2.6'/></g></svg>");}
+.ds-floral .f1{top:4px;left:4px;}
+.ds-floral .f2{top:4px;right:4px;transform:scaleX(-1);}
+.ds-floral .f3{bottom:4px;right:4px;transform:scale(-1,-1);}
+.ds-floral .f4{bottom:4px;left:4px;transform:scaleY(-1);}
+
+/* --- desain GARIS: garis ganda minimalis + wajik sudut --- */
+.ds-garis .tj-panel{border:1px solid var(--ink);}
+.ds-garis .tj-panel::before{content:'';position:absolute;inset:3px;border:3px solid var(--ink);pointer-events:none;}
+.ds-garis .tj-panel::after{content:'';position:absolute;inset:9px;border:1px solid var(--ink);pointer-events:none;}
+.ds-garis .cor{display:block;width:16px;height:16px;background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path d='M10 1 L19 10 L10 19 L1 10 Z' fill='%23111'/><path d='M10 5 L15 10 L10 15 L5 10 Z' fill='white'/><path d='M10 7.6 L12.4 10 L10 12.4 L7.6 10 Z' fill='%23111'/></svg>");}
+.ds-garis .c1{top:-8px;left:-8px;}
+.ds-garis .c2{top:-8px;right:-8px;transform:none;}
+.ds-garis .c3{bottom:-8px;right:-8px;transform:none;}
+.ds-garis .c4{bottom:-8px;left:-8px;transform:none;}
+
+/* --- desain GEO: art deco geometris --- */
+.ds-geo .tj-panel{border:2px solid var(--ink);}
+.ds-geo .tj-panel::before{content:'';position:absolute;inset:5px;border:1px solid var(--ink);pointer-events:none;}
+.ds-geo .cor{display:block;width:52px;height:52px;background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'><path d='M4 4 L34 4 L4 34 Z' fill='%23111'/><path d='M42 10 L48 4 L54 10 L48 16 Z' fill='%23111'/><path d='M10 42 L4 48 L10 54 L16 48 Z' fill='%23111'/><g fill='none' stroke='%23111'><path d='M60 6 H104' stroke-width='4'/><path d='M60 14 H88' stroke-width='2'/><path d='M6 60 V104' stroke-width='4'/><path d='M14 60 V88' stroke-width='2'/></g></svg>");}
+
+/* --- desain DAUN: ranting berdaun --- */
+.ds-daun .tj-panel{border:1.5px solid var(--ink);}
+.ds-daun .tj-panel::before{content:'';position:absolute;inset:4px;border:1px solid var(--ink);pointer-events:none;}
+.ds-daun .cor{display:block;width:60px;height:60px;background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'><g fill='none' stroke='%23111' stroke-width='2' stroke-linecap='round'><path d='M16 15 C40 11 70 13 104 10'/><path d='M15 16 C11 40 13 70 10 104'/></g><g fill='%23111'><path d='M26 13 Q31 3 40 7 Q33 15 26 13 Z'/><path d='M50 12 Q55 2 64 6 Q57 14 50 12 Z'/><path d='M74 11 Q79 1 88 5 Q81 13 74 11 Z'/><path d='M38 13 Q43 23 52 19 Q45 11 38 13 Z'/><path d='M62 12 Q67 22 76 18 Q69 10 62 12 Z'/><path d='M13 26 Q3 31 7 40 Q15 33 13 26 Z'/><path d='M12 50 Q2 55 6 64 Q14 57 12 50 Z'/><path d='M11 74 Q1 79 5 88 Q13 81 11 74 Z'/><path d='M13 38 Q23 43 19 52 Q11 45 13 38 Z'/><path d='M12 62 Q22 67 18 76 Q10 69 12 62 Z'/><circle cx='104' cy='10' r='2.2'/><circle cx='10' cy='104' r='2.2'/></g><circle cx='16' cy='16' r='5' fill='%23111'/><circle cx='16' cy='16' r='2' fill='white'/></svg>");}
+
+/* --- desain ISLAMI: bintang segi delapan (hitam putih) --- */
+.ds-islami .tj-panel{border:2px solid #111111;}
+.ds-islami .tj-panel::before{content:'';position:absolute;inset:4px;border:1px solid #111111;pointer-events:none;}
+.ds-islami .cor{display:block;width:52px;height:52px;background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'><g fill='none' stroke='%23111111' stroke-width='2.4' stroke-linecap='round'><path d='M42 14 C58 8 76 18 104 11'/><path d='M14 42 C8 58 18 76 11 104'/></g><g fill='%236b6b6b'><circle cx='62' cy='13' r='2.4'/><circle cx='13' cy='62' r='2.4'/><circle cx='104' cy='11' r='2'/><circle cx='11' cy='104' r='2'/></g><g transform='translate(21 21)'><rect x='-13' y='-13' width='26' height='26' fill='%23111111'/><rect x='-13' y='-13' width='26' height='26' fill='%23111111' transform='rotate(45)'/><circle r='8' fill='white'/><circle r='4' fill='%236b6b6b'/></g></svg>");}
+.ds-islami .tj-undangan{color:#111111;}
+.ds-islami .tj-kepada{border-color:#111111;}
+.ds-islami .tj-kepada .isi{border-bottom-color:#111111;}
+
+/* --- desain BIRU: klasik abu-abu tua --- */
+.ds-biru .tj-panel{border:1.5px solid #2b2b2b;}
+.ds-biru .tj-panel::before{content:'';position:absolute;inset:4px;border:1px solid #2b2b2b;pointer-events:none;}
+.ds-biru .cor{display:block;width:62px;height:62px;background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'><g fill='none' stroke='%232b2b2b' stroke-width='2' stroke-linecap='round'><path d='M32 15 C44 5 52 22 64 13 C72 7 82 8 90 13'/><path d='M90 13 C98 18 94 28 87 25 C82 23 84 16 89 17'/><path d='M15 32 C5 44 22 52 13 64 C7 72 8 82 13 90'/><path d='M13 90 C18 98 28 94 25 87 C23 82 16 84 17 89'/><path d='M46 14 C50 22 58 20 60 14'/><path d='M14 46 C22 50 20 58 14 60'/></g><g fill='%232b2b2b'><path d='M52 13 C56 4 66 4 66 10 C66 16 56 18 52 13 Z'/><path d='M13 52 C4 56 4 66 10 66 C16 66 18 56 13 52 Z'/><circle cx='71' cy='10' r='2'/><circle cx='10' cy='71' r='2'/><circle cx='97' cy='20' r='1.7'/><circle cx='20' cy='97' r='1.7'/><ellipse cx='20' cy='7.5' rx='3' ry='7'/><ellipse cx='20' cy='32.5' rx='3' ry='7'/><ellipse cx='7.5' cy='20' rx='7' ry='3'/><ellipse cx='32.5' cy='20' rx='7' ry='3'/><ellipse cx='11.2' cy='11.2' rx='2.8' ry='6.6' transform='rotate(-45 11.2 11.2)'/><ellipse cx='28.8' cy='28.8' rx='2.8' ry='6.6' transform='rotate(-45 28.8 28.8)'/><ellipse cx='28.8' cy='11.2' rx='2.8' ry='6.6' transform='rotate(45 28.8 11.2)'/><ellipse cx='11.2' cy='28.8' rx='2.8' ry='6.6' transform='rotate(45 11.2 28.8)'/></g><circle cx='20' cy='20' r='6' fill='%232b2b2b' stroke='white' stroke-width='1.6'/><circle cx='20' cy='20' r='2.2' fill='white'/><path d='M30 30 C40 36 38 46 30 44' fill='none' stroke='%232b2b2b' stroke-width='1.8' stroke-linecap='round'/><circle cx='30' cy='44' r='1.6' fill='%232b2b2b'/></svg>");}
+.ds-biru .tj-undangan{color:#2b2b2b;}
+.ds-biru .tj-kepada{border-color:#2b2b2b;}
+.ds-biru .tj-kepada .isi{border-bottom-color:#2b2b2b;}
+
+/* --- desain EMAS: klasik di atas kertas krem --- */
+#invitation.tahlilan.ds-emas{background:#fdf9ef;}
+.ds-emas .tj-panel{border:1.5px solid #5c5c5c;}
+.ds-emas .tj-panel::before{content:'';position:absolute;inset:4px;border:1px solid #5c5c5c;pointer-events:none;}
+.ds-emas .cor{display:block;width:62px;height:62px;background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'><g fill='none' stroke='%235c5c5c' stroke-width='2' stroke-linecap='round'><path d='M32 15 C44 5 52 22 64 13 C72 7 82 8 90 13'/><path d='M90 13 C98 18 94 28 87 25 C82 23 84 16 89 17'/><path d='M15 32 C5 44 22 52 13 64 C7 72 8 82 13 90'/><path d='M13 90 C18 98 28 94 25 87 C23 82 16 84 17 89'/><path d='M46 14 C50 22 58 20 60 14'/><path d='M14 46 C22 50 20 58 14 60'/></g><g fill='%235c5c5c'><path d='M52 13 C56 4 66 4 66 10 C66 16 56 18 52 13 Z'/><path d='M13 52 C4 56 4 66 10 66 C16 66 18 56 13 52 Z'/><circle cx='71' cy='10' r='2'/><circle cx='10' cy='71' r='2'/><circle cx='97' cy='20' r='1.7'/><circle cx='20' cy='97' r='1.7'/><ellipse cx='20' cy='7.5' rx='3' ry='7'/><ellipse cx='20' cy='32.5' rx='3' ry='7'/><ellipse cx='7.5' cy='20' rx='7' ry='3'/><ellipse cx='32.5' cy='20' rx='7' ry='3'/><ellipse cx='11.2' cy='11.2' rx='2.8' ry='6.6' transform='rotate(-45 11.2 11.2)'/><ellipse cx='28.8' cy='28.8' rx='2.8' ry='6.6' transform='rotate(-45 28.8 28.8)'/><ellipse cx='28.8' cy='11.2' rx='2.8' ry='6.6' transform='rotate(45 28.8 11.2)'/><ellipse cx='11.2' cy='28.8' rx='2.8' ry='6.6' transform='rotate(45 11.2 28.8)'/></g><circle cx='20' cy='20' r='6' fill='%235c5c5c' stroke='%23fdf9ef' stroke-width='1.6'/><circle cx='20' cy='20' r='2.2' fill='%23fdf9ef'/><path d='M30 30 C40 36 38 46 30 44' fill='none' stroke='%235c5c5c' stroke-width='1.8' stroke-linecap='round'/><circle cx='30' cy='44' r='1.6' fill='%235c5c5c'/></svg>");}
+.ds-emas .tj-undangan{color:#5c5c5c;}
+.ds-emas .tj-kepada{border-color:#5c5c5c;background:#fdf9ef;}
+.ds-emas .tj-kepada .isi{border-bottom-color:#5c5c5c;}
+
+/* --- desain BUNGA: bunga sudut hitam putih, satu bingkai --- */
+#invitation.tahlilan.ds-bunga{padding:28px 32px 22px;gap:6px;}
+#invitation.tahlilan.ds-bunga::before{display:block;content:'';position:absolute;inset:8px;border:1.4px solid #333;pointer-events:none;}
+#invitation.tahlilan.ds-bunga::after{content:'';position:absolute;inset:12px;border:1px solid #999;pointer-events:none;}
+.ds-bunga .tj-cover{height:auto;padding:0 0 6px;}
+.ds-bunga .flcor{display:block;width:88px;height:88px;z-index:1;background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 140 140'><g fill='none' stroke='%23777777' stroke-width='1.6'><path d='M30 26 C55 18 80 26 108 20'/><path d='M26 30 C18 55 26 80 20 108'/></g><g fill='%23a3a3a3'><path d='M56 21 Q62 11 70 17 Q63 25 56 21 Z'/><path d='M84 24 Q90 14 98 20 Q91 28 84 24 Z'/><path d='M21 56 Q11 62 17 70 Q25 63 21 56 Z'/><path d='M24 84 Q14 90 20 98 Q28 91 24 84 Z'/></g><g fill='%23c2c2c2'><ellipse cx='26' cy='12' rx='6' ry='11' transform='rotate(0 26 26)'/><ellipse cx='26' cy='12' rx='6' ry='11' transform='rotate(72 26 26)'/><ellipse cx='26' cy='12' rx='6' ry='11' transform='rotate(144 26 26)'/><ellipse cx='26' cy='12' rx='6' ry='11' transform='rotate(216 26 26)'/><ellipse cx='26' cy='12' rx='6' ry='11' transform='rotate(288 26 26)'/></g><g fill='%238f8f8f'><ellipse cx='26' cy='17' rx='4' ry='7.5' transform='rotate(36 26 26)'/><ellipse cx='26' cy='17' rx='4' ry='7.5' transform='rotate(108 26 26)'/><ellipse cx='26' cy='17' rx='4' ry='7.5' transform='rotate(180 26 26)'/><ellipse cx='26' cy='17' rx='4' ry='7.5' transform='rotate(252 26 26)'/><ellipse cx='26' cy='17' rx='4' ry='7.5' transform='rotate(324 26 26)'/></g><circle cx='26' cy='26' r='5' fill='%23333333'/><g fill='%23eeeeee'><circle cx='26' cy='22.6' r='.9'/><circle cx='29.2' cy='24.9' r='.9'/><circle cx='28' cy='28.8' r='.9'/><circle cx='24' cy='28.8' r='.9'/><circle cx='22.8' cy='24.9' r='.9'/></g><g fill='%23a0a0a0'><ellipse cx='66' cy='9' rx='3.6' ry='6.6' transform='rotate(0 66 16)'/><ellipse cx='66' cy='9' rx='3.6' ry='6.6' transform='rotate(72 66 16)'/><ellipse cx='66' cy='9' rx='3.6' ry='6.6' transform='rotate(144 66 16)'/><ellipse cx='66' cy='9' rx='3.6' ry='6.6' transform='rotate(216 66 16)'/><ellipse cx='66' cy='9' rx='3.6' ry='6.6' transform='rotate(288 66 16)'/><ellipse cx='16' cy='59' rx='3.6' ry='6.6' transform='rotate(0 16 66)'/><ellipse cx='16' cy='59' rx='3.6' ry='6.6' transform='rotate(72 16 66)'/><ellipse cx='16' cy='59' rx='3.6' ry='6.6' transform='rotate(144 16 66)'/><ellipse cx='16' cy='59' rx='3.6' ry='6.6' transform='rotate(216 16 66)'/><ellipse cx='16' cy='59' rx='3.6' ry='6.6' transform='rotate(288 16 66)'/></g><circle cx='66' cy='16' r='3.2' fill='%23333333'/><circle cx='16' cy='66' r='3.2' fill='%23333333'/><g fill='%23a0a0a0'><circle cx='96' cy='18' r='4'/><circle cx='18' cy='96' r='4'/></g><g fill='%23333333'><circle cx='96' cy='18' r='1.6'/><circle cx='18' cy='96' r='1.6'/></g><g fill='%23c2c2c2'><circle cx='114' cy='22' r='2.6'/><circle cx='22' cy='114' r='2.6'/></g></svg>");}
+.ds-bunga .f1{top:4px;left:4px;}
+.ds-bunga .f2{top:4px;right:4px;transform:scaleX(-1);}
+.ds-bunga .f3{bottom:4px;right:4px;transform:scale(-1,-1);}
+.ds-bunga .f4{bottom:4px;left:4px;transform:scaleY(-1);}
+
+/* ===== KARTU: PERNIKAHAN (berwarna) ===== */
+#invitation.nikah{
+  width:420px;height:594px;min-height:0;padding:0;overflow:hidden;
+  background:var(--wed-bg);
+  border:1px solid var(--wed-gold);
+  color:var(--wed-green);
+}
+#invitation.nikah::before{
+  content:'';position:absolute;inset:8px;border:1px solid var(--wed-gold-soft);pointer-events:none;
+}
+#invitation.nikah::after{
+  content:'';position:absolute;left:0;right:0;top:0;height:7px;
+  background:linear-gradient(90deg,var(--wed-gold) 0%,var(--wed-gold-soft) 50%,var(--wed-gold) 100%);
+}
+.nk-inner{position:relative;height:100%;padding:20px 32px 16px;display:flex;flex-direction:column;text-align:center;}
+.nk-bismillah{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:.8rem;color:var(--wed-gold);margin-bottom:3px;}
+.nk-salam{font-size:.62rem;font-weight:700;letter-spacing:.3px;margin-bottom:6px;}
+.nk-quote{font-size:.58rem;font-style:italic;line-height:1.5;color:var(--wed-green-soft);margin-bottom:8px;white-space:pre-wrap;}
+.nk-pembuka{font-size:.62rem;line-height:1.5;color:var(--wed-green-soft);margin-bottom:8px;white-space:pre-wrap;}
+.nk-nama{font-family:'Great Vibes',cursive;font-weight:400;font-size:1.75rem;line-height:1.15;color:var(--wed-green);}
+.nk-ortu{font-size:.6rem;color:var(--wed-green-soft);margin:1px 0 3px;}
+.nk-amp{font-family:'Great Vibes',cursive;font-size:1.2rem;color:var(--wed-gold);line-height:1;margin:1px 0;}
+.nk-orn{display:flex;align-items:center;gap:10px;margin:7px 0 6px;}
+.nk-orn::before,.nk-orn::after{content:'';flex:1;border-top:1px solid var(--wed-gold-soft);}
+.nk-orn span{color:var(--wed-gold);font-size:.6rem;letter-spacing:2px;}
+.nk-acara{margin-bottom:6px;}
+.nk-acara .h{font-size:.6rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--wed-gold);margin-bottom:1px;}
+.nk-acara .w{font-size:.7rem;font-weight:700;}
+.nk-acara .t{font-size:.64rem;color:var(--wed-green-soft);line-height:1.4;}
+.nk-penutup{font-size:.6rem;line-height:1.5;color:var(--wed-green-soft);margin-bottom:5px;white-space:pre-wrap;}
+.nk-wassalam{font-size:.62rem;font-weight:700;margin-bottom:6px;}
+.nk-sign{margin-top:auto;}
+.nk-sign .role{font-size:.62rem;color:var(--wed-green-soft);margin-bottom:2px;}
+.nk-sign .name{font-size:.72rem;font-weight:700;color:var(--wed-green);}
+
+.note{
+  font-size:.72rem;color:var(--muted);background:var(--paper);border:1px dashed var(--line);
+  padding:9px 12px;margin-top:16px;line-height:1.5;
+}
+.toast{
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);
+  background:var(--ink);color:var(--white);font-size:.82rem;font-weight:600;
+  padding:11px 20px;border-radius:3px;
+  opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:50;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}

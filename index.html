@@ -3,367 +3,11 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Pembuat Surat Undangan</title>
+<title>Pembuat Surat Undangan — Umum</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Amiri&family=Anton&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=Great+Vibes&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-<style>
-  :root{
-    --ink:#111111;
-    --ink-soft:#3a3a3a;
-    --muted:#767676;
-    --line:#d8d8d8;
-    --paper:#f5f5f4;
-    --white:#ffffff;
-    /* warna template nikah */
-    --wed-bg:#fbf7ee;
-    --wed-green:#1f4d40;
-    --wed-green-soft:#4a6f64;
-    --wed-gold:#b08d43;
-    --wed-gold-soft:#d3bc8a;
-  }
-  *{box-sizing:border-box;}
-  html,body{margin:0;padding:0;}
-  body{
-    font-family:'Plus Jakarta Sans',system-ui,sans-serif;
-    background:var(--paper);
-    color:var(--ink);
-    line-height:1.5;
-    -webkit-font-smoothing:antialiased;
-  }
-
-  header{
-    background:var(--ink);
-    color:var(--white);
-    padding:20px 5%;
-  }
-  .head-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:12px;}
-  .head-title{font-size:1.15rem;font-weight:700;letter-spacing:-.2px;}
-  .head-sub{font-size:.78rem;color:#b8b8b8;margin-top:1px;}
-
-  .wrap{max-width:1200px;margin:0 auto;padding:32px 5% 70px;display:grid;grid-template-columns:1fr 1fr;gap:28px;}
-  @media(max-width:900px){.wrap{grid-template-columns:1fr;}}
-
-  .card{
-    background:var(--white);border:1px solid var(--line);border-radius:4px;
-    overflow:hidden;
-  }
-  .card-head{
-    padding:16px 20px;border-bottom:1px solid var(--line);
-    display:flex;align-items:center;gap:9px;
-  }
-  .card-head h2{margin:0;font-size:.95rem;font-weight:700;letter-spacing:.2px;text-transform:uppercase;}
-  .card-head .hint{margin-left:auto;font-size:.72rem;color:var(--muted);}
-  .card-body{padding:22px;}
-
-  .field{margin-bottom:16px;}
-  .field:last-child{margin-bottom:0;}
-  label.lbl{display:block;font-size:.78rem;font-weight:600;color:var(--ink);margin-bottom:6px;letter-spacing:.2px;}
-  .desc{font-size:.7rem;color:var(--muted);font-weight:400;}
-  input[type=text],input[type=date],input[type=time],textarea,select{
-    width:100%;font-family:inherit;font-size:.88rem;color:var(--ink);
-    background:var(--paper);border:1px solid var(--line);border-radius:3px;
-    padding:10px 12px;transition:border-color .15s;
-  }
-  input:focus,textarea:focus,select:focus{
-    outline:none;border-color:var(--ink);background:var(--white);
-  }
-  textarea{resize:vertical;min-height:70px;line-height:1.5;}
-  .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-  .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
-  @media(max-width:480px){.row2,.row3{grid-template-columns:1fr;}}
-
-  .section-divider{
-    font-size:.72rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;
-    color:var(--muted);margin:22px 0 12px;padding-top:16px;border-top:1px dashed var(--line);
-  }
-  .section-divider:first-child{margin-top:0;padding-top:0;border-top:none;}
-
-  .actions{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;}
-  .btn{
-    font-family:inherit;font-size:.85rem;font-weight:700;cursor:pointer;
-    border:none;border-radius:3px;padding:12px 20px;transition:opacity .15s,transform .08s;
-    letter-spacing:.2px;
-  }
-  .btn:active{transform:translateY(1px);}
-  .btn-primary{background:var(--ink);color:var(--white);flex:1;}
-  .btn-primary:hover{opacity:.85;}
-  .btn-pdf{background:var(--white);color:var(--ink);border:1.5px solid var(--ink);}
-  .btn-pdf:hover{background:var(--ink);color:var(--white);}
-  .btn-ghost{background:transparent;border:1px solid var(--line);color:var(--muted);}
-  .btn-ghost:hover{border-color:var(--ink);color:var(--ink);}
-
-  /* ===== TEMPLATE SELECTOR ===== */
-  .tpl-select{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:18px;}
-  .tpl-opt{
-    border:1.5px solid var(--line);border-radius:3px;padding:9px 10px;cursor:pointer;
-    text-align:center;transition:all .15s;
-  }
-  .tpl-opt .t{font-size:.8rem;font-weight:700;}
-  .tpl-opt .s{font-size:.64rem;color:var(--muted);margin-top:1px;}
-  .tpl-opt.active{border-color:var(--ink);background:var(--ink);color:var(--white);}
-  .tpl-opt.active .s{color:#c9c9c9;}
-  .tpl-block{display:none;}
-  .tpl-block.active{display:block;}
-
-  /* ===== PREVIEW SHELL ===== */
-  .preview-shell{
-    background:#e8e8e6;padding:26px 16px;display:flex;justify-content:center;
-    overflow:auto;
-  }
-  .inv-empty{
-    color:var(--muted);font-size:.85rem;text-align:center;padding:60px 20px;
-  }
-
-  /* ===== KARTU: UMUM ===== */
-  #invitation{
-    width:420px;min-height:594px;background:var(--white);
-    border:1px solid #cfcfcf;
-    padding:46px 38px 40px;
-    position:relative;
-    font-family:'Plus Jakarta Sans',sans-serif;
-    color:var(--ink);
-    flex-shrink:0;
-  }
-  #invitation::before{
-    content:'';position:absolute;inset:14px;border:1px solid #cfcfcf;pointer-events:none;
-  }
-  .inv-kicker{
-    text-align:center;font-size:.68rem;letter-spacing:2.5px;text-transform:uppercase;
-    color:var(--muted);margin-bottom:18px;
-  }
-  .inv-title{
-    text-align:center;font-family:'Cormorant Garamond',serif;font-weight:700;
-    font-size:2.3rem;line-height:1.2;margin-bottom:6px;
-  }
-  .inv-rule{width:46px;height:1px;background:var(--ink);margin:18px auto;}
-  .inv-lead{
-    text-align:center;font-size:.82rem;color:var(--ink-soft);line-height:1.75;
-    margin-bottom:22px;white-space:pre-wrap;
-  }
-  .inv-host{
-    text-align:center;font-family:'Cormorant Garamond',serif;font-weight:600;
-    font-size:1.25rem;margin-bottom:22px;
-  }
-  .inv-details{display:grid;gap:10px;margin-bottom:24px;}
-  .inv-detail-row{display:flex;gap:10px;font-size:.8rem;}
-  .inv-detail-label{width:88px;flex-shrink:0;color:var(--muted);letter-spacing:.4px;text-transform:uppercase;font-size:.66rem;padding-top:2px;}
-  .inv-detail-value{flex:1;font-weight:600;line-height:1.5;}
-  .inv-message{
-    text-align:center;font-size:.78rem;color:var(--ink-soft);line-height:1.7;
-    padding-top:18px;border-top:1px dashed var(--line);white-space:pre-wrap;
-  }
-  .inv-footer{
-    text-align:center;font-size:.68rem;color:var(--muted);letter-spacing:1px;
-    text-transform:uppercase;margin-top:22px;
-  }
-
-  /* ===== KARTU: TAHLILAN / YASIN (3 pilihan desain frame) ===== */
-  #invitation.tahlilan{
-    width:420px;height:594px;min-height:0;padding:12px;border:none;overflow:hidden;
-    display:flex;flex-direction:column;gap:10px;
-  }
-  #invitation.tahlilan::before{display:none;}
-  .tj-panel{position:relative;}
-  .tj-cover{flex-shrink:0;height:136px;display:flex;flex-direction:column;justify-content:center;padding:14px 18px 7px;}
-  .tj-content{flex:1;display:flex;flex-direction:column;min-height:0;padding:12px 24px 9px;}
-  .tj-kop{text-align:center;font-size:.58rem;line-height:1.35;margin:0 44px 6px;position:relative;z-index:2;}
-  .tj-kop b{font-size:.64rem;}
-  .tj-cover-row{display:flex;align-items:center;gap:14px;}
-  .tj-cover-left{flex:1;text-align:center;}
-  .tj-undangan{font-family:'Anton',sans-serif;font-size:1.8rem;letter-spacing:1.5px;line-height:1.05;}
-  .tj-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:700;font-size:1.02rem;margin-top:4px;}
-  .tj-kepada{width:148px;flex-shrink:0;border:1.4px solid var(--ink);border-radius:9px;padding:7px 10px;font-size:.6rem;line-height:1.45;text-align:left;background:var(--white);position:relative;z-index:2;}
-  .tj-kepada .b{font-weight:700;letter-spacing:.6px;}
-  .tj-kepada .isi{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:.74rem;border-bottom:1px solid var(--ink);min-height:15px;padding-bottom:1px;margin:1px 0 3px;}
-  .tj-kepada .di{margin-left:14px;}
-  .tj-bismillah{text-align:center;font-family:'Amiri',serif;font-size:.95rem;line-height:1.45;margin-bottom:2px;}
-  .tj-salam{text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:700;font-size:.78rem;margin-bottom:4px;}
-  .tj-body{text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:.72rem;line-height:1.42;margin-bottom:4px;white-space:pre-wrap;}
-  .tj-almarhum{text-align:center;font-family:'Great Vibes',cursive;font-size:1.28rem;line-height:1.2;margin:2px 0 5px;}
-  .tj-det-wrap{text-align:center;margin-bottom:5px;}
-  .tj-details{display:inline-block;text-align:left;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:.74rem;line-height:1.45;}
-  .tj-details .row{display:flex;gap:6px;}
-  .tj-details .lb{width:64px;flex-shrink:0;}
-  .tj-details .colon{width:10px;flex-shrink:0;}
-  .tj-details .vl{font-weight:700;}
-  .tj-wassalam{text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:700;font-size:.78rem;margin:2px 0 5px;}
-  .tj-sign{text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.76rem;margin-top:auto;}
-  .tj-sign .role{font-weight:600;margin-bottom:6px;}
-  .tj-sign .name{font-weight:700;font-size:.82rem;text-decoration:underline;}
-  .tj-sign .bawah{font-weight:600;}
-  .cor,.flcor,.mid{display:none;position:absolute;background-repeat:no-repeat;background-size:contain;pointer-events:none;}
-  .tj-panel .c1{top:-6px;left:-6px;}
-  .tj-panel .c2{top:-6px;right:-6px;transform:rotate(90deg);}
-  .tj-panel .c3{bottom:-6px;right:-6px;transform:rotate(180deg);}
-  .tj-panel .c4{bottom:-6px;left:-6px;transform:rotate(270deg);}
-
-  /* --- desain KLASIK: bingkai ganda + flourish sudut (hitam putih) --- */
-  .ds-klasik .tj-panel{border:1.5px solid var(--ink);}
-  .ds-klasik .tj-panel::before{content:'';position:absolute;inset:4px;border:1px solid var(--ink);pointer-events:none;}
-  .ds-klasik .cor{display:block;width:62px;height:62px;background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'><g fill='none' stroke='%23111' stroke-width='2' stroke-linecap='round'><path d='M32 15 C44 5 52 22 64 13 C72 7 82 8 90 13'/><path d='M90 13 C98 18 94 28 87 25 C82 23 84 16 89 17'/><path d='M15 32 C5 44 22 52 13 64 C7 72 8 82 13 90'/><path d='M13 90 C18 98 28 94 25 87 C23 82 16 84 17 89'/><path d='M46 14 C50 22 58 20 60 14'/><path d='M14 46 C22 50 20 58 14 60'/></g><g fill='%23111'><path d='M52 13 C56 4 66 4 66 10 C66 16 56 18 52 13 Z'/><path d='M13 52 C4 56 4 66 10 66 C16 66 18 56 13 52 Z'/><circle cx='71' cy='10' r='2'/><circle cx='10' cy='71' r='2'/><circle cx='97' cy='20' r='1.7'/><circle cx='20' cy='97' r='1.7'/><ellipse cx='20' cy='7.5' rx='3' ry='7'/><ellipse cx='20' cy='32.5' rx='3' ry='7'/><ellipse cx='7.5' cy='20' rx='7' ry='3'/><ellipse cx='32.5' cy='20' rx='7' ry='3'/><ellipse cx='11.2' cy='11.2' rx='2.8' ry='6.6' transform='rotate(-45 11.2 11.2)'/><ellipse cx='28.8' cy='28.8' rx='2.8' ry='6.6' transform='rotate(-45 28.8 28.8)'/><ellipse cx='28.8' cy='11.2' rx='2.8' ry='6.6' transform='rotate(45 28.8 11.2)'/><ellipse cx='11.2' cy='28.8' rx='2.8' ry='6.6' transform='rotate(45 11.2 28.8)'/></g><circle cx='20' cy='20' r='6' fill='%23111' stroke='white' stroke-width='1.6'/><circle cx='20' cy='20' r='2.2' fill='white'/><path d='M30 30 C40 36 38 46 30 44' fill='none' stroke='%23111' stroke-width='1.8' stroke-linecap='round'/><circle cx='30' cy='44' r='1.6' fill='%23111'/></svg>");}
-  .ds-klasik .c1{top:-7px;left:-7px;}
-  .ds-klasik .c2{top:-7px;right:-7px;transform:rotate(90deg);}
-  .ds-klasik .c3{bottom:-7px;right:-7px;transform:rotate(180deg);}
-  .ds-klasik .c4{bottom:-7px;left:-7px;transform:rotate(270deg);}
-
-  /* --- desain ORNAMEN: bingkai tebal ganda + rosette sudut (hitam putih) --- */
-  .ds-ornamen .tj-panel{border:4px double var(--ink);}
-  .ds-ornamen .tj-panel::before{content:'';position:absolute;inset:3px;border:1.5px solid var(--ink);pointer-events:none;}
-  .ds-ornamen .cor{display:block;width:58px;height:58px;background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'><circle cx='22' cy='22' r='21' fill='white'/><g fill='none' stroke='%23111' stroke-width='3' stroke-linecap='round'><path d='M40 16 C56 8 66 24 82 15 C90 11 98 13 103 18'/><path d='M103 18 C108 24 102 31 96 27'/><path d='M16 40 C8 56 24 66 15 82 C11 90 13 98 18 103'/><path d='M18 103 C24 108 31 102 27 96'/></g><g fill='%23111'><path d='M58 14 C62 5 72 5 72 11 C72 17 62 19 58 14 Z'/><path d='M14 58 C5 62 5 72 11 72 C17 72 19 62 14 58 Z'/><circle cx='88' cy='13' r='2.2'/><circle cx='13' cy='88' r='2.2'/><ellipse cx='22' cy='7' rx='3.6' ry='8.4'/><ellipse cx='22' cy='37' rx='3.6' ry='8.4'/><ellipse cx='7' cy='22' rx='8.4' ry='3.6'/><ellipse cx='37' cy='22' rx='8.4' ry='3.6'/><ellipse cx='11.4' cy='11.4' rx='3.4' ry='8' transform='rotate(-45 11.4 11.4)'/><ellipse cx='32.6' cy='32.6' rx='3.4' ry='8' transform='rotate(-45 32.6 32.6)'/><ellipse cx='32.6' cy='11.4' rx='3.4' ry='8' transform='rotate(45 32.6 11.4)'/><ellipse cx='11.4' cy='32.6' rx='3.4' ry='8' transform='rotate(45 11.4 32.6)'/><circle cx='36' cy='36' r='2'/><circle cx='42' cy='42' r='1.6'/><circle cx='47' cy='47' r='1.2'/></g><circle cx='22' cy='22' r='7.5' fill='%23111' stroke='white' stroke-width='2'/><circle cx='22' cy='22' r='2.8' fill='white'/></svg>");}
-  .ds-ornamen .c1{top:-9px;left:-9px;}
-  .ds-ornamen .c2{top:-9px;right:-9px;transform:rotate(90deg);}
-  .ds-ornamen .c3{bottom:-9px;right:-9px;transform:rotate(180deg);}
-  .ds-ornamen .c4{bottom:-9px;left:-9px;transform:rotate(270deg);}
-  .ds-ornamen .mid{display:block;width:22px;height:22px;background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><circle cx='20' cy='20' r='19' fill='white'/><g fill='%23111'><circle cx='20' cy='20' r='3.2'/><ellipse cx='20' cy='9.5' rx='2.5' ry='5'/><ellipse cx='20' cy='30.5' rx='2.5' ry='5'/><ellipse cx='9.5' cy='20' rx='5' ry='2.5'/><ellipse cx='30.5' cy='20' rx='5' ry='2.5'/><ellipse cx='12.6' cy='12.6' rx='2.3' ry='4.6' transform='rotate(-45 12.6 12.6)'/><ellipse cx='27.4' cy='27.4' rx='2.3' ry='4.6' transform='rotate(-45 27.4 27.4)'/><ellipse cx='27.4' cy='12.6' rx='2.3' ry='4.6' transform='rotate(45 27.4 12.6)'/><ellipse cx='12.6' cy='27.4' rx='2.3' ry='4.6' transform='rotate(45 12.6 27.4)'/></g><circle cx='20' cy='20' r='6.3' fill='none' stroke='%23111' stroke-width='1.2'/></svg>");}
-  .ds-ornamen .mt{top:-11px;left:50%;margin-left:-11px;}
-  .ds-ornamen .mb{bottom:-11px;left:50%;margin-left:-11px;}
-
-  /* --- desain FLORAL: satu bingkai pink + bunga sudut --- */
-  #invitation.tahlilan.ds-floral{padding:28px 32px 22px;gap:6px;}
-  #invitation.tahlilan.ds-floral::before{display:block;content:'';position:absolute;inset:8px;border:1.4px solid #5a5a5a;pointer-events:none;}
-  #invitation.tahlilan.ds-floral::after{content:'';position:absolute;inset:12px;border:1px solid #b3b3b3;pointer-events:none;}
-  .ds-floral .tj-cover{height:auto;padding:0 0 6px;}
-  .ds-floral .tj-kepada{border-color:#5a5a5a;}
-  .ds-floral .tj-kepada .isi{border-bottom-color:#5a5a5a;}
-  .ds-floral .flcor{display:block;width:88px;height:88px;z-index:1;background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 140 140'><g fill='none' stroke='%23888888' stroke-width='1.6'><path d='M30 26 C55 18 80 26 108 20'/><path d='M26 30 C18 55 26 80 20 108'/></g><g fill='%23999999'><path d='M56 21 Q62 11 70 17 Q63 25 56 21 Z'/><path d='M84 24 Q90 14 98 20 Q91 28 84 24 Z'/><path d='M21 56 Q11 62 17 70 Q25 63 21 56 Z'/><path d='M24 84 Q14 90 20 98 Q28 91 24 84 Z'/></g><g fill='%23bbbbbb'><ellipse cx='26' cy='12' rx='6' ry='11' transform='rotate(0 26 26)'/><ellipse cx='26' cy='12' rx='6' ry='11' transform='rotate(72 26 26)'/><ellipse cx='26' cy='12' rx='6' ry='11' transform='rotate(144 26 26)'/><ellipse cx='26' cy='12' rx='6' ry='11' transform='rotate(216 26 26)'/><ellipse cx='26' cy='12' rx='6' ry='11' transform='rotate(288 26 26)'/></g><g fill='%23a0a0a0'><ellipse cx='26' cy='17' rx='4' ry='7.5' transform='rotate(36 26 26)'/><ellipse cx='26' cy='17' rx='4' ry='7.5' transform='rotate(108 26 26)'/><ellipse cx='26' cy='17' rx='4' ry='7.5' transform='rotate(180 26 26)'/><ellipse cx='26' cy='17' rx='4' ry='7.5' transform='rotate(252 26 26)'/><ellipse cx='26' cy='17' rx='4' ry='7.5' transform='rotate(324 26 26)'/></g><circle cx='26' cy='26' r='5' fill='%23444444'/><g fill='%23e0e0e0'><circle cx='26' cy='22.6' r='.9'/><circle cx='29.2' cy='24.9' r='.9'/><circle cx='28' cy='28.8' r='.9'/><circle cx='24' cy='28.8' r='.9'/><circle cx='22.8' cy='24.9' r='.9'/></g><g fill='%23aeaeae'><ellipse cx='66' cy='9' rx='3.6' ry='6.6' transform='rotate(0 66 16)'/><ellipse cx='66' cy='9' rx='3.6' ry='6.6' transform='rotate(72 66 16)'/><ellipse cx='66' cy='9' rx='3.6' ry='6.6' transform='rotate(144 66 16)'/><ellipse cx='66' cy='9' rx='3.6' ry='6.6' transform='rotate(216 66 16)'/><ellipse cx='66' cy='9' rx='3.6' ry='6.6' transform='rotate(288 66 16)'/><ellipse cx='16' cy='59' rx='3.6' ry='6.6' transform='rotate(0 16 66)'/><ellipse cx='16' cy='59' rx='3.6' ry='6.6' transform='rotate(72 16 66)'/><ellipse cx='16' cy='59' rx='3.6' ry='6.6' transform='rotate(144 16 66)'/><ellipse cx='16' cy='59' rx='3.6' ry='6.6' transform='rotate(216 16 66)'/><ellipse cx='16' cy='59' rx='3.6' ry='6.6' transform='rotate(288 16 66)'/></g><circle cx='66' cy='16' r='3.2' fill='%23444444'/><circle cx='16' cy='66' r='3.2' fill='%23444444'/><g fill='%23aeaeae'><circle cx='96' cy='18' r='4'/><circle cx='18' cy='96' r='4'/></g><g fill='%23444444'><circle cx='96' cy='18' r='1.6'/><circle cx='18' cy='96' r='1.6'/></g><g fill='%23bbbbbb'><circle cx='114' cy='22' r='2.6'/><circle cx='22' cy='114' r='2.6'/></g></svg>");}
-  .ds-floral .f1{top:4px;left:4px;}
-  .ds-floral .f2{top:4px;right:4px;transform:scaleX(-1);}
-  .ds-floral .f3{bottom:4px;right:4px;transform:scale(-1,-1);}
-  .ds-floral .f4{bottom:4px;left:4px;transform:scaleY(-1);}
-
-  /* --- desain GARIS: garis ganda minimalis + wajik sudut --- */
-  .ds-garis .tj-panel{border:1px solid var(--ink);}
-  .ds-garis .tj-panel::before{content:'';position:absolute;inset:3px;border:3px solid var(--ink);pointer-events:none;}
-  .ds-garis .tj-panel::after{content:'';position:absolute;inset:9px;border:1px solid var(--ink);pointer-events:none;}
-  .ds-garis .cor{display:block;width:16px;height:16px;background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path d='M10 1 L19 10 L10 19 L1 10 Z' fill='%23111'/><path d='M10 5 L15 10 L10 15 L5 10 Z' fill='white'/><path d='M10 7.6 L12.4 10 L10 12.4 L7.6 10 Z' fill='%23111'/></svg>");}
-  .ds-garis .c1{top:-8px;left:-8px;}
-  .ds-garis .c2{top:-8px;right:-8px;transform:none;}
-  .ds-garis .c3{bottom:-8px;right:-8px;transform:none;}
-  .ds-garis .c4{bottom:-8px;left:-8px;transform:none;}
-
-  /* --- desain GEO: art deco geometris --- */
-  .ds-geo .tj-panel{border:2px solid var(--ink);}
-  .ds-geo .tj-panel::before{content:'';position:absolute;inset:5px;border:1px solid var(--ink);pointer-events:none;}
-  .ds-geo .cor{display:block;width:52px;height:52px;background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'><path d='M4 4 L34 4 L4 34 Z' fill='%23111'/><path d='M42 10 L48 4 L54 10 L48 16 Z' fill='%23111'/><path d='M10 42 L4 48 L10 54 L16 48 Z' fill='%23111'/><g fill='none' stroke='%23111'><path d='M60 6 H104' stroke-width='4'/><path d='M60 14 H88' stroke-width='2'/><path d='M6 60 V104' stroke-width='4'/><path d='M14 60 V88' stroke-width='2'/></g></svg>");}
-
-  /* --- desain DAUN: ranting berdaun --- */
-  .ds-daun .tj-panel{border:1.5px solid var(--ink);}
-  .ds-daun .tj-panel::before{content:'';position:absolute;inset:4px;border:1px solid var(--ink);pointer-events:none;}
-  .ds-daun .cor{display:block;width:60px;height:60px;background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'><g fill='none' stroke='%23111' stroke-width='2' stroke-linecap='round'><path d='M16 15 C40 11 70 13 104 10'/><path d='M15 16 C11 40 13 70 10 104'/></g><g fill='%23111'><path d='M26 13 Q31 3 40 7 Q33 15 26 13 Z'/><path d='M50 12 Q55 2 64 6 Q57 14 50 12 Z'/><path d='M74 11 Q79 1 88 5 Q81 13 74 11 Z'/><path d='M38 13 Q43 23 52 19 Q45 11 38 13 Z'/><path d='M62 12 Q67 22 76 18 Q69 10 62 12 Z'/><path d='M13 26 Q3 31 7 40 Q15 33 13 26 Z'/><path d='M12 50 Q2 55 6 64 Q14 57 12 50 Z'/><path d='M11 74 Q1 79 5 88 Q13 81 11 74 Z'/><path d='M13 38 Q23 43 19 52 Q11 45 13 38 Z'/><path d='M12 62 Q22 67 18 76 Q10 69 12 62 Z'/><circle cx='104' cy='10' r='2.2'/><circle cx='10' cy='104' r='2.2'/></g><circle cx='16' cy='16' r='5' fill='%23111'/><circle cx='16' cy='16' r='2' fill='white'/></svg>");}
-
-  /* --- desain ISLAMI: hijau + bintang segi delapan --- */
-  .ds-islami .tj-panel{border:2px solid #111111;}
-  .ds-islami .tj-panel::before{content:'';position:absolute;inset:4px;border:1px solid #111111;pointer-events:none;}
-  .ds-islami .cor{display:block;width:52px;height:52px;background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'><g fill='none' stroke='%23111111' stroke-width='2.4' stroke-linecap='round'><path d='M42 14 C58 8 76 18 104 11'/><path d='M14 42 C8 58 18 76 11 104'/></g><g fill='%236b6b6b'><circle cx='62' cy='13' r='2.4'/><circle cx='13' cy='62' r='2.4'/><circle cx='104' cy='11' r='2'/><circle cx='11' cy='104' r='2'/></g><g transform='translate(21 21)'><rect x='-13' y='-13' width='26' height='26' fill='%23111111'/><rect x='-13' y='-13' width='26' height='26' fill='%23111111' transform='rotate(45)'/><circle r='8' fill='white'/><circle r='4' fill='%236b6b6b'/></g></svg>");}
-  .ds-islami .tj-undangan{color:#111111;}
-  .ds-islami .tj-kepada{border-color:#111111;}
-  .ds-islami .tj-kepada .isi{border-bottom-color:#111111;}
-
-  /* --- desain BIRU: klasik warna biru navy --- */
-  .ds-biru .tj-panel{border:1.5px solid #2b2b2b;}
-  .ds-biru .tj-panel::before{content:'';position:absolute;inset:4px;border:1px solid #2b2b2b;pointer-events:none;}
-  .ds-biru .cor{display:block;width:62px;height:62px;background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'><g fill='none' stroke='%232b2b2b' stroke-width='2' stroke-linecap='round'><path d='M32 15 C44 5 52 22 64 13 C72 7 82 8 90 13'/><path d='M90 13 C98 18 94 28 87 25 C82 23 84 16 89 17'/><path d='M15 32 C5 44 22 52 13 64 C7 72 8 82 13 90'/><path d='M13 90 C18 98 28 94 25 87 C23 82 16 84 17 89'/><path d='M46 14 C50 22 58 20 60 14'/><path d='M14 46 C22 50 20 58 14 60'/></g><g fill='%232b2b2b'><path d='M52 13 C56 4 66 4 66 10 C66 16 56 18 52 13 Z'/><path d='M13 52 C4 56 4 66 10 66 C16 66 18 56 13 52 Z'/><circle cx='71' cy='10' r='2'/><circle cx='10' cy='71' r='2'/><circle cx='97' cy='20' r='1.7'/><circle cx='20' cy='97' r='1.7'/><ellipse cx='20' cy='7.5' rx='3' ry='7'/><ellipse cx='20' cy='32.5' rx='3' ry='7'/><ellipse cx='7.5' cy='20' rx='7' ry='3'/><ellipse cx='32.5' cy='20' rx='7' ry='3'/><ellipse cx='11.2' cy='11.2' rx='2.8' ry='6.6' transform='rotate(-45 11.2 11.2)'/><ellipse cx='28.8' cy='28.8' rx='2.8' ry='6.6' transform='rotate(-45 28.8 28.8)'/><ellipse cx='28.8' cy='11.2' rx='2.8' ry='6.6' transform='rotate(45 28.8 11.2)'/><ellipse cx='11.2' cy='28.8' rx='2.8' ry='6.6' transform='rotate(45 11.2 28.8)'/></g><circle cx='20' cy='20' r='6' fill='%232b2b2b' stroke='white' stroke-width='1.6'/><circle cx='20' cy='20' r='2.2' fill='white'/><path d='M30 30 C40 36 38 46 30 44' fill='none' stroke='%232b2b2b' stroke-width='1.8' stroke-linecap='round'/><circle cx='30' cy='44' r='1.6' fill='%232b2b2b'/></svg>");}
-  .ds-biru .tj-undangan{color:#2b2b2b;}
-  .ds-biru .tj-kepada{border-color:#2b2b2b;}
-  .ds-biru .tj-kepada .isi{border-bottom-color:#2b2b2b;}
-
-  /* --- desain EMAS: klasik emas di atas krem --- */
-  #invitation.tahlilan.ds-emas{background:#fdf9ef;}
-  .ds-emas .tj-panel{border:1.5px solid #5c5c5c;}
-  .ds-emas .tj-panel::before{content:'';position:absolute;inset:4px;border:1px solid #5c5c5c;pointer-events:none;}
-  .ds-emas .cor{display:block;width:62px;height:62px;background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'><g fill='none' stroke='%235c5c5c' stroke-width='2' stroke-linecap='round'><path d='M32 15 C44 5 52 22 64 13 C72 7 82 8 90 13'/><path d='M90 13 C98 18 94 28 87 25 C82 23 84 16 89 17'/><path d='M15 32 C5 44 22 52 13 64 C7 72 8 82 13 90'/><path d='M13 90 C18 98 28 94 25 87 C23 82 16 84 17 89'/><path d='M46 14 C50 22 58 20 60 14'/><path d='M14 46 C22 50 20 58 14 60'/></g><g fill='%235c5c5c'><path d='M52 13 C56 4 66 4 66 10 C66 16 56 18 52 13 Z'/><path d='M13 52 C4 56 4 66 10 66 C16 66 18 56 13 52 Z'/><circle cx='71' cy='10' r='2'/><circle cx='10' cy='71' r='2'/><circle cx='97' cy='20' r='1.7'/><circle cx='20' cy='97' r='1.7'/><ellipse cx='20' cy='7.5' rx='3' ry='7'/><ellipse cx='20' cy='32.5' rx='3' ry='7'/><ellipse cx='7.5' cy='20' rx='7' ry='3'/><ellipse cx='32.5' cy='20' rx='7' ry='3'/><ellipse cx='11.2' cy='11.2' rx='2.8' ry='6.6' transform='rotate(-45 11.2 11.2)'/><ellipse cx='28.8' cy='28.8' rx='2.8' ry='6.6' transform='rotate(-45 28.8 28.8)'/><ellipse cx='28.8' cy='11.2' rx='2.8' ry='6.6' transform='rotate(45 28.8 11.2)'/><ellipse cx='11.2' cy='28.8' rx='2.8' ry='6.6' transform='rotate(45 11.2 28.8)'/></g><circle cx='20' cy='20' r='6' fill='%235c5c5c' stroke='%23fdf9ef' stroke-width='1.6'/><circle cx='20' cy='20' r='2.2' fill='%23fdf9ef'/><path d='M30 30 C40 36 38 46 30 44' fill='none' stroke='%235c5c5c' stroke-width='1.8' stroke-linecap='round'/><circle cx='30' cy='44' r='1.6' fill='%235c5c5c'/></svg>");}
-  .ds-emas .tj-undangan{color:#5c5c5c;}
-  .ds-emas .tj-kepada{border-color:#5c5c5c;background:#fdf9ef;}
-  .ds-emas .tj-kepada .isi{border-bottom-color:#5c5c5c;}
-
-  /* --- desain BUNGA: bunga sudut hitam putih, satu bingkai --- */
-  #invitation.tahlilan.ds-bunga{padding:28px 32px 22px;gap:6px;}
-  #invitation.tahlilan.ds-bunga::before{display:block;content:'';position:absolute;inset:8px;border:1.4px solid #333;pointer-events:none;}
-  #invitation.tahlilan.ds-bunga::after{content:'';position:absolute;inset:12px;border:1px solid #999;pointer-events:none;}
-  .ds-bunga .tj-cover{height:auto;padding:0 0 6px;}
-  .ds-bunga .flcor{display:block;width:88px;height:88px;z-index:1;background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 140 140'><g fill='none' stroke='%23777777' stroke-width='1.6'><path d='M30 26 C55 18 80 26 108 20'/><path d='M26 30 C18 55 26 80 20 108'/></g><g fill='%23a3a3a3'><path d='M56 21 Q62 11 70 17 Q63 25 56 21 Z'/><path d='M84 24 Q90 14 98 20 Q91 28 84 24 Z'/><path d='M21 56 Q11 62 17 70 Q25 63 21 56 Z'/><path d='M24 84 Q14 90 20 98 Q28 91 24 84 Z'/></g><g fill='%23c2c2c2'><ellipse cx='26' cy='12' rx='6' ry='11' transform='rotate(0 26 26)'/><ellipse cx='26' cy='12' rx='6' ry='11' transform='rotate(72 26 26)'/><ellipse cx='26' cy='12' rx='6' ry='11' transform='rotate(144 26 26)'/><ellipse cx='26' cy='12' rx='6' ry='11' transform='rotate(216 26 26)'/><ellipse cx='26' cy='12' rx='6' ry='11' transform='rotate(288 26 26)'/></g><g fill='%238f8f8f'><ellipse cx='26' cy='17' rx='4' ry='7.5' transform='rotate(36 26 26)'/><ellipse cx='26' cy='17' rx='4' ry='7.5' transform='rotate(108 26 26)'/><ellipse cx='26' cy='17' rx='4' ry='7.5' transform='rotate(180 26 26)'/><ellipse cx='26' cy='17' rx='4' ry='7.5' transform='rotate(252 26 26)'/><ellipse cx='26' cy='17' rx='4' ry='7.5' transform='rotate(324 26 26)'/></g><circle cx='26' cy='26' r='5' fill='%23333333'/><g fill='%23eeeeee'><circle cx='26' cy='22.6' r='.9'/><circle cx='29.2' cy='24.9' r='.9'/><circle cx='28' cy='28.8' r='.9'/><circle cx='24' cy='28.8' r='.9'/><circle cx='22.8' cy='24.9' r='.9'/></g><g fill='%23a0a0a0'><ellipse cx='66' cy='9' rx='3.6' ry='6.6' transform='rotate(0 66 16)'/><ellipse cx='66' cy='9' rx='3.6' ry='6.6' transform='rotate(72 66 16)'/><ellipse cx='66' cy='9' rx='3.6' ry='6.6' transform='rotate(144 66 16)'/><ellipse cx='66' cy='9' rx='3.6' ry='6.6' transform='rotate(216 66 16)'/><ellipse cx='66' cy='9' rx='3.6' ry='6.6' transform='rotate(288 66 16)'/><ellipse cx='16' cy='59' rx='3.6' ry='6.6' transform='rotate(0 16 66)'/><ellipse cx='16' cy='59' rx='3.6' ry='6.6' transform='rotate(72 16 66)'/><ellipse cx='16' cy='59' rx='3.6' ry='6.6' transform='rotate(144 16 66)'/><ellipse cx='16' cy='59' rx='3.6' ry='6.6' transform='rotate(216 16 66)'/><ellipse cx='16' cy='59' rx='3.6' ry='6.6' transform='rotate(288 16 66)'/></g><circle cx='66' cy='16' r='3.2' fill='%23333333'/><circle cx='16' cy='66' r='3.2' fill='%23333333'/><g fill='%23a0a0a0'><circle cx='96' cy='18' r='4'/><circle cx='18' cy='96' r='4'/></g><g fill='%23333333'><circle cx='96' cy='18' r='1.6'/><circle cx='18' cy='96' r='1.6'/></g><g fill='%23c2c2c2'><circle cx='114' cy='22' r='2.6'/><circle cx='22' cy='114' r='2.6'/></g></svg>");}
-  .ds-bunga .f1{top:4px;left:4px;}
-  .ds-bunga .f2{top:4px;right:4px;transform:scaleX(-1);}
-  .ds-bunga .f3{bottom:4px;right:4px;transform:scale(-1,-1);}
-  .ds-bunga .f4{bottom:4px;left:4px;transform:scaleY(-1);}
-
-  /* ===== KARTU: KHITANAN (hitam putih, dekoratif) ===== */
-  #invitation.khitanan{
-    width:420px;height:594px;min-height:0;padding:0;border:3px double var(--ink);overflow:hidden;
-  }
-  #invitation.khitanan::before{
-    content:'';position:absolute;inset:9px;border:1px solid var(--ink);pointer-events:none;
-  }
-  .kh-inner{position:relative;height:100%;padding:30px 34px 26px;display:flex;flex-direction:column;text-align:center;}
-  .kh-kicker{font-size:.62rem;letter-spacing:3.5px;text-transform:uppercase;color:var(--ink-soft);margin-bottom:6px;}
-  .kh-title{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:1.95rem;line-height:1.15;margin-bottom:10px;}
-  .kh-orn{display:flex;align-items:center;gap:10px;margin:4px 0 12px;}
-  .kh-orn::before,.kh-orn::after{content:'';flex:1;border-top:1px solid var(--ink);}
-  .kh-orn span{font-size:.62rem;letter-spacing:2px;}
-  .kh-salam{font-size:.72rem;font-weight:700;margin-bottom:8px;}
-  .kh-pembuka{font-size:.68rem;line-height:1.65;color:var(--ink-soft);margin-bottom:12px;white-space:pre-wrap;}
-  .kh-nama{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:1.5rem;line-height:1.25;letter-spacing:.5px;margin-bottom:4px;}
-  .kh-ket{font-size:.68rem;color:var(--ink-soft);margin-bottom:12px;}
-  .kh-yangakan{font-size:.68rem;font-style:italic;color:var(--ink-soft);margin-bottom:8px;}
-  .kh-details{display:inline-block;text-align:left;font-size:.72rem;line-height:1.7;margin:0 auto 12px;}
-  .kh-details .row{display:flex;gap:8px;}
-  .kh-details .row .lb{width:64px;flex-shrink:0;color:var(--muted);}
-  .kh-details .row .colon{width:8px;flex-shrink:0;}
-  .kh-details .row .vl{font-weight:700;}
-  .kh-penutup{font-size:.66rem;line-height:1.6;color:var(--ink-soft);margin-bottom:8px;white-space:pre-wrap;}
-  .kh-wassalam{font-size:.7rem;font-weight:700;margin-bottom:14px;}
-  .kh-sign{margin-top:auto;}
-  .kh-sign .role{font-size:.68rem;color:var(--ink-soft);margin-bottom:2px;}
-  .kh-sign .name{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:1.05rem;}
-
-  /* ===== KARTU: PERNIKAHAN (berwarna) ===== */
-  #invitation.nikah{
-    width:420px;height:594px;min-height:0;padding:0;overflow:hidden;
-    background:var(--wed-bg);
-    border:1px solid var(--wed-gold);
-    color:var(--wed-green);
-  }
-  #invitation.nikah::before{
-    content:'';position:absolute;inset:8px;border:1px solid var(--wed-gold-soft);pointer-events:none;
-  }
-  #invitation.nikah::after{
-    content:'';position:absolute;left:0;right:0;top:0;height:7px;
-    background:linear-gradient(90deg,var(--wed-gold) 0%,var(--wed-gold-soft) 50%,var(--wed-gold) 100%);
-  }
-  .nk-inner{position:relative;height:100%;padding:20px 32px 16px;display:flex;flex-direction:column;text-align:center;}
-  .nk-bismillah{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:.8rem;color:var(--wed-gold);margin-bottom:3px;}
-  .nk-salam{font-size:.62rem;font-weight:700;letter-spacing:.3px;margin-bottom:6px;}
-  .nk-quote{font-size:.58rem;font-style:italic;line-height:1.5;color:var(--wed-green-soft);margin-bottom:8px;white-space:pre-wrap;}
-  .nk-pembuka{font-size:.62rem;line-height:1.5;color:var(--wed-green-soft);margin-bottom:8px;white-space:pre-wrap;}
-  .nk-nama{font-family:'Great Vibes',cursive;font-weight:400;font-size:1.75rem;line-height:1.15;color:var(--wed-green);}
-  .nk-ortu{font-size:.6rem;color:var(--wed-green-soft);margin:1px 0 3px;}
-  .nk-amp{font-family:'Great Vibes',cursive;font-size:1.2rem;color:var(--wed-gold);line-height:1;margin:1px 0;}
-  .nk-orn{display:flex;align-items:center;gap:10px;margin:7px 0 6px;}
-  .nk-orn::before,.nk-orn::after{content:'';flex:1;border-top:1px solid var(--wed-gold-soft);}
-  .nk-orn span{color:var(--wed-gold);font-size:.6rem;letter-spacing:2px;}
-  .nk-acara{margin-bottom:6px;}
-  .nk-acara .h{font-size:.6rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--wed-gold);margin-bottom:1px;}
-  .nk-acara .w{font-size:.7rem;font-weight:700;}
-  .nk-acara .t{font-size:.64rem;color:var(--wed-green-soft);line-height:1.4;}
-  .nk-penutup{font-size:.6rem;line-height:1.5;color:var(--wed-green-soft);margin-bottom:5px;white-space:pre-wrap;}
-  .nk-wassalam{font-size:.62rem;font-weight:700;margin-bottom:6px;}
-  .nk-sign{margin-top:auto;}
-  .nk-sign .role{font-size:.62rem;color:var(--wed-green-soft);margin-bottom:2px;}
-  .nk-sign .name{font-size:.72rem;font-weight:700;color:var(--wed-green);}
-
-  .note{
-    font-size:.72rem;color:var(--muted);background:var(--paper);border:1px dashed var(--line);
-    padding:9px 12px;margin-top:16px;line-height:1.5;
-  }
-  .toast{
-    position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);
-    background:var(--ink);color:var(--white);font-size:.82rem;font-weight:600;
-    padding:11px 20px;border-radius:3px;
-    opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:50;
-  }
-  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
-</style>
+<link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
@@ -387,44 +31,65 @@
     <div class="card-body">
 
       <div class="tpl-select">
-        <div class="tpl-opt active" id="tplBtn-umum" onclick="setTemplate('umum')">
-          <div class="t">Umum</div><div class="s">Syukuran, rapat, dll</div>
-        </div>
-        <div class="tpl-opt" id="tplBtn-tahlilan" onclick="setTemplate('tahlilan')">
+        <a class="tpl-opt active" href="index.html">
+          <div class="t">Umum</div><div class="s">Surat resmi berkop</div>
+        </a>
+        <a class="tpl-opt" href="tahlilan.html">
           <div class="t">Tahlilan</div><div class="s">Hitam putih</div>
-        </div>
-        <div class="tpl-opt" id="tplBtn-khitanan" onclick="setTemplate('khitanan')">
-          <div class="t">Khitanan</div><div class="s">Hitam putih</div>
-        </div>
-        <div class="tpl-opt" id="tplBtn-nikah" onclick="setTemplate('nikah')">
+        </a>
+        <a class="tpl-opt" href="nikah.html">
           <div class="t">Pernikahan</div><div class="s">Berwarna elegan</div>
-        </div>
+        </a>
       </div>
 
-      <!-- ===== TEMPLATE UMUM ===== -->
+      <!-- ===== FORM UMUM (surat resmi berkop) ===== -->
       <div class="tpl-block active" id="block-umum">
 
-        <div class="section-divider">Judul &amp; Pembuka</div>
+        <div class="section-divider">Kop Surat (Header)</div>
         <div class="field">
-          <label class="lbl">Kicker <span class="desc">(teks kecil di atas judul)</span></label>
-          <input type="text" id="kicker" placeholder="UNDANGAN" />
+          <label class="lbl">Logo <span class="desc">(opsional — PNG/JPG, muncul di kiri kop)</span></label>
+          <input type="file" id="u_logo" accept="image/*" />
         </div>
         <div class="field">
-          <label class="lbl">Judul Acara</label>
-          <input type="text" id="judul" placeholder="Syukuran Rumah Baru" />
+          <label class="lbl">Nama Organisasi / Instansi / Panitia</label>
+          <input type="text" id="u_org" placeholder="PANITIA PERINGATAN HUT RI KE-81 RW 05" />
         </div>
         <div class="field">
-          <label class="lbl">Kalimat Pembuka</label>
-          <textarea id="pembuka">Dengan memohon rahmat dan ridho Allah SWT, kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara:</textarea>
-        </div>
-
-        <div class="section-divider">Penyelenggara</div>
-        <div class="field">
-          <label class="lbl">Nama Penyelenggara / Tuan Rumah</label>
-          <input type="text" id="host" placeholder="Keluarga Bapak Ahmad Santoso" />
+          <label class="lbl">Alamat &amp; Kontak <span class="desc">(baris kecil di bawah nama, boleh 2 baris)</span></label>
+          <textarea id="u_kop_sub" placeholder="Sekretariat: Jl. Merdeka No. 12, Bandung&#10;Telp/WA: 0812-3456-7890"></textarea>
         </div>
 
-        <div class="section-divider">Waktu &amp; Tempat</div>
+        <div class="section-divider">Administrasi Surat</div>
+        <div class="row2">
+          <div class="field">
+            <label class="lbl">Nomor Surat <span class="desc">(opsional)</span></label>
+            <input type="text" id="u_nomor" placeholder="005/PAN/VIII/2026" />
+          </div>
+          <div class="field">
+            <label class="lbl">Lampiran <span class="desc">(opsional)</span></label>
+            <input type="text" id="u_lampiran" placeholder="-" />
+          </div>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label class="lbl">Hal / Perihal <span class="desc">(sebut nama acaranya, tampil tebal)</span></label>
+            <input type="text" id="u_perihal" value="Undangan" />
+          </div>
+          <div class="field">
+            <label class="lbl">Tanggal Surat <span class="desc">(di kanan atas)</span></label>
+            <input type="text" id="u_tgl_surat" placeholder="10 Agustus 2026" />
+          </div>
+        </div>
+        <div class="field">
+          <label class="lbl">Yth. <span class="desc">(boleh beberapa baris, tanpa perlu menulis "Yth.")</span></label>
+          <textarea id="u_yth" placeholder="Bapak/Ibu Warga RW 05&#10;di&#10;Tempat"></textarea>
+        </div>
+
+        <div class="section-divider">Isi Undangan</div>
+        <div class="field">
+          <label class="lbl">Kalimat Pembuka <span class="desc">(1 baris = 1 paragraf)</span></label>
+          <textarea id="pembuka">Sehubungan dengan akan diselenggarakannya acara tersebut di atas, bersama ini dengan hormat kami mengundang Bapak/Ibu/Saudara/i untuk hadir pada :</textarea>
+        </div>
         <div class="row2">
           <div class="field">
             <label class="lbl">Tanggal</label>
@@ -440,286 +105,42 @@
           <input type="text" id="tempat" placeholder="Jl. Merdeka No. 12, Kel. Sukamaju, Bandung" />
         </div>
         <div class="field">
-          <label class="lbl">Detail tambahan <span class="desc">(opsional — 1 baris = 1 baris info, mis. "Dress code: Batik")</span></label>
-          <textarea id="detail" placeholder="Dress code: Bebas rapi&#10;Konfirmasi kehadiran: 0812-xxxx-xxxx"></textarea>
+          <label class="lbl">Detail tambahan <span class="desc">(opsional — 1 baris = 1 baris rincian, mis. "Acara: Ramah tamah")</span></label>
+          <textarea id="detail" placeholder="Acara: Ramah tamah&#10;Dress code: Batik"></textarea>
+        </div>
+        <div class="field">
+          <label class="lbl">Kalimat Penutup <span class="desc">(1 baris = 1 paragraf)</span></label>
+          <textarea id="penutup">Mengingat pentingnya acara tersebut, besar harapan kami Bapak/Ibu/Saudara dapat hadir tepat pada waktunya.
+Atas perhatian dan kehadiran Bapak/Ibu/Saudara, disampaikan terima kasih.</textarea>
+        </div>
+        <div class="field">
+          <label class="lbl">Tembusan <span class="desc">(opsional — 1 baris = 1 tembusan, tampil bernomor di kiri bawah)</span></label>
+          <textarea id="u_tembusan" placeholder="Lurah Sukamaju&#10;Ketua RW 05&#10;Arsip"></textarea>
         </div>
 
-        <div class="section-divider">Pesan Penutup</div>
-        <div class="field">
-          <label class="lbl">Kalimat Penutup</label>
-          <textarea id="penutup">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu.</textarea>
-        </div>
-        <div class="field">
-          <label class="lbl">Teks Footer <span class="desc">(baris paling bawah kartu)</span></label>
-          <input type="text" id="footer" value="Terima kasih atas perhatian dan kehadirannya" />
-        </div>
-
-      </div>
-
-      <!-- ===== TEMPLATE TAHLILAN ===== -->
-      <div class="tpl-block" id="block-tahlilan">
-
-        <div class="section-divider">Desain / Frame</div>
-        <div class="field">
-          <label class="lbl">Pilih Frame <span class="desc">(layout tetap, hanya bingkai yang berganti)</span></label>
-          <select id="t_desain" onchange="setDesain(this.value)">
-            <option value="klasik" selected>1. Klasik — bunga &amp; sulur (hitam putih)</option>
-            <option value="ornamen">2. Ornamen — bingkai tebal + rosette (hitam putih)</option>
-            <option value="garis">3. Garis Ganda — minimalis (hitam putih)</option>
-            <option value="geo">4. Geometris — art deco (hitam putih)</option>
-            <option value="daun">5. Daun — ranting berdaun (hitam putih)</option>
-            <option value="bunga">6. Bunga Sudut — hitam putih</option>
-            <option value="islami">7. Islami — bintang segi delapan (hitam putih)</option>
-            <option value="biru">8. Klasik Abu-abu Tua (hitam putih)</option>
-            <option value="emas">9. Klasik Kertas Krem (hitam putih)</option>
-            <option value="floral">10. Floral — hitam putih</option>
-          </select>
-        </div>
-
-        <div class="section-divider">Cover (Panel Atas)</div>
-        <div class="field">
-          <label class="lbl">Judul di Cover <span class="desc">(mis. Yasin &amp; Tahlil / Peringatan 100 Hari)</span></label>
-          <input type="text" id="t_judul" value="Yasin & Tahlil" />
-        </div>
-        <div class="field">
-          <label class="lbl">Kepada Yth. <span class="desc">(kosongkan agar jadi garis isian ___ untuk ditulis tangan)</span></label>
-          <input type="text" id="t_tujuan" placeholder="" />
-        </div>
-        <div class="row2">
-          <div class="field">
-            <label class="lbl">Nama Pengirim <span class="desc">(opsional, di atas cover)</span></label>
-            <input type="text" id="t_pengirim" placeholder="Keluarga Bpk. Tono" />
-          </div>
-          <div class="field">
-            <label class="lbl">Alamat Pengirim</label>
-            <input type="text" id="t_alamat" placeholder="Wonokoyo" />
-          </div>
-        </div>
-
-        <div class="section-divider">Salam &amp; Kalimat Pengantar <span class="desc">(kalimat baku — biasanya tidak diubah)</span></div>
-        <div class="field">
-          <label class="lbl">Salam Pembuka</label>
-          <input type="text" id="t_salam" value="Assalamu'alaikum Wr. Wb." />
-        </div>
-        <div class="field">
-          <label class="lbl">Kalimat Pengantar <span class="desc">(ganti angka harinya saja: 7 / 40 / 100 / 1000 hari)</span></label>
-          <textarea id="t_pengantar">Dengan mengharap ridho dan rahmat Allah SWT, kami mengharap kehadiran Bapak/Ibu/Saudara untuk memberikan do'a dan tahlil pada acara 40 (empat puluh) hari meninggalnya:</textarea>
-        </div>
-
-        <div class="section-divider">Data Almarhum / Acara</div>
-        <div class="field">
-          <label class="lbl">Nama Almarhum/Almarhumah</label>
-          <input type="text" id="t_almarhum" placeholder="Almh. Ibu Listiya" />
-        </div>
-        <div class="field">
-          <label class="lbl">Kalimat sebelum detail</label>
-          <input type="text" id="t_yangakan" value="Yang Insya Allah akan kami laksanakan pada :" />
-        </div>
-        <div class="row2">
-          <div class="field">
-            <label class="lbl">Hari</label>
-            <input type="text" id="t_hari" placeholder="Minggu" />
-          </div>
-          <div class="field">
-            <label class="lbl">Tanggal</label>
-            <input type="text" id="t_tanggal" placeholder="16 Agustus 2026" />
-          </div>
-        </div>
-        <div class="row2">
-          <div class="field">
-            <label class="lbl">Waktu</label>
-            <input type="text" id="t_pukul" placeholder="18.00 WIB (Ba'da Maghrib)" />
-          </div>
-          <div class="field">
-            <label class="lbl">Tempat</label>
-            <input type="text" id="t_tempat" placeholder="Rumah Bapak Tono, RT/RW 04/02" />
-          </div>
-        </div>
-        <div class="field">
-          <label class="lbl">Acara <span class="desc">(opsional)</span></label>
-          <input type="text" id="t_acara" placeholder="Pembacaan Surat Yasin dan Tahlil" />
-        </div>
-
-        <div class="section-divider">Penutup <span class="desc">(kalimat baku — biasanya tidak diubah)</span></div>
-        <div class="field">
-          <label class="lbl">Kalimat Penutup</label>
-          <textarea id="t_penutup">Merupakan suatu kehormatan dan kebahagiaan bagi kami sekeluarga apabila Bapak/Ibu/Saudara berkenan hadir untuk memberikan do'a.
-Atas perhatian dan kehadiran Bapak/Ibu/Saudara, kami sekeluarga sampaikan terima kasih.</textarea>
-        </div>
+        <div class="section-divider">Tanda Tangan</div>
         <div class="field">
           <label class="lbl">Salam Penutup</label>
-          <input type="text" id="t_wassalam" value="Wassalamu'alaikum Wr. Wb." />
+          <input type="text" id="u_hormat" value="Hormat kami," />
         </div>
-        <div class="row3">
+        <div class="row2">
           <div class="field">
-            <label class="lbl">Teks Tanda Tangan</label>
-            <input type="text" id="t_hormat" value="Shohibul Hajah" />
+            <label class="lbl">Jabatan Penanda Tangan</label>
+            <input type="text" id="u_jab1" value="Ketua Panitia" />
           </div>
           <div class="field">
             <label class="lbl">Nama Penanda Tangan</label>
-            <input type="text" id="t_nama_ttd" placeholder="Bpk. Tono" />
-          </div>
-          <div class="field">
-            <label class="lbl">Baris bawah</label>
-            <input type="text" id="t_ttd_bawah" value="Sekeluarga" />
-          </div>
-        </div>
-
-      </div>
-
-      <!-- ===== TEMPLATE KHITANAN ===== -->
-      <div class="tpl-block" id="block-khitanan">
-
-        <div class="section-divider">Judul</div>
-        <div class="field">
-          <label class="lbl">Kicker <span class="desc">(teks kecil di atas judul)</span></label>
-          <input type="text" id="k_kicker" value="WALIMATUL KHITAN" />
-        </div>
-        <div class="field">
-          <label class="lbl">Judul Acara</label>
-          <input type="text" id="k_judul" value="Tasyakuran Khitanan" />
-        </div>
-
-        <div class="section-divider">Salam &amp; Pembuka <span class="desc">(kalimat baku — biasanya tidak diubah)</span></div>
-        <div class="field">
-          <label class="lbl">Salam Pembuka</label>
-          <input type="text" id="k_salam" value="Assalamu'alaikum Warahmatullahi Wabarakatuh" />
-        </div>
-        <div class="field">
-          <label class="lbl">Kalimat Pembuka</label>
-          <textarea id="k_pembuka">Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara tasyakuran khitan putra kami:</textarea>
-        </div>
-
-        <div class="section-divider">Data Anak</div>
-        <div class="field">
-          <label class="lbl">Nama Anak</label>
-          <input type="text" id="k_nama" placeholder="Muhammad Rizki Hidayatullah" />
-        </div>
-        <div class="field">
-          <label class="lbl">Keterangan Anak <span class="desc">(mis. "Putra kedua dari Bapak Hasan &amp; Ibu Rina")</span></label>
-          <input type="text" id="k_ket" placeholder="Putra kedua dari Bapak Hasan & Ibu Rina" />
-        </div>
-
-        <div class="section-divider">Waktu &amp; Tempat</div>
-        <div class="field">
-          <label class="lbl">Kalimat sebelum detail</label>
-          <input type="text" id="k_yangakan" value="Yang Insya Allah akan diselenggarakan pada:" />
-        </div>
-        <div class="row2">
-          <div class="field">
-            <label class="lbl">Hari</label>
-            <input type="text" id="k_hari" placeholder="Minggu" />
-          </div>
-          <div class="field">
-            <label class="lbl">Tanggal</label>
-            <input type="text" id="k_tanggal" placeholder="23 Agustus 2026" />
+            <input type="text" id="u_nama1" placeholder="Ahmad Santoso" />
           </div>
         </div>
         <div class="row2">
           <div class="field">
-            <label class="lbl">Pukul</label>
-            <input type="text" id="k_pukul" placeholder="10.00 WIB s.d. selesai" />
+            <label class="lbl">Jabatan Kedua <span class="desc">(opsional, mis. Sekretaris)</span></label>
+            <input type="text" id="u_jab2" placeholder="Sekretaris" />
           </div>
           <div class="field">
-            <label class="lbl">Tempat</label>
-            <input type="text" id="k_tempat" placeholder="Kediaman kami, Jl. Melati No. 8" />
-          </div>
-        </div>
-
-        <div class="section-divider">Penutup <span class="desc">(kalimat baku — biasanya tidak diubah)</span></div>
-        <div class="field">
-          <label class="lbl">Kalimat Penutup</label>
-          <textarea id="k_penutup">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan do'a restu kepada putra kami. Atas kehadiran dan do'a restunya, kami ucapkan terima kasih.</textarea>
-        </div>
-        <div class="field">
-          <label class="lbl">Salam Penutup</label>
-          <input type="text" id="k_wassalam" value="Wassalamu'alaikum Warahmatullahi Wabarakatuh" />
-        </div>
-        <div class="row2">
-          <div class="field">
-            <label class="lbl">Teks Tanda Tangan</label>
-            <input type="text" id="k_hormat" value="Hormat kami," />
-          </div>
-          <div class="field">
-            <label class="lbl">Nama Keluarga</label>
-            <input type="text" id="k_nama_ttd" placeholder="Keluarga Bapak Hasan" />
-          </div>
-        </div>
-
-      </div>
-
-      <!-- ===== TEMPLATE PERNIKAHAN ===== -->
-      <div class="tpl-block" id="block-nikah">
-
-        <div class="section-divider">Pembuka <span class="desc">(kalimat baku — biasanya tidak diubah)</span></div>
-        <div class="field">
-          <label class="lbl">Salam Pembuka</label>
-          <input type="text" id="n_salam" value="Assalamu'alaikum Warahmatullahi Wabarakatuh" />
-        </div>
-        <div class="field">
-          <label class="lbl">Kutipan Ayat</label>
-          <textarea id="n_quote">"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu istri-istri dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya, dan dijadikan-Nya di antaramu rasa kasih dan sayang." (QS. Ar-Rum: 21)</textarea>
-        </div>
-        <div class="field">
-          <label class="lbl">Kalimat Pembuka</label>
-          <textarea id="n_pembuka">Maha Suci Allah yang telah menciptakan makhluk-Nya berpasang-pasangan. Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud menyelenggarakan pernikahan putra-putri kami:</textarea>
-        </div>
-
-        <div class="section-divider">Mempelai</div>
-        <div class="field">
-          <label class="lbl">Nama Mempelai Wanita</label>
-          <input type="text" id="n_wanita" placeholder="Siti Nurhaliza" />
-        </div>
-        <div class="field">
-          <label class="lbl">Keterangan Mempelai Wanita</label>
-          <input type="text" id="n_ortu_w" placeholder="Putri pertama dari Bapak H. Ahmad Fauzi & Ibu Hj. Aminah" />
-        </div>
-        <div class="field">
-          <label class="lbl">Nama Mempelai Pria</label>
-          <input type="text" id="n_pria" placeholder="Rizky Pratama" />
-        </div>
-        <div class="field">
-          <label class="lbl">Keterangan Mempelai Pria</label>
-          <input type="text" id="n_ortu_p" placeholder="Putra kedua dari Bapak Drs. Surya Wijaya & Ibu Ratna Dewi" />
-        </div>
-
-        <div class="section-divider">Akad Nikah</div>
-        <div class="field">
-          <label class="lbl">Waktu Akad</label>
-          <input type="text" id="n_akad_waktu" placeholder="Sabtu, 12 September 2026 · Pukul 08.00 WIB" />
-        </div>
-        <div class="field">
-          <label class="lbl">Tempat Akad</label>
-          <input type="text" id="n_akad_tempat" placeholder="Masjid Raya Al-Falah, Bandung" />
-        </div>
-
-        <div class="section-divider">Resepsi</div>
-        <div class="field">
-          <label class="lbl">Waktu Resepsi</label>
-          <input type="text" id="n_resepsi_waktu" placeholder="Sabtu, 12 September 2026 · Pukul 11.00 – 14.00 WIB" />
-        </div>
-        <div class="field">
-          <label class="lbl">Tempat Resepsi</label>
-          <input type="text" id="n_resepsi_tempat" placeholder="Gedung Serbaguna Graha Mulia, Jl. Asia Afrika No. 45" />
-        </div>
-
-        <div class="section-divider">Penutup <span class="desc">(kalimat baku — biasanya tidak diubah)</span></div>
-        <div class="field">
-          <label class="lbl">Kalimat Penutup</label>
-          <textarea id="n_penutup">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan do'a restu kepada kedua mempelai. Atas kehadiran dan do'a restunya, kami ucapkan terima kasih.</textarea>
-        </div>
-        <div class="field">
-          <label class="lbl">Salam Penutup</label>
-          <input type="text" id="n_wassalam" value="Wassalamu'alaikum Warahmatullahi Wabarakatuh" />
-        </div>
-        <div class="row2">
-          <div class="field">
-            <label class="lbl">Teks Tanda Tangan</label>
-            <input type="text" id="n_hormat" value="Kami yang berbahagia," />
-          </div>
-          <div class="field">
-            <label class="lbl">Nama Kedua Keluarga</label>
-            <input type="text" id="n_nama_ttd" placeholder="Kel. Bpk. H. Ahmad Fauzi & Kel. Bpk. Drs. Surya Wijaya" />
+            <label class="lbl">Nama Kedua</label>
+            <input type="text" id="u_nama2" placeholder="Budi Hartono" />
           </div>
         </div>
 
@@ -742,10 +163,10 @@ Atas perhatian dan kehadiran Bapak/Ibu/Saudara, kami sekeluarga sampaikan terima
   <div class="card">
     <div class="card-head">
       <h2>Pratinjau Undangan</h2>
-      <span class="hint">A5 potret</span>
+      <span class="hint">A4 potret</span>
     </div>
     <div class="preview-shell">
-      <div id="invitation">
+      <div id="invitation" class="umum">
         <div class="inv-empty">Isi form di kiri, lalu klik "Buat Undangan".<br>Pratinjau kartu undangan muncul di sini.</div>
       </div>
     </div>
@@ -761,376 +182,116 @@ Atas perhatian dan kehadiran Bapak/Ibu/Saudara, kami sekeluarga sampaikan terima
 
 <div class="toast" id="toast"></div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="common.js"></script>
 <script>
-function val(id){ return document.getElementById(id).value.trim(); }
+const PAGE = { format: "a4", filename: "undangan-umum" };
 
-function fmtTanggal(iso){
-  if(!iso) return "";
-  const bulan = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
-  const [y,m,d] = iso.split("-").map(Number);
-  const hari = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"][new Date(y,m-1,d).getDay()];
-  return `${hari}, ${d} ${bulan[m-1]} ${y}`;
-}
+let logoData = null;
+function afterReset(){ logoData = null; }
 
-function fmtJam(t){
-  if(!t) return "";
-  return t + " WIB";
-}
+const EXAMPLE = {
+  u_org: "PANITIA PERINGATAN HUT RI KE-81",
+  u_kop_sub: "Rukun Warga 05 · Kelurahan Sukamaju · Kota Bandung\nSekretariat: Jl. Merdeka No. 12 — Telp/WA 0812-3456-7890",
+  u_nomor: "005/PAN-HUT81/VIII/2026",
+  u_lampiran: "-",
+  u_perihal: "Undangan Malam Puncak Peringatan HUT RI ke-81",
+  u_tgl_surat: "10 Agustus 2026",
+  u_yth: "Bapak/Ibu Warga RW 05\ndi\nTempat",
+  tanggal: "2026-08-17",
+  jam: "19:30",
+  tempat: "Lapangan RW 05, Jl. Merdeka, Bandung",
+  detail: "Acara: Ramah tamah & pentas seni\nDress code: Nuansa merah putih",
+  u_tembusan: "Lurah Sukamaju\nKetua RW 05\nArsip",
+  u_nama1: "Ahmad Santoso",
+  u_jab2: "Sekretaris",
+  u_nama2: "Budi Hartono"
+};
 
-function escapeHtml(s){ const p=document.createElement("p"); p.textContent=s; return p.innerHTML; }
-function nl2br(s){ return escapeHtml(s).replace(/\n/g,"<br>"); }
-
-let hasGenerated = false;
-let currentTemplate = "umum";
-let currentDesain = "klasik";
-const TEMPLATES = ["umum","tahlilan","khitanan","nikah"];
-
-function applyInvClass(){
-  const inv = document.getElementById("invitation");
-  inv.className = currentTemplate==="umum" ? "" : currentTemplate;
-  if(currentTemplate==="tahlilan") inv.className += " ds-"+currentDesain;
-}
-
-function setTemplate(tpl){
-  currentTemplate = tpl;
-  TEMPLATES.forEach(t=>{
-    document.getElementById("tplBtn-"+t).classList.toggle("active", t===tpl);
-    document.getElementById("block-"+t).classList.toggle("active", t===tpl);
-  });
-  applyInvClass();
-  // template langsung tampil: kalau form belum disentuh, isi contoh; kalau sudah, render isian user
-  let pristine = true;
-  document.querySelectorAll("#block-"+tpl+" input, #block-"+tpl+" textarea").forEach(el=>{
-    if(el.value !== el.defaultValue) pristine = false;
-  });
-  if(pristine){ fillExample(); } else { generate(); }
-}
-
-function setDesain(d){
-  currentDesain = d;
-  const sel = document.getElementById("t_desain");
-  if(sel && sel.value !== d) sel.value = d;
-  applyInvClass();
-  generate();
-}
-
-function emptyMsg(){
-  return '<div class="inv-empty">Isi form di kiri, lalu klik "Buat Undangan".<br>Pratinjau kartu undangan muncul di sini.</div>';
-}
-
+/* surat undangan resmi berkop */
 function generate(){
-  if(currentTemplate === "tahlilan"){ generateTahlilan(); }
-  else if(currentTemplate === "khitanan"){ generateKhitanan(); }
-  else if(currentTemplate === "nikah"){ generateNikah(); }
-  else { generateUmum(); }
-  hasGenerated = true;
-}
-
-/* ===== UMUM ===== */
-function generateUmum(){
-  const kicker = val("kicker") || "UNDANGAN";
-  const judul = val("judul") || "Nama Acara";
+  const org = val("u_org") || "NAMA ORGANISASI / PANITIA";
+  const kopSub = val("u_kop_sub");
+  const nomor = val("u_nomor");
+  const lampiran = val("u_lampiran");
+  const perihal = val("u_perihal");
+  const tglSurat = val("u_tgl_surat");
+  const yth = val("u_yth");
   const pembuka = val("pembuka");
-  const host = val("host");
   const tanggal = fmtTanggal(val("tanggal"));
   const jam = fmtJam(val("jam"));
   const tempat = val("tempat");
   const detailRaw = val("detail");
   const penutup = val("penutup");
-  const footer = val("footer");
+  const tembusanRaw = val("u_tembusan");
+  const hormat = val("u_hormat");
+  const jab1 = val("u_jab1"), nama1 = val("u_nama1");
+  const jab2 = val("u_jab2"), nama2 = val("u_nama2");
 
-  let rows = "";
-  if(tanggal) rows += `<div class="inv-detail-row"><div class="inv-detail-label">Tanggal</div><div class="inv-detail-value">${escapeHtml(tanggal)}</div></div>`;
-  if(jam) rows += `<div class="inv-detail-row"><div class="inv-detail-label">Waktu</div><div class="inv-detail-value">${escapeHtml(jam)}</div></div>`;
-  if(tempat) rows += `<div class="inv-detail-row"><div class="inv-detail-label">Tempat</div><div class="inv-detail-value">${escapeHtml(tempat)}</div></div>`;
+  const mrow = (l,v)=>`<div class="r"><div class="l">${escapeHtml(l)}</div><div class="c">:</div><div class="v">${escapeHtml(v)}</div></div>`;
+  const paras = t=>t.split("\n").map(s=>s.trim()).filter(Boolean).map(s=>`<p class="um-p">${escapeHtml(s)}</p>`).join("");
+
+  let rincian = "";
+  if(tanggal) rincian += mrow("Hari, tanggal", tanggal);
+  if(jam) rincian += mrow("Waktu", jam);
+  if(tempat) rincian += mrow("Tempat", tempat);
   if(detailRaw){
     detailRaw.split("\n").map(s=>s.trim()).filter(Boolean).forEach(line=>{
       const idx = line.indexOf(":");
-      if(idx > -1){
-        const label = line.slice(0,idx).trim();
-        const value = line.slice(idx+1).trim();
-        rows += `<div class="inv-detail-row"><div class="inv-detail-label">${escapeHtml(label)}</div><div class="inv-detail-value">${escapeHtml(value)}</div></div>`;
-      } else {
-        rows += `<div class="inv-detail-row"><div class="inv-detail-label">&nbsp;</div><div class="inv-detail-value">${escapeHtml(line)}</div></div>`;
-      }
+      if(idx > -1){ rincian += mrow(line.slice(0,idx).trim(), line.slice(idx+1).trim()); }
+      else { rincian += mrow("", line); }
     });
   }
 
-  document.getElementById("invitation").innerHTML = `
-    <div class="inv-kicker">${escapeHtml(kicker)}</div>
-    <div class="inv-title">${escapeHtml(judul)}</div>
-    <div class="inv-rule"></div>
-    ${pembuka ? `<div class="inv-lead">${nl2br(pembuka)}</div>` : ""}
-    ${host ? `<div class="inv-host">${escapeHtml(host)}</div>` : ""}
-    ${rows ? `<div class="inv-details">${rows}</div>` : ""}
-    ${penutup ? `<div class="inv-message">${nl2br(penutup)}</div>` : ""}
-    ${footer ? `<div class="inv-footer">${escapeHtml(footer)}</div>` : ""}
-  `;
-}
+  let meta = "";
+  if(nomor) meta += mrow("Nomor", nomor);
+  if(lampiran) meta += mrow("Lampiran", lampiran);
+  if(perihal) meta += `<div class="r"><div class="l">Hal</div><div class="c">:</div><div class="v b">${escapeHtml(perihal)}</div></div>`;
 
-/* ===== TAHLILAN / YASIN (2 panel: cover + isi, 3 desain frame) ===== */
-function generateTahlilan(){
-  const pengirim = val("t_pengirim");
-  const alamat = val("t_alamat");
-  const tujuan = val("t_tujuan");
-  const judul = val("t_judul") || "Yasin & Tahlil";
-  const salam = val("t_salam");
-  const pengantar = val("t_pengantar");
-  const almarhum = val("t_almarhum") || "Nama Almarhum/Almarhumah";
-  const yangakan = val("t_yangakan");
-  const penutup = val("t_penutup");
-  const wassalam = val("t_wassalam");
-  const hormat = val("t_hormat");
-  const namaTtd = val("t_nama_ttd");
-  const bawah = val("t_ttd_bawah");
-
-  let detailRows = "";
-  [["Hari","t_hari"],["Tanggal","t_tanggal"],["Waktu","t_pukul"],["Tempat","t_tempat"],["Acara","t_acara"]].forEach(([lb,id])=>{
-    const v = val(id);
-    if(v) detailRows += `<div class="row"><div class="lb">${lb}</div><div class="colon">:</div><div class="vl">${escapeHtml(v)}</div></div>`;
-  });
-
-  const COR = '<i class="cor c1"></i><i class="cor c2"></i><i class="cor c3"></i><i class="cor c4"></i>';
-  const MID = '<i class="mid mt"></i><i class="mid mb"></i>';
-  const undanganTxt = currentDesain==="floral" ? "Undangan" : "UNDANGAN";
-
-  document.getElementById("invitation").innerHTML = `
-    <i class="flcor f1"></i><i class="flcor f2"></i><i class="flcor f3"></i><i class="flcor f4"></i>
-    <div class="tj-panel tj-cover">${COR}
-      ${(pengirim||alamat) ? `<div class="tj-kop">${pengirim?`<b>${escapeHtml(pengirim)}</b>`:""}${alamat?`<div>${escapeHtml(alamat)}</div>`:""}</div>` : ""}
-      <div class="tj-cover-row">
-        <div class="tj-cover-left">
-          <div class="tj-undangan">${undanganTxt}</div>
-          <div class="tj-sub">${escapeHtml(judul)}</div>
-        </div>
-        <div class="tj-kepada">
-          <div class="b">Kepada :</div>
-          <div>Yth. Bpk/Ibu/Sdr.</div>
-          <div class="isi">${tujuan?escapeHtml(tujuan):"&nbsp;"}</div>
-          <div class="di">Di</div>
-          <div class="di"><b>Tempat</b></div>
-        </div>
-      </div>
-    </div>
-    <div class="tj-panel tj-content">${COR}${MID}
-      <div class="tj-bismillah">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</div>
-      ${salam ? `<div class="tj-salam">${escapeHtml(salam)}</div>` : ""}
-      ${pengantar ? `<div class="tj-body">${nl2br(pengantar)}</div>` : ""}
-      <div class="tj-almarhum">${escapeHtml(almarhum)}</div>
-      ${yangakan ? `<div class="tj-body">${escapeHtml(yangakan)}</div>` : ""}
-      ${detailRows ? `<div class="tj-det-wrap"><div class="tj-details">${detailRows}</div></div>` : ""}
-      ${penutup ? `<div class="tj-body">${nl2br(penutup)}</div>` : ""}
-      ${wassalam ? `<div class="tj-wassalam">${escapeHtml(wassalam)}</div>` : ""}
-      <div class="tj-sign">
-        ${hormat ? `<div class="role">${escapeHtml(hormat)}</div>` : ""}
-        ${namaTtd ? `<div class="name">${escapeHtml(namaTtd)}</div>` : ""}
-        ${bawah ? `<div class="bawah">${escapeHtml(bawah)}</div>` : ""}
-      </div>
-    </div>
-  `;
-}
-
-/* ===== KHITANAN (hitam putih, dekoratif) ===== */
-function generateKhitanan(){
-  const kicker = val("k_kicker") || "WALIMATUL KHITAN";
-  const judul = val("k_judul") || "Tasyakuran Khitanan";
-  const salam = val("k_salam");
-  const pembuka = val("k_pembuka");
-  const nama = val("k_nama") || "Nama Anak";
-  const ket = val("k_ket");
-  const yangakan = val("k_yangakan");
-  const penutup = val("k_penutup");
-  const wassalam = val("k_wassalam");
-  const hormat = val("k_hormat") || "Hormat kami,";
-  const namaTtd = val("k_nama_ttd");
-
-  let detailRows = "";
-  [["Hari","k_hari"],["Tanggal","k_tanggal"],["Pukul","k_pukul"],["Tempat","k_tempat"]].forEach(([lb,id])=>{
-    const v = val(id);
-    if(v) detailRows += `<div class="row"><div class="lb">${lb}</div><div class="colon">:</div><div class="vl">${escapeHtml(v)}</div></div>`;
-  });
-
-  document.getElementById("invitation").innerHTML = `
-    <div class="kh-inner">
-      <div class="kh-kicker">${escapeHtml(kicker)}</div>
-      <div class="kh-title">${escapeHtml(judul)}</div>
-      <div class="kh-orn"><span>◆</span></div>
-
-      ${salam ? `<div class="kh-salam">${escapeHtml(salam)}</div>` : ""}
-      ${pembuka ? `<div class="kh-pembuka">${nl2br(pembuka)}</div>` : ""}
-
-      <div class="kh-nama">${escapeHtml(nama)}</div>
-      ${ket ? `<div class="kh-ket">${escapeHtml(ket)}</div>` : ""}
-
-      ${yangakan ? `<div class="kh-yangakan">${escapeHtml(yangakan)}</div>` : ""}
-      ${detailRows ? `<div class="kh-details">${detailRows}</div>` : ""}
-      <div class="kh-orn"><span>◆</span></div>
-
-      ${penutup ? `<div class="kh-penutup">${nl2br(penutup)}</div>` : ""}
-      ${wassalam ? `<div class="kh-wassalam">${escapeHtml(wassalam)}</div>` : ""}
-
-      <div class="kh-sign">
-        <div class="role">${escapeHtml(hormat)}</div>
-        ${namaTtd ? `<div class="name">${escapeHtml(namaTtd)}</div>` : ""}
-      </div>
-    </div>
-  `;
-}
-
-/* ===== PERNIKAHAN (berwarna) ===== */
-function generateNikah(){
-  const salam = val("n_salam");
-  const quote = val("n_quote");
-  const pembuka = val("n_pembuka");
-  const wanita = val("n_wanita") || "Nama Mempelai Wanita";
-  const ortuW = val("n_ortu_w");
-  const pria = val("n_pria") || "Nama Mempelai Pria";
-  const ortuP = val("n_ortu_p");
-  const akadWaktu = val("n_akad_waktu");
-  const akadTempat = val("n_akad_tempat");
-  const resepsiWaktu = val("n_resepsi_waktu");
-  const resepsiTempat = val("n_resepsi_tempat");
-  const penutup = val("n_penutup");
-  const wassalam = val("n_wassalam");
-  const hormat = val("n_hormat") || "Kami yang berbahagia,";
-  const namaTtd = val("n_nama_ttd");
-
-  document.getElementById("invitation").innerHTML = `
-    <div class="nk-inner">
-      <div class="nk-bismillah">Bismillahirrahmanirrahim</div>
-      ${salam ? `<div class="nk-salam">${escapeHtml(salam)}</div>` : ""}
-      ${quote ? `<div class="nk-quote">${nl2br(quote)}</div>` : ""}
-      ${pembuka ? `<div class="nk-pembuka">${nl2br(pembuka)}</div>` : ""}
-
-      <div class="nk-nama">${escapeHtml(wanita)}</div>
-      ${ortuW ? `<div class="nk-ortu">${escapeHtml(ortuW)}</div>` : ""}
-      <div class="nk-amp">&amp;</div>
-      <div class="nk-nama">${escapeHtml(pria)}</div>
-      ${ortuP ? `<div class="nk-ortu">${escapeHtml(ortuP)}</div>` : ""}
-
-      <div class="nk-orn"><span>❦</span></div>
-
-      ${(akadWaktu||akadTempat) ? `<div class="nk-acara">
-        <div class="h">Akad Nikah</div>
-        ${akadWaktu ? `<div class="w">${escapeHtml(akadWaktu)}</div>` : ""}
-        ${akadTempat ? `<div class="t">${escapeHtml(akadTempat)}</div>` : ""}
-      </div>` : ""}
-
-      ${(resepsiWaktu||resepsiTempat) ? `<div class="nk-acara">
-        <div class="h">Resepsi</div>
-        ${resepsiWaktu ? `<div class="w">${escapeHtml(resepsiWaktu)}</div>` : ""}
-        ${resepsiTempat ? `<div class="t">${escapeHtml(resepsiTempat)}</div>` : ""}
-      </div>` : ""}
-
-      <div class="nk-orn"><span>❦</span></div>
-
-      ${penutup ? `<div class="nk-penutup">${nl2br(penutup)}</div>` : ""}
-      ${wassalam ? `<div class="nk-wassalam">${escapeHtml(wassalam)}</div>` : ""}
-
-      <div class="nk-sign">
-        <div class="role">${escapeHtml(hormat)}</div>
-        ${namaTtd ? `<div class="name">${escapeHtml(namaTtd)}</div>` : ""}
-      </div>
-    </div>
-  `;
-}
-
-/* ===== RESET, CONTOH, PDF ===== */
-function resetForm(){
-  document.querySelectorAll("#block-"+currentTemplate+" input, #block-"+currentTemplate+" textarea").forEach(el=>{
-    el.value = el.defaultValue;
-  });
-  document.getElementById("invitation").innerHTML = emptyMsg();
-  hasGenerated = false;
-  toast("Form dikembalikan ke awal");
-}
-
-const EXAMPLES = {
-  umum: {
-    kicker: "UNDANGAN",
-    judul: "Syukuran Rumah Baru",
-    host: "Keluarga Bapak Ahmad Santoso",
-    tanggal: "2026-08-15",
-    jam: "19:00",
-    tempat: "Jl. Merdeka No. 12, Kel. Sukamaju, Bandung",
-    detail: "Dress code: Bebas rapi\nKonfirmasi kehadiran: 0812-3456-7890"
-  },
-  tahlilan: {
-    t_pengirim: "Keluarga Bpk. Tono",
-    t_alamat: "Wonokoyo",
-    t_judul: "Yasin & Tahlil",
-    t_almarhum: "Almh. Ibu Listiya",
-    t_hari: "Minggu",
-    t_tanggal: "16 Agustus 2026",
-    t_pukul: "18.00 WIB (Ba'da Maghrib)",
-    t_tempat: "Rumah Bapak Tono, RT/RW 04/02, Wonokoyo",
-    t_acara: "Pembacaan Surat Yasin dan Tahlil",
-    t_nama_ttd: "Bpk. Tono"
-  },
-  khitanan: {
-    k_nama: "Muhammad Rizki Hidayatullah",
-    k_ket: "Putra kedua dari Bapak Hasan Basri & Ibu Rina Marlina",
-    k_hari: "Minggu",
-    k_tanggal: "23 Agustus 2026",
-    k_pukul: "10.00 WIB s.d. selesai",
-    k_tempat: "Kediaman kami, Jl. Melati No. 8, Cirebon",
-    k_nama_ttd: "Keluarga Bapak Hasan Basri"
-  },
-  nikah: {
-    n_wanita: "Siti Nurhaliza",
-    n_ortu_w: "Putri pertama dari Bapak H. Ahmad Fauzi & Ibu Hj. Aminah",
-    n_pria: "Rizky Pratama",
-    n_ortu_p: "Putra kedua dari Bapak Drs. Surya Wijaya & Ibu Ratna Dewi",
-    n_akad_waktu: "Sabtu, 12 September 2026 · Pukul 08.00 WIB",
-    n_akad_tempat: "Masjid Raya Al-Falah, Bandung",
-    n_resepsi_waktu: "Sabtu, 12 September 2026 · Pukul 11.00 – 14.00 WIB",
-    n_resepsi_tempat: "Gedung Serbaguna Graha Mulia, Jl. Asia Afrika No. 45",
-    n_nama_ttd: "Kel. Bpk. H. Ahmad Fauzi & Kel. Bpk. Drs. Surya Wijaya"
+  let tembusan = "";
+  if(tembusanRaw){
+    const items = tembusanRaw.split("\n").map(s=>s.trim()).filter(Boolean);
+    if(items.length) tembusan = `<div class="um-tembusan">Tembusan :<ol>${items.map(s=>`<li>${escapeHtml(s)}</li>`).join("")}</ol></div>`;
   }
-};
 
-function fillExample(){
-  // kembalikan kalimat baku dulu, lalu isi data contoh
-  document.querySelectorAll("#block-"+currentTemplate+" input, #block-"+currentTemplate+" textarea").forEach(el=>{
-    el.value = el.defaultValue;
-  });
-  Object.entries(EXAMPLES[currentTemplate]).forEach(([id, value])=>{
-    document.getElementById(id).value = value;
-  });
-  generate();
-  toast("Contoh diisi");
+  const dua = !!(jab2 || nama2);
+  const blokTtd = (hor,jab,nama)=>`<div class="blok">${hor?`<div class="hor">${escapeHtml(hor)}</div>`:""}<div class="jab">${jab?escapeHtml(jab):"&nbsp;"}</div>${nama?`<div class="nama">${escapeHtml(nama)}</div>`:""}</div>`;
+
+  document.getElementById("invitation").innerHTML = `
+    <div class="um-kop ${logoData ? 'has-logo' : ''}">
+      ${logoData ? `<img class="um-logo" src="${logoData}" alt="logo" />` : ""}
+      <div class="um-kop-teks">
+        <div class="org">${escapeHtml(org)}</div>
+        ${kopSub ? `<div class="sub">${nl2br(kopSub)}</div>` : ""}
+      </div>
+    </div>
+    <div class="um-rule"></div>
+    ${(meta || tglSurat) ? `<div class="um-meta"><div class="um-nomor">${meta}</div>${tglSurat?`<div class="um-tgl">${escapeHtml(tglSurat)}</div>`:""}</div>` : ""}
+    ${yth ? `<div class="um-yth"><b>Yth. ${nl2br(yth)}</b></div>` : ""}
+    ${pembuka ? paras(pembuka) : ""}
+    ${rincian ? `<div class="um-rincian">${rincian}</div>` : ""}
+    ${penutup ? paras(penutup) : ""}
+    ${(dua && hormat) ? `<div class="um-hormat">${escapeHtml(hormat)}</div>` : ""}
+    <div class="um-sign ${dua?'dua':''}">
+      ${blokTtd(dua?"":hormat, jab1, nama1)}
+      ${dua ? blokTtd("", jab2, nama2) : ""}
+    </div>
+    ${tembusan}
+  `;
+  hasGenerated = true;
 }
 
-function downloadPdf(){
-  if(!hasGenerated){ toast("Buat undangan dulu"); return; }
-  const el = document.getElementById("invitation");
-  const opt = {
-    margin: 0,
-    filename: 'undangan-' + currentTemplate + '.pdf',
-    image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: { scale: 2, useCORS: true },
-    jsPDF: { unit: 'mm', format: 'a5', orientation: 'portrait' }
-  };
-  toast("Menyiapkan PDF...");
-  html2pdf().set(opt).from(el).save();
-}
-
-let toastT=null;
-function toast(msg){
-  const t=document.getElementById("toast");
-  t.textContent=msg; t.classList.add("show");
-  clearTimeout(toastT);
-  toastT=setTimeout(()=>t.classList.remove("show"),1900);
-}
-
-/* pratinjau langsung: setelah kartu pertama dibuat, ketikan apa pun memperbarui kartu */
-document.querySelectorAll(".tpl-block input, .tpl-block textarea").forEach(el=>{
-  el.addEventListener("input", ()=>{ if(hasGenerated) generate(); });
+/* logo kop */
+document.getElementById("u_logo").addEventListener("change", e=>{
+  const f = e.target.files && e.target.files[0];
+  if(!f){ logoData = null; if(hasGenerated) generate(); return; }
+  const rd = new FileReader();
+  rd.onload = ev=>{ logoData = ev.target.result; if(hasGenerated) generate(); };
+  rd.readAsDataURL(f);
 });
 
-/* saat halaman dibuka langsung tampilkan template siap pakai */
-setTemplate("umum");
+initPage();
 </script>
 </body>
 </html>

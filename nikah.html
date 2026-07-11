@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Pembuat Surat Undangan — Pernikahan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Amiri&family=Anton&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=Great+Vibes&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header>
+  <div class="head-inner">
+    <div>
+      <div class="head-title">Pembuat Surat Undangan</div>
+      <div class="head-sub">Isi data acara — kartu undangan siap cetak PDF</div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- KIRI: FORM -->
+  <div class="card">
+    <div class="card-head">
+      <h2>Data Acara</h2>
+      <span class="hint">kalimat baku sudah terisi otomatis</span>
+    </div>
+    <div class="card-body">
+
+      <div class="tpl-select">
+        <a class="tpl-opt" href="index.html">
+          <div class="t">Umum</div><div class="s">Surat resmi berkop</div>
+        </a>
+        <a class="tpl-opt" href="tahlilan.html">
+          <div class="t">Tahlilan</div><div class="s">Hitam putih</div>
+        </a>
+        <a class="tpl-opt active" href="nikah.html">
+          <div class="t">Pernikahan</div><div class="s">Berwarna elegan</div>
+        </a>
+      </div>
+
+      <!-- ===== FORM PERNIKAHAN ===== -->
+      <div class="tpl-block active" id="block-nikah">
+
+        <div class="section-divider">Pembuka <span class="desc">(kalimat baku — biasanya tidak diubah)</span></div>
+        <div class="field">
+          <label class="lbl">Salam Pembuka</label>
+          <input type="text" id="n_salam" value="Assalamu'alaikum Warahmatullahi Wabarakatuh" />
+        </div>
+        <div class="field">
+          <label class="lbl">Kutipan Ayat</label>
+          <textarea id="n_quote">"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu istri-istri dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya, dan dijadikan-Nya di antaramu rasa kasih dan sayang." (QS. Ar-Rum: 21)</textarea>
+        </div>
+        <div class="field">
+          <label class="lbl">Kalimat Pembuka</label>
+          <textarea id="n_pembuka">Maha Suci Allah yang telah menciptakan makhluk-Nya berpasang-pasangan. Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud menyelenggarakan pernikahan putra-putri kami:</textarea>
+        </div>
+
+        <div class="section-divider">Mempelai</div>
+        <div class="field">
+          <label class="lbl">Nama Mempelai Wanita</label>
+          <input type="text" id="n_wanita" placeholder="Siti Nurhaliza" />
+        </div>
+        <div class="field">
+          <label class="lbl">Keterangan Mempelai Wanita</label>
+          <input type="text" id="n_ortu_w" placeholder="Putri pertama dari Bapak H. Ahmad Fauzi & Ibu Hj. Aminah" />
+        </div>
+        <div class="field">
+          <label class="lbl">Nama Mempelai Pria</label>
+          <input type="text" id="n_pria" placeholder="Rizky Pratama" />
+        </div>
+        <div class="field">
+          <label class="lbl">Keterangan Mempelai Pria</label>
+          <input type="text" id="n_ortu_p" placeholder="Putra kedua dari Bapak Drs. Surya Wijaya & Ibu Ratna Dewi" />
+        </div>
+
+        <div class="section-divider">Akad Nikah</div>
+        <div class="field">
+          <label class="lbl">Waktu Akad</label>
+          <input type="text" id="n_akad_waktu" placeholder="Sabtu, 12 September 2026 · Pukul 08.00 WIB" />
+        </div>
+        <div class="field">
+          <label class="lbl">Tempat Akad</label>
+          <input type="text" id="n_akad_tempat" placeholder="Masjid Raya Al-Falah, Bandung" />
+        </div>
+
+        <div class="section-divider">Resepsi</div>
+        <div class="field">
+          <label class="lbl">Waktu Resepsi</label>
+          <input type="text" id="n_resepsi_waktu" placeholder="Sabtu, 12 September 2026 · Pukul 11.00 – 14.00 WIB" />
+        </div>
+        <div class="field">
+          <label class="lbl">Tempat Resepsi</label>
+          <input type="text" id="n_resepsi_tempat" placeholder="Gedung Serbaguna Graha Mulia, Jl. Asia Afrika No. 45" />
+        </div>
+
+        <div class="section-divider">Penutup <span class="desc">(kalimat baku — biasanya tidak diubah)</span></div>
+        <div class="field">
+          <label class="lbl">Kalimat Penutup</label>
+          <textarea id="n_penutup">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan do'a restu kepada kedua mempelai. Atas kehadiran dan do'a restunya, kami ucapkan terima kasih.</textarea>
+        </div>
+        <div class="field">
+          <label class="lbl">Salam Penutup</label>
+          <input type="text" id="n_wassalam" value="Wassalamu'alaikum Warahmatullahi Wabarakatuh" />
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label class="lbl">Teks Tanda Tangan</label>
+            <input type="text" id="n_hormat" value="Kami yang berbahagia," />
+          </div>
+          <div class="field">
+            <label class="lbl">Nama Kedua Keluarga</label>
+            <input type="text" id="n_nama_ttd" placeholder="Kel. Bpk. H. Ahmad Fauzi & Kel. Bpk. Drs. Surya Wijaya" />
+          </div>
+        </div>
+
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-primary" onclick="generate()">Buat Undangan</button>
+        <button class="btn btn-pdf" onclick="fillExample()">Isi Contoh</button>
+        <button class="btn btn-ghost" onclick="resetForm()">Kosongkan</button>
+      </div>
+
+      <div class="note">
+        <b>Catatan:</b> kalimat pembuka dan penutup baku sudah terisi otomatis sesuai kebiasaan surat undangan Indonesia — cukup lengkapi nama, tanggal, dan tempat. Setelah kartu dibuat, pratinjau ikut berubah langsung saat Anda mengetik.
+      </div>
+
+    </div>
+  </div>
+
+  <!-- KANAN: PREVIEW -->
+  <div class="card">
+    <div class="card-head">
+      <h2>Pratinjau Undangan</h2>
+      <span class="hint">A5 potret</span>
+    </div>
+    <div class="preview-shell">
+      <div id="invitation" class="nikah">
+        <div class="inv-empty">Isi form di kiri, lalu klik "Buat Undangan".<br>Pratinjau kartu undangan muncul di sini.</div>
+      </div>
+    </div>
+    <div class="card-body" style="padding-top:16px;">
+      <div class="actions" style="margin-top:0;">
+        <button class="btn btn-pdf" style="flex:1" onclick="downloadPdf()">Unduh PDF</button>
+        <button class="btn btn-ghost" onclick="window.print()">Print</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="common.js"></script>
+<script>
+const PAGE = { format: "a5", filename: "undangan-nikah" };
+
+const EXAMPLE = {
+  n_wanita: "Siti Nurhaliza",
+  n_ortu_w: "Putri pertama dari Bapak H. Ahmad Fauzi & Ibu Hj. Aminah",
+  n_pria: "Rizky Pratama",
+  n_ortu_p: "Putra kedua dari Bapak Drs. Surya Wijaya & Ibu Ratna Dewi",
+  n_akad_waktu: "Sabtu, 12 September 2026 · Pukul 08.00 WIB",
+  n_akad_tempat: "Masjid Raya Al-Falah, Bandung",
+  n_resepsi_waktu: "Sabtu, 12 September 2026 · Pukul 11.00 – 14.00 WIB",
+  n_resepsi_tempat: "Gedung Serbaguna Graha Mulia, Jl. Asia Afrika No. 45",
+  n_nama_ttd: "Kel. Bpk. H. Ahmad Fauzi & Kel. Bpk. Drs. Surya Wijaya"
+};
+
+/* kartu pernikahan (berwarna) */
+function generate(){
+  const salam = val("n_salam");
+  const quote = val("n_quote");
+  const pembuka = val("n_pembuka");
+  const wanita = val("n_wanita") || "Nama Mempelai Wanita";
+  const ortuW = val("n_ortu_w");
+  const pria = val("n_pria") || "Nama Mempelai Pria";
+  const ortuP = val("n_ortu_p");
+  const akadWaktu = val("n_akad_waktu");
+  const akadTempat = val("n_akad_tempat");
+  const resepsiWaktu = val("n_resepsi_waktu");
+  const resepsiTempat = val("n_resepsi_tempat");
+  const penutup = val("n_penutup");
+  const wassalam = val("n_wassalam");
+  const hormat = val("n_hormat") || "Kami yang berbahagia,";
+  const namaTtd = val("n_nama_ttd");
+
+  document.getElementById("invitation").innerHTML = `
+    <div class="nk-inner">
+      <div class="nk-bismillah">Bismillahirrahmanirrahim</div>
+      ${salam ? `<div class="nk-salam">${escapeHtml(salam)}</div>` : ""}
+      ${quote ? `<div class="nk-quote">${nl2br(quote)}</div>` : ""}
+      ${pembuka ? `<div class="nk-pembuka">${nl2br(pembuka)}</div>` : ""}
+
+      <div class="nk-nama">${escapeHtml(wanita)}</div>
+      ${ortuW ? `<div class="nk-ortu">${escapeHtml(ortuW)}</div>` : ""}
+      <div class="nk-amp">&amp;</div>
+      <div class="nk-nama">${escapeHtml(pria)}</div>
+      ${ortuP ? `<div class="nk-ortu">${escapeHtml(ortuP)}</div>` : ""}
+
+      <div class="nk-orn"><span>❦</span></div>
+
+      ${(akadWaktu||akadTempat) ? `<div class="nk-acara">
+        <div class="h">Akad Nikah</div>
+        ${akadWaktu ? `<div class="w">${escapeHtml(akadWaktu)}</div>` : ""}
+        ${akadTempat ? `<div class="t">${escapeHtml(akadTempat)}</div>` : ""}
+      </div>` : ""}
+
+      ${(resepsiWaktu||resepsiTempat) ? `<div class="nk-acara">
+        <div class="h">Resepsi</div>
+        ${resepsiWaktu ? `<div class="w">${escapeHtml(resepsiWaktu)}</div>` : ""}
+        ${resepsiTempat ? `<div class="t">${escapeHtml(resepsiTempat)}</div>` : ""}
+      </div>` : ""}
+
+      <div class="nk-orn"><span>❦</span></div>
+
+      ${penutup ? `<div class="nk-penutup">${nl2br(penutup)}</div>` : ""}
+      ${wassalam ? `<div class="nk-wassalam">${escapeHtml(wassalam)}</div>` : ""}
+
+      <div class="nk-sign">
+        <div class="role">${escapeHtml(hormat)}</div>
+        ${namaTtd ? `<div class="name">${escapeHtml(namaTtd)}</div>` : ""}
+      </div>
+    </div>
+  `;
+  hasGenerated = true;
+}
+
+initPage();
+</script>
+</body>
+</html>
