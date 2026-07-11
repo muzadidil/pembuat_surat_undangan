@@ -6,7 +6,7 @@
 <title>Pembuat Surat Undangan</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Great+Vibes&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Amiri&family=Anton&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=Great+Vibes&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <style>
   :root{
     --ink:#111111;
@@ -158,35 +158,76 @@
     text-transform:uppercase;margin-top:22px;
   }
 
-  /* ===== KARTU: TAHLILAN (hitam putih, format surat resmi) ===== */
+  /* ===== KARTU: TAHLILAN / YASIN (3 pilihan desain frame) ===== */
   #invitation.tahlilan{
-    width:420px;height:594px;min-height:0;padding:0;border:2px solid var(--ink);overflow:hidden;
+    width:420px;height:594px;min-height:0;padding:12px;border:none;overflow:hidden;
+    display:flex;flex-direction:column;gap:10px;
   }
-  #invitation.tahlilan::before{
-    content:'';position:absolute;inset:6px;border:1px solid var(--ink);pointer-events:none;
-  }
-  .th-inner{position:relative;padding:12px 22px 12px;}
-  .th-kop{display:flex;justify-content:space-between;align-items:flex-start;font-size:.62rem;line-height:1.45;padding-bottom:6px;border-bottom:2px solid var(--ink);margin-bottom:8px;}
-  .th-kop-left b,.th-kop-right b{display:block;font-size:.64rem;}
-  .th-kop-right{text-align:right;}
-  .th-title-box{text-align:center;margin-bottom:6px;}
-  .th-title-box .kicker{font-size:.62rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--ink-soft);}
-  .th-title-box h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:1.6rem;margin:0;line-height:1.15;}
-  .th-divline{border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);padding:3px 0;text-align:center;font-size:.74rem;font-weight:700;margin-bottom:7px;letter-spacing:.5px;}
-  .th-bismillah{text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.9rem;font-weight:600;margin-bottom:5px;}
-  .th-salam{font-size:.7rem;font-weight:700;margin-bottom:5px;}
-  .th-body{font-size:.68rem;line-height:1.5;text-align:justify;margin-bottom:6px;white-space:pre-wrap;}
-  .th-almarhum{text-align:center;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:1rem;margin:6px 0;padding:5px 0;border-top:1px dashed #999;border-bottom:1px dashed #999;letter-spacing:.4px;}
-  .th-details{font-size:.68rem;line-height:1.55;margin-bottom:7px;padding-left:10px;}
-  .th-details .row{display:flex;gap:8px;}
-  .th-details .row .lb{width:64px;flex-shrink:0;}
-  .th-details .row .colon{width:8px;flex-shrink:0;}
-  .th-details .row .vl{font-weight:600;}
-  .th-closing{font-size:.68rem;line-height:1.5;text-align:justify;margin-bottom:6px;white-space:pre-wrap;}
-  .th-wassalam{font-size:.7rem;font-weight:700;margin-bottom:10px;}
-  .th-sign{text-align:right;font-size:.72rem;}
-  .th-sign .role{margin-bottom:14px;}
-  .th-sign .name{font-weight:700;text-decoration:underline;}
+  #invitation.tahlilan::before{display:none;}
+  .tj-panel{position:relative;}
+  .tj-cover{flex-shrink:0;height:126px;display:flex;flex-direction:column;justify-content:center;}
+  .tj-content{flex:1;display:flex;flex-direction:column;min-height:0;}
+  .tj-kop{text-align:center;font-size:.58rem;line-height:1.3;margin-bottom:4px;}
+  .tj-kop b{font-size:.64rem;}
+  .tj-cover-row{display:flex;align-items:center;gap:14px;}
+  .tj-cover-left{flex:1;text-align:center;}
+  .tj-undangan{font-family:'Anton',sans-serif;font-size:1.8rem;letter-spacing:1.5px;line-height:1.05;}
+  .tj-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:700;font-size:1.02rem;margin-top:4px;}
+  .tj-kepada{width:148px;flex-shrink:0;border:1.4px solid var(--ink);border-radius:9px;padding:7px 10px;font-size:.6rem;line-height:1.45;text-align:left;background:var(--white);position:relative;z-index:2;}
+  .tj-kepada .b{font-weight:700;letter-spacing:.6px;}
+  .tj-kepada .isi{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:.74rem;border-bottom:1px solid var(--ink);min-height:15px;padding-bottom:1px;margin:1px 0 3px;}
+  .tj-kepada .di{margin-left:14px;}
+  .tj-bismillah{text-align:center;font-family:'Amiri',serif;font-size:.95rem;line-height:1.45;margin-bottom:2px;}
+  .tj-salam{text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:700;font-size:.78rem;margin-bottom:4px;}
+  .tj-body{text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:.72rem;line-height:1.42;margin-bottom:4px;white-space:pre-wrap;}
+  .tj-almarhum{text-align:center;font-family:'Great Vibes',cursive;font-size:1.28rem;line-height:1.2;margin:2px 0 5px;}
+  .tj-det-wrap{text-align:center;margin-bottom:5px;}
+  .tj-details{display:inline-block;text-align:left;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:.74rem;line-height:1.45;}
+  .tj-details .row{display:flex;gap:6px;}
+  .tj-details .lb{width:64px;flex-shrink:0;}
+  .tj-details .colon{width:10px;flex-shrink:0;}
+  .tj-details .vl{font-weight:700;}
+  .tj-wassalam{text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:700;font-size:.78rem;margin:2px 0 5px;}
+  .tj-sign{text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.76rem;margin-top:auto;}
+  .tj-sign .role{font-weight:600;margin-bottom:6px;}
+  .tj-sign .name{font-weight:700;font-size:.82rem;text-decoration:underline;}
+  .tj-sign .bawah{font-weight:600;}
+  .cor,.flcor{display:none;position:absolute;background-repeat:no-repeat;background-size:contain;pointer-events:none;}
+
+  /* --- desain KLASIK: bingkai ganda + flourish sudut (hitam putih) --- */
+  .ds-klasik .tj-panel{border:1.5px solid var(--ink);}
+  .ds-klasik .tj-panel::before{content:'';position:absolute;inset:4px;border:1px solid var(--ink);pointer-events:none;}
+  .ds-klasik .tj-cover{padding:10px 18px;}
+  .ds-klasik .tj-content{padding:14px 24px 12px;}
+  .ds-klasik .cor{display:block;width:44px;height:44px;background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><g fill='none' stroke='%23111' stroke-width='1.6' stroke-linecap='round'><path d='M24 13 C34 7 42 20 57 12'/><path d='M13 24 C7 34 20 42 12 57'/></g><g fill='%23111'><circle cx='57' cy='12' r='1.8'/><circle cx='12' cy='57' r='1.8'/><path d='M34 13 q4 -7 9 -1 q-5 5 -9 1z'/><path d='M13 34 q-7 4 -1 9 q5 -5 1 -9z'/><circle cx='14' cy='14' r='3'/><ellipse cx='14' cy='6.8' rx='2.3' ry='4.4'/><ellipse cx='14' cy='21.2' rx='2.3' ry='4.4'/><ellipse cx='6.8' cy='14' rx='4.4' ry='2.3'/><ellipse cx='21.2' cy='14' rx='4.4' ry='2.3'/><ellipse cx='8.9' cy='8.9' rx='2.1' ry='4' transform='rotate(-45 8.9 8.9)'/><ellipse cx='19.1' cy='19.1' rx='2.1' ry='4' transform='rotate(-45 19.1 19.1)'/><ellipse cx='19.1' cy='8.9' rx='2.1' ry='4' transform='rotate(45 19.1 8.9)'/><ellipse cx='8.9' cy='19.1' rx='2.1' ry='4' transform='rotate(45 8.9 19.1)'/></g></svg>");}
+  .ds-klasik .c1{top:-6px;left:-6px;}
+  .ds-klasik .c2{top:-6px;right:-6px;transform:rotate(90deg);}
+  .ds-klasik .c3{bottom:-6px;right:-6px;transform:rotate(180deg);}
+  .ds-klasik .c4{bottom:-6px;left:-6px;transform:rotate(270deg);}
+
+  /* --- desain ORNAMEN: bingkai tebal ganda + rosette sudut (hitam putih) --- */
+  .ds-ornamen .tj-panel{border:4px double var(--ink);}
+  .ds-ornamen .tj-panel::before{content:'';position:absolute;inset:3px;border:1.5px solid var(--ink);pointer-events:none;}
+  .ds-ornamen .tj-cover{padding:10px 18px;}
+  .ds-ornamen .tj-content{padding:14px 24px 12px;}
+  .ds-ornamen .cor{display:block;width:30px;height:30px;background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><circle cx='20' cy='20' r='19' fill='white'/><g fill='%23111'><circle cx='20' cy='20' r='3.2'/><ellipse cx='20' cy='9.5' rx='2.5' ry='5'/><ellipse cx='20' cy='30.5' rx='2.5' ry='5'/><ellipse cx='9.5' cy='20' rx='5' ry='2.5'/><ellipse cx='30.5' cy='20' rx='5' ry='2.5'/><ellipse cx='12.6' cy='12.6' rx='2.3' ry='4.6' transform='rotate(-45 12.6 12.6)'/><ellipse cx='27.4' cy='27.4' rx='2.3' ry='4.6' transform='rotate(-45 27.4 27.4)'/><ellipse cx='27.4' cy='12.6' rx='2.3' ry='4.6' transform='rotate(45 27.4 12.6)'/><ellipse cx='12.6' cy='27.4' rx='2.3' ry='4.6' transform='rotate(45 12.6 27.4)'/></g><circle cx='20' cy='20' r='6.3' fill='none' stroke='%23111' stroke-width='1.2'/></svg>");}
+  .ds-ornamen .c1{top:-11px;left:-11px;}
+  .ds-ornamen .c2{top:-11px;right:-11px;}
+  .ds-ornamen .c3{bottom:-11px;right:-11px;}
+  .ds-ornamen .c4{bottom:-11px;left:-11px;}
+
+  /* --- desain FLORAL: satu bingkai pink + bunga sudut --- */
+  #invitation.tahlilan.ds-floral{padding:28px 32px 22px;gap:6px;}
+  #invitation.tahlilan.ds-floral::before{display:block;content:'';position:absolute;inset:8px;border:1.4px solid #b76e79;pointer-events:none;}
+  #invitation.tahlilan.ds-floral::after{content:'';position:absolute;inset:12px;border:1px solid #dcb6c1;pointer-events:none;}
+  .ds-floral .tj-cover{height:auto;padding:0 0 6px;}
+  .ds-floral .tj-kepada{border-color:#b76e79;}
+  .ds-floral .tj-kepada .isi{border-bottom-color:#b76e79;}
+  .ds-floral .flcor{display:block;width:72px;height:72px;z-index:1;background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'><g fill='none' stroke='%23b76e79' stroke-width='1.1'><path d='M22 22 C38 30 34 42 62 70'/><path d='M22 22 C30 38 42 34 70 62'/></g><g fill='%23b7a3a9'><ellipse cx='36' cy='29' rx='2.4' ry='5.8' transform='rotate(40 36 29)'/><ellipse cx='29' cy='36' rx='2.4' ry='5.8' transform='rotate(50 29 36)'/><ellipse cx='50' cy='47' rx='2.4' ry='6.2' transform='rotate(42 50 47)'/><ellipse cx='47' cy='50' rx='2.4' ry='6.2' transform='rotate(48 47 50)'/></g><g fill='%23cf9aab'><ellipse cx='16' cy='8' rx='3.2' ry='6' transform='rotate(0 16 16)'/><ellipse cx='16' cy='8' rx='3.2' ry='6' transform='rotate(72 16 16)'/><ellipse cx='16' cy='8' rx='3.2' ry='6' transform='rotate(144 16 16)'/><ellipse cx='16' cy='8' rx='3.2' ry='6' transform='rotate(216 16 16)'/><ellipse cx='16' cy='8' rx='3.2' ry='6' transform='rotate(288 16 16)'/><ellipse cx='37' cy='4.5' rx='2.2' ry='4.2' transform='rotate(0 37 10)'/><ellipse cx='37' cy='4.5' rx='2.2' ry='4.2' transform='rotate(72 37 10)'/><ellipse cx='37' cy='4.5' rx='2.2' ry='4.2' transform='rotate(144 37 10)'/><ellipse cx='37' cy='4.5' rx='2.2' ry='4.2' transform='rotate(216 37 10)'/><ellipse cx='37' cy='4.5' rx='2.2' ry='4.2' transform='rotate(288 37 10)'/><ellipse cx='10' cy='31.5' rx='2.2' ry='4.2' transform='rotate(0 10 37)'/><ellipse cx='10' cy='31.5' rx='2.2' ry='4.2' transform='rotate(72 10 37)'/><ellipse cx='10' cy='31.5' rx='2.2' ry='4.2' transform='rotate(144 10 37)'/><ellipse cx='10' cy='31.5' rx='2.2' ry='4.2' transform='rotate(216 10 37)'/><ellipse cx='10' cy='31.5' rx='2.2' ry='4.2' transform='rotate(288 10 37)'/><circle cx='47' cy='19' r='3'/><circle cx='19' cy='47' r='3'/></g><g fill='%239d5c6e'><circle cx='16' cy='16' r='2.8'/><circle cx='37' cy='10' r='2'/><circle cx='10' cy='37' r='2'/></g></svg>");}
+  .ds-floral .f1{top:4px;left:4px;}
+  .ds-floral .f2{top:4px;right:4px;transform:scaleX(-1);}
+  .ds-floral .f3{bottom:4px;right:4px;transform:scale(-1,-1);}
+  .ds-floral .f4{bottom:4px;left:4px;transform:scaleY(-1);}
 
   /* ===== KARTU: KHITANAN (hitam putih, dekoratif) ===== */
   #invitation.khitanan{
@@ -359,91 +400,105 @@
       <!-- ===== TEMPLATE TAHLILAN ===== -->
       <div class="tpl-block" id="block-tahlilan">
 
-        <div class="section-divider">Kop Surat</div>
-        <div class="field">
-          <label class="lbl">Nama Pengirim</label>
-          <input type="text" id="t_pengirim" placeholder="Keluarga Alm. Bpk. Sahri" />
-        </div>
-        <div class="field">
-          <label class="lbl">Alamat Pengirim</label>
-          <input type="text" id="t_alamat" placeholder="Baletbaru" />
-        </div>
-        <div class="field">
-          <label class="lbl">Kepada Yang Terhormat</label>
-          <input type="text" id="t_tujuan" value="Bapak/Ibu/Saudara/i" />
+        <div class="section-divider">Pilih Desain / Frame</div>
+        <div class="tpl-select" style="grid-template-columns:1fr 1fr 1fr;">
+          <div class="tpl-opt active" id="dsBtn-klasik" onclick="setDesain('klasik')">
+            <div class="t">Klasik</div><div class="s">B/W flourish</div>
+          </div>
+          <div class="tpl-opt" id="dsBtn-ornamen" onclick="setDesain('ornamen')">
+            <div class="t">Ornamen</div><div class="s">B/W tebal</div>
+          </div>
+          <div class="tpl-opt" id="dsBtn-floral" onclick="setDesain('floral')">
+            <div class="t">Floral</div><div class="s">Bunga pink</div>
+          </div>
         </div>
 
-        <div class="section-divider">Judul Acara</div>
+        <div class="section-divider">Cover (Panel Atas)</div>
         <div class="field">
-          <label class="lbl">Judul Acara <span class="desc">(mis. Tahlil 7 Hari / 40 Hari / 100 Hari / 1000 Hari)</span></label>
-          <input type="text" id="t_judul" placeholder="Tahlil 40 Hari" />
+          <label class="lbl">Judul di Cover <span class="desc">(mis. Yasin &amp; Tahlil / Peringatan 100 Hari)</span></label>
+          <input type="text" id="t_judul" value="Yasin & Tahlil" />
         </div>
         <div class="field">
-          <label class="lbl">Hari, Tanggal <span class="desc">(baris kotak di bawah judul)</span></label>
-          <input type="text" id="t_haritanggal" placeholder="Kamis, 6 Agustus 2026" />
+          <label class="lbl">Kepada Yth. <span class="desc">(kosongkan agar jadi garis isian ___ untuk ditulis tangan)</span></label>
+          <input type="text" id="t_tujuan" placeholder="" />
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label class="lbl">Nama Pengirim <span class="desc">(opsional, di atas cover)</span></label>
+            <input type="text" id="t_pengirim" placeholder="Keluarga Bpk. Tono" />
+          </div>
+          <div class="field">
+            <label class="lbl">Alamat Pengirim</label>
+            <input type="text" id="t_alamat" placeholder="Wonokoyo" />
+          </div>
         </div>
 
         <div class="section-divider">Salam &amp; Kalimat Pengantar <span class="desc">(kalimat baku — biasanya tidak diubah)</span></div>
         <div class="field">
           <label class="lbl">Salam Pembuka</label>
-          <input type="text" id="t_salam" value="Assalamu'alaikum Warahmatullahi Wabarakatuh" />
+          <input type="text" id="t_salam" value="Assalamu'alaikum Wr. Wb." />
         </div>
         <div class="field">
-          <label class="lbl">Kalimat Pengantar</label>
-          <textarea id="t_pengantar">Dengan memohon rahmat dan ridho Allah SWT, kami sekeluarga bermaksud mengundang Bapak/Ibu/Saudara/i untuk hadir dan memberikan do'a pada acara tahlil atas wafatnya:</textarea>
+          <label class="lbl">Kalimat Pengantar <span class="desc">(ganti angka harinya saja: 7 / 40 / 100 / 1000 hari)</span></label>
+          <textarea id="t_pengantar">Dengan mengharap ridho dan rahmat Allah SWT, kami mengharap kehadiran Bapak/Ibu/Saudara untuk memberikan do'a dan tahlil pada acara 40 (empat puluh) hari meninggalnya:</textarea>
         </div>
 
         <div class="section-divider">Data Almarhum / Acara</div>
         <div class="field">
           <label class="lbl">Nama Almarhum/Almarhumah</label>
-          <input type="text" id="t_almarhum" placeholder="Alm. SAHRI BIN ABDUL HADI" />
+          <input type="text" id="t_almarhum" placeholder="Almh. Ibu Listiya" />
         </div>
         <div class="field">
           <label class="lbl">Kalimat sebelum detail</label>
-          <input type="text" id="t_yangakan" value="Yang Insya Allah akan dilaksanakan pada:" />
+          <input type="text" id="t_yangakan" value="Yang Insya Allah akan kami laksanakan pada :" />
         </div>
         <div class="row2">
           <div class="field">
             <label class="lbl">Hari</label>
-            <input type="text" id="t_hari" placeholder="Kamis" />
+            <input type="text" id="t_hari" placeholder="Minggu" />
           </div>
           <div class="field">
             <label class="lbl">Tanggal</label>
-            <input type="text" id="t_tanggal" placeholder="6 Agustus 2026" />
+            <input type="text" id="t_tanggal" placeholder="16 Agustus 2026" />
           </div>
         </div>
         <div class="row2">
           <div class="field">
-            <label class="lbl">Pukul</label>
-            <input type="text" id="t_pukul" placeholder="18.30 WIB (Ba'da Maghrib)" />
+            <label class="lbl">Waktu</label>
+            <input type="text" id="t_pukul" placeholder="18.00 WIB (Ba'da Maghrib)" />
           </div>
           <div class="field">
             <label class="lbl">Tempat</label>
-            <input type="text" id="t_tempat" placeholder="Kediaman keluarga / Mushola" />
+            <input type="text" id="t_tempat" placeholder="Rumah Bapak Tono, RT/RW 04/02" />
           </div>
         </div>
         <div class="field">
-          <label class="lbl">Acara</label>
-          <input type="text" id="t_acara" placeholder="Pembacaan Surat Yasin, Tahlil dan Do'a" />
+          <label class="lbl">Acara <span class="desc">(opsional)</span></label>
+          <input type="text" id="t_acara" placeholder="Pembacaan Surat Yasin dan Tahlil" />
         </div>
 
         <div class="section-divider">Penutup <span class="desc">(kalimat baku — biasanya tidak diubah)</span></div>
         <div class="field">
           <label class="lbl">Kalimat Penutup</label>
-          <textarea id="t_penutup">Merupakan suatu kehormatan dan kebahagiaan bagi kami sekeluarga apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan do'a. Atas perhatian dan kehadirannya, kami sekeluarga menyampaikan terima kasih.</textarea>
+          <textarea id="t_penutup">Merupakan suatu kehormatan dan kebahagiaan bagi kami sekeluarga apabila Bapak/Ibu/Saudara berkenan hadir untuk memberikan do'a.
+Atas perhatian dan kehadiran Bapak/Ibu/Saudara, kami sekeluarga sampaikan terima kasih.</textarea>
         </div>
         <div class="field">
           <label class="lbl">Salam Penutup</label>
-          <input type="text" id="t_wassalam" value="Wassalamu'alaikum Warahmatullahi Wabarakatuh" />
+          <input type="text" id="t_wassalam" value="Wassalamu'alaikum Wr. Wb." />
         </div>
-        <div class="row2">
+        <div class="row3">
           <div class="field">
             <label class="lbl">Teks Tanda Tangan</label>
-            <input type="text" id="t_hormat" value="Hormat kami," />
+            <input type="text" id="t_hormat" value="Shohibul Hajah" />
           </div>
           <div class="field">
             <label class="lbl">Nama Penanda Tangan</label>
-            <input type="text" id="t_nama_ttd" placeholder="Keluarga Alm. Bpk. Sahri" />
+            <input type="text" id="t_nama_ttd" placeholder="Bpk. Tono" />
+          </div>
+          <div class="field">
+            <label class="lbl">Baris bawah</label>
+            <input type="text" id="t_ttd_bawah" value="Sekeluarga" />
           </div>
         </div>
 
@@ -665,7 +720,14 @@ function nl2br(s){ return escapeHtml(s).replace(/\n/g,"<br>"); }
 
 let hasGenerated = false;
 let currentTemplate = "umum";
+let currentDesain = "klasik";
 const TEMPLATES = ["umum","tahlilan","khitanan","nikah"];
+
+function applyInvClass(){
+  const inv = document.getElementById("invitation");
+  inv.className = currentTemplate==="umum" ? "" : currentTemplate;
+  if(currentTemplate==="tahlilan") inv.className += " ds-"+currentDesain;
+}
 
 function setTemplate(tpl){
   currentTemplate = tpl;
@@ -673,10 +735,22 @@ function setTemplate(tpl){
     document.getElementById("tplBtn-"+t).classList.toggle("active", t===tpl);
     document.getElementById("block-"+t).classList.toggle("active", t===tpl);
   });
-  const inv = document.getElementById("invitation");
-  inv.className = tpl==="umum" ? "" : tpl;
-  inv.innerHTML = emptyMsg();
-  hasGenerated = false;
+  applyInvClass();
+  // template langsung tampil: kalau form belum disentuh, isi contoh; kalau sudah, render isian user
+  let pristine = true;
+  document.querySelectorAll("#block-"+tpl+" input, #block-"+tpl+" textarea").forEach(el=>{
+    if(el.value !== el.defaultValue) pristine = false;
+  });
+  if(pristine){ fillExample(); } else { generate(); }
+}
+
+function setDesain(d){
+  currentDesain = d;
+  ["klasik","ornamen","floral"].forEach(x=>{
+    document.getElementById("dsBtn-"+x).classList.toggle("active", x===d);
+  });
+  applyInvClass();
+  generate();
 }
 
 function emptyMsg(){
@@ -733,55 +807,62 @@ function generateUmum(){
   `;
 }
 
-/* ===== TAHLILAN (hitam putih, format surat) ===== */
+/* ===== TAHLILAN / YASIN (2 panel: cover + isi, 3 desain frame) ===== */
 function generateTahlilan(){
   const pengirim = val("t_pengirim");
   const alamat = val("t_alamat");
-  const tujuan = val("t_tujuan") || "Bapak/Ibu/Saudara/i";
-  const judul = val("t_judul") || "Tahlil & Do'a";
-  const haritanggal = val("t_haritanggal");
+  const tujuan = val("t_tujuan");
+  const judul = val("t_judul") || "Yasin & Tahlil";
   const salam = val("t_salam");
   const pengantar = val("t_pengantar");
-  const almarhum = val("t_almarhum");
+  const almarhum = val("t_almarhum") || "Nama Almarhum/Almarhumah";
   const yangakan = val("t_yangakan");
   const penutup = val("t_penutup");
   const wassalam = val("t_wassalam");
-  const hormat = val("t_hormat") || "Hormat kami,";
+  const hormat = val("t_hormat");
   const namaTtd = val("t_nama_ttd");
+  const bawah = val("t_ttd_bawah");
 
   let detailRows = "";
-  [["Hari","t_hari"],["Tanggal","t_tanggal"],["Pukul","t_pukul"],["Tempat","t_tempat"],["Acara","t_acara"]].forEach(([lb,id])=>{
+  [["Hari","t_hari"],["Tanggal","t_tanggal"],["Waktu","t_pukul"],["Tempat","t_tempat"],["Acara","t_acara"]].forEach(([lb,id])=>{
     const v = val(id);
     if(v) detailRows += `<div class="row"><div class="lb">${lb}</div><div class="colon">:</div><div class="vl">${escapeHtml(v)}</div></div>`;
   });
 
+  const COR = '<i class="cor c1"></i><i class="cor c2"></i><i class="cor c3"></i><i class="cor c4"></i>';
+  const undanganTxt = currentDesain==="floral" ? "Undangan" : "UNDANGAN";
+
   document.getElementById("invitation").innerHTML = `
-    <div class="th-inner">
-      ${(pengirim||alamat||tujuan) ? `<div class="th-kop">
-        <div class="th-kop-left">${pengirim?`<b>${escapeHtml(pengirim)}</b>`:""}${alamat?escapeHtml(alamat):""}</div>
-        <div class="th-kop-right">Kepada Yth.<br><b>${escapeHtml(tujuan)}</b><br>di tempat</div>
-      </div>` : ""}
-
-      <div class="th-title-box">
-        <div class="kicker">Undangan</div>
-        <h1>${escapeHtml(judul)}</h1>
+    <i class="flcor f1"></i><i class="flcor f2"></i><i class="flcor f3"></i><i class="flcor f4"></i>
+    <div class="tj-panel tj-cover">${COR}
+      ${(pengirim||alamat) ? `<div class="tj-kop">${pengirim?`<b>${escapeHtml(pengirim)}</b>`:""}${alamat?`<div>${escapeHtml(alamat)}</div>`:""}</div>` : ""}
+      <div class="tj-cover-row">
+        <div class="tj-cover-left">
+          <div class="tj-undangan">${undanganTxt}</div>
+          <div class="tj-sub">${escapeHtml(judul)}</div>
+        </div>
+        <div class="tj-kepada">
+          <div class="b">Kepada :</div>
+          <div>Yth. Bpk/Ibu/Sdr.</div>
+          <div class="isi">${tujuan?escapeHtml(tujuan):"&nbsp;"}</div>
+          <div class="di">Di</div>
+          <div class="di"><b>Tempat</b></div>
+        </div>
       </div>
-      ${haritanggal ? `<div class="th-divline">${escapeHtml(haritanggal)}</div>` : ""}
-
-      <div class="th-bismillah">Bismillahirrahmanirrahim</div>
-      ${salam ? `<div class="th-salam">${escapeHtml(salam)}</div>` : ""}
-      ${pengantar ? `<div class="th-body">${nl2br(pengantar)}</div>` : ""}
-
-      ${almarhum ? `<div class="th-almarhum">${escapeHtml(almarhum)}</div>` : ""}
-      ${yangakan ? `<div class="th-body">${escapeHtml(yangakan)}</div>` : ""}
-      ${detailRows ? `<div class="th-details">${detailRows}</div>` : ""}
-
-      ${penutup ? `<div class="th-closing">${nl2br(penutup)}</div>` : ""}
-      ${wassalam ? `<div class="th-wassalam">${escapeHtml(wassalam)}</div>` : ""}
-
-      <div class="th-sign">
-        <div class="role">${escapeHtml(hormat)}</div>
+    </div>
+    <div class="tj-panel tj-content">${COR}
+      <div class="tj-bismillah">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</div>
+      ${salam ? `<div class="tj-salam">${escapeHtml(salam)}</div>` : ""}
+      ${pengantar ? `<div class="tj-body">${nl2br(pengantar)}</div>` : ""}
+      <div class="tj-almarhum">${escapeHtml(almarhum)}</div>
+      ${yangakan ? `<div class="tj-body">${escapeHtml(yangakan)}</div>` : ""}
+      ${detailRows ? `<div class="tj-det-wrap"><div class="tj-details">${detailRows}</div></div>` : ""}
+      ${penutup ? `<div class="tj-body">${nl2br(penutup)}</div>` : ""}
+      ${wassalam ? `<div class="tj-wassalam">${escapeHtml(wassalam)}</div>` : ""}
+      <div class="tj-sign">
+        ${hormat ? `<div class="role">${escapeHtml(hormat)}</div>` : ""}
         ${namaTtd ? `<div class="name">${escapeHtml(namaTtd)}</div>` : ""}
+        ${bawah ? `<div class="bawah">${escapeHtml(bawah)}</div>` : ""}
       </div>
     </div>
   `;
@@ -913,17 +994,16 @@ const EXAMPLES = {
     detail: "Dress code: Bebas rapi\nKonfirmasi kehadiran: 0812-3456-7890"
   },
   tahlilan: {
-    t_pengirim: "Keluarga Alm. Bpk. Sahri",
-    t_alamat: "Baletbaru, Sukowono",
-    t_judul: "Tahlil 40 Hari",
-    t_haritanggal: "Kamis, 6 Agustus 2026",
-    t_almarhum: "Alm. SAHRI BIN ABDUL HADI",
-    t_hari: "Kamis",
-    t_tanggal: "6 Agustus 2026",
-    t_pukul: "18.30 WIB (Ba'da Maghrib)",
-    t_tempat: "Kediaman keluarga, Baletbaru",
-    t_acara: "Pembacaan Surat Yasin, Tahlil dan Do'a",
-    t_nama_ttd: "Keluarga Alm. Bpk. Sahri"
+    t_pengirim: "Keluarga Bpk. Tono",
+    t_alamat: "Wonokoyo",
+    t_judul: "Yasin & Tahlil",
+    t_almarhum: "Almh. Ibu Listiya",
+    t_hari: "Minggu",
+    t_tanggal: "16 Agustus 2026",
+    t_pukul: "18.00 WIB (Ba'da Maghrib)",
+    t_tempat: "Rumah Bapak Tono, RT/RW 04/02, Wonokoyo",
+    t_acara: "Pembacaan Surat Yasin dan Tahlil",
+    t_nama_ttd: "Bpk. Tono"
   },
   khitanan: {
     k_nama: "Muhammad Rizki Hidayatullah",
@@ -985,6 +1065,9 @@ function toast(msg){
 document.querySelectorAll(".tpl-block input, .tpl-block textarea").forEach(el=>{
   el.addEventListener("input", ()=>{ if(hasGenerated) generate(); });
 });
+
+/* saat halaman dibuka langsung tampilkan template siap pakai */
+setTemplate("umum");
 </script>
 </body>
 </html>
