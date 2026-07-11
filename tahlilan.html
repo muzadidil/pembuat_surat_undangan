@@ -45,20 +45,43 @@
       <!-- ===== FORM TAHLILAN ===== -->
       <div class="tpl-block active" id="block-tahlilan">
 
+        <div class="section-divider">Jenis Acara <span class="desc">(kalimat baku terisi otomatis — tetap bisa diedit)</span></div>
+        <div class="field">
+          <div class="acara-select">
+            <button type="button" class="ac-btn active" data-acara="tahlilan" onclick="setAcara('tahlilan')">Tahlilan</button>
+            <button type="button" class="ac-btn" data-acara="h40" onclick="setAcara('h40')">40 Hari</button>
+            <button type="button" class="ac-btn" data-acara="h100" onclick="setAcara('h100')">100 Hari</button>
+            <button type="button" class="ac-btn" data-acara="h1000" onclick="setAcara('h1000')">1000 Hari</button>
+            <button type="button" class="ac-btn" data-acara="khitanan" onclick="setAcara('khitanan')">Khitanan</button>
+            <button type="button" class="ac-btn" data-acara="walimatul" onclick="setAcara('walimatul')">Walimatul 'Ursy</button>
+            <button type="button" class="ac-btn" data-acara="aqiqoh" onclick="setAcara('aqiqoh')">Aqiqoh</button>
+          </div>
+        </div>
+
         <div class="section-divider">Desain / Frame</div>
         <div class="field">
-          <label class="lbl">Pilih Frame <span class="desc">(layout tetap, hanya bingkai yang berganti)</span></label>
+          <label class="lbl">Pilih Frame <span class="desc">(layout tetap, hanya bingkai yang berganti — semua hitam putih)</span></label>
           <select id="t_desain" onchange="setDesain(this.value)">
-            <option value="klasik" selected>1. Klasik — bunga &amp; sulur (hitam putih)</option>
-            <option value="ornamen">2. Ornamen — bingkai tebal + rosette (hitam putih)</option>
-            <option value="garis">3. Garis Ganda — minimalis (hitam putih)</option>
-            <option value="geo">4. Geometris — art deco (hitam putih)</option>
-            <option value="daun">5. Daun — ranting berdaun (hitam putih)</option>
-            <option value="bunga">6. Bunga Sudut — hitam putih</option>
-            <option value="islami">7. Islami — bintang segi delapan (hitam putih)</option>
-            <option value="biru">8. Klasik Abu-abu Tua (hitam putih)</option>
-            <option value="emas">9. Klasik Kertas Krem (hitam putih)</option>
-            <option value="floral">10. Floral — hitam putih</option>
+            <option value="klasik" selected>1. Klasik — bunga &amp; sulur</option>
+            <option value="ornamen">2. Ornamen — bingkai tebal + rosette</option>
+            <option value="garis">3. Garis Ganda — minimalis</option>
+            <option value="geo">4. Geometris — art deco</option>
+            <option value="daun">5. Daun — ranting berdaun</option>
+            <option value="bunga">6. Bunga Sudut</option>
+            <option value="islami">7. Islami — bintang segi delapan</option>
+            <option value="biru">8. Klasik Abu-abu Tua</option>
+            <option value="emas">9. Klasik Kertas Krem</option>
+            <option value="floral">10. Floral</option>
+            <option value="titik">11. Titik — bingkai dot &amp; lingkaran</option>
+            <option value="pita">12. Pita — sudut pita</option>
+            <option value="bintang">13. Bintang — sudut bintang</option>
+            <option value="kawung">14. Kawung — motif batik</option>
+            <option value="kotak">15. Kotak Susun — geometris</option>
+            <option value="hilal">16. Hilal — bulan &amp; bintang</option>
+            <option value="panah">17. Panah — art deco chevron</option>
+            <option value="sulur">18. Sulur Tebal — spiral</option>
+            <option value="kipas">19. Kipas — sudut kipas</option>
+            <option value="polos">20. Polos Tebal — minimalis modern</option>
           </select>
         </div>
 
@@ -85,13 +108,13 @@
           <input type="text" id="t_salam" value="Assalamu'alaikum Wr. Wb." />
         </div>
         <div class="field">
-          <label class="lbl">Kalimat Pengantar <span class="desc">(ganti angka harinya saja: 7 / 40 / 100 / 1000 hari)</span></label>
-          <textarea id="t_pengantar">Dengan mengharap ridho dan rahmat Allah SWT, kami mengharap kehadiran Bapak/Ibu/Saudara untuk memberikan do'a dan tahlil pada acara 40 (empat puluh) hari meninggalnya:</textarea>
+          <label class="lbl">Kalimat Pengantar <span class="desc">(terisi otomatis sesuai jenis acara — tetap bisa diedit)</span></label>
+          <textarea id="t_pengantar">Dengan mengharap ridho dan rahmat Allah SWT, kami mengharap kehadiran Bapak/Ibu/Saudara untuk memberikan do'a dan tahlil pada acara tahlilan almarhum/almarhumah:</textarea>
         </div>
 
-        <div class="section-divider">Data Almarhum / Acara</div>
+        <div class="section-divider">Data Acara</div>
         <div class="field">
-          <label class="lbl">Nama Almarhum/Almarhumah</label>
+          <label class="lbl" id="lbl_almarhum">Nama Almarhum/Almarhumah</label>
           <input type="text" id="t_almarhum" placeholder="Almh. Ibu Listiya" />
         </div>
         <div class="field">
@@ -199,6 +222,109 @@ function setDesain(d){
   generate();
 }
 
+/* ===== preset kalimat baku per jenis acara (contoh — pengguna tetap bisa mengedit) ===== */
+const PENUTUP_DOA = "Merupakan suatu kehormatan dan kebahagiaan bagi kami sekeluarga apabila Bapak/Ibu/Saudara berkenan hadir untuk memberikan do'a.\nAtas perhatian dan kehadiran Bapak/Ibu/Saudara, kami sekeluarga sampaikan terima kasih.";
+const ACARA = {
+  tahlilan: {
+    judul: "Yasin & Tahlil",
+    pengantar: "Dengan mengharap ridho dan rahmat Allah SWT, kami mengharap kehadiran Bapak/Ibu/Saudara untuk memberikan do'a dan tahlil pada acara tahlilan almarhum/almarhumah:",
+    yangakan: "Yang Insya Allah akan kami laksanakan pada :",
+    acara: "Pembacaan Surat Yasin dan Tahlil",
+    penutup: PENUTUP_DOA,
+    hormat: "Shohibul Hajah",
+    namaLabel: "Nama Almarhum/Almarhumah",
+    namaPh: "Almh. Ibu Listiya"
+  },
+  h40: {
+    judul: "Peringatan 40 Hari",
+    pengantar: "Dengan mengharap ridho dan rahmat Allah SWT, kami mengharap kehadiran Bapak/Ibu/Saudara untuk memberikan do'a dan tahlil pada acara 40 (empat puluh) hari meninggalnya:",
+    yangakan: "Yang Insya Allah akan kami laksanakan pada :",
+    acara: "Pembacaan Surat Yasin dan Tahlil",
+    penutup: PENUTUP_DOA,
+    hormat: "Shohibul Hajah",
+    namaLabel: "Nama Almarhum/Almarhumah",
+    namaPh: "Almh. Ibu Listiya"
+  },
+  h100: {
+    judul: "Peringatan 100 Hari",
+    pengantar: "Dengan mengharap ridho dan rahmat Allah SWT, kami mengharap kehadiran Bapak/Ibu/Saudara untuk memberikan do'a dan tahlil pada acara 100 (seratus) hari meninggalnya:",
+    yangakan: "Yang Insya Allah akan kami laksanakan pada :",
+    acara: "Pembacaan Surat Yasin dan Tahlil",
+    penutup: PENUTUP_DOA,
+    hormat: "Shohibul Hajah",
+    namaLabel: "Nama Almarhum/Almarhumah",
+    namaPh: "Almh. Ibu Listiya"
+  },
+  h1000: {
+    judul: "Peringatan 1000 Hari",
+    pengantar: "Dengan mengharap ridho dan rahmat Allah SWT, kami mengharap kehadiran Bapak/Ibu/Saudara untuk memberikan do'a dan tahlil pada acara 1000 (seribu) hari meninggalnya:",
+    yangakan: "Yang Insya Allah akan kami laksanakan pada :",
+    acara: "Pembacaan Surat Yasin dan Tahlil",
+    penutup: PENUTUP_DOA,
+    hormat: "Shohibul Hajah",
+    namaLabel: "Nama Almarhum/Almarhumah",
+    namaPh: "Almh. Ibu Listiya"
+  },
+  khitanan: {
+    judul: "Tasyakuran Khitan",
+    pengantar: "Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud mengundang Bapak/Ibu/Saudara untuk menghadiri acara Tasyakuran Khitan putra kami:",
+    yangakan: "Yang Insya Allah akan diselenggarakan pada :",
+    acara: "Tasyakuran & Do'a Bersama",
+    penutup: "Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara berkenan hadir untuk memberikan do'a restu kepada putra kami.\nAtas perhatian dan kehadirannya, kami sekeluarga sampaikan terima kasih.",
+    hormat: "Shohibul Hajat",
+    namaLabel: "Nama Anak",
+    namaPh: "Muhammad Rizki Hidayatullah"
+  },
+  walimatul: {
+    judul: "Walimatul 'Ursy",
+    pengantar: "Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud mengundang Bapak/Ibu/Saudara untuk menghadiri acara Walimatul 'Ursy putra-putri kami:",
+    yangakan: "Yang Insya Allah akan diselenggarakan pada :",
+    acara: "Akad Nikah & Walimatul 'Ursy",
+    penutup: "Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara berkenan hadir untuk memberikan do'a restu kepada kedua mempelai.\nAtas perhatian dan kehadirannya, kami sekeluarga sampaikan terima kasih.",
+    hormat: "Shohibul Hajat",
+    namaLabel: "Nama Kedua Mempelai",
+    namaPh: "Rizky & Siti"
+  },
+  aqiqoh: {
+    judul: "Tasyakuran Aqiqah",
+    pengantar: "Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud mengundang Bapak/Ibu/Saudara untuk menghadiri acara Tasyakuran Aqiqah putra/putri kami:",
+    yangakan: "Yang Insya Allah akan diselenggarakan pada :",
+    acara: "Tasyakuran Aqiqah & Pemberian Nama",
+    penutup: "Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara berkenan hadir untuk memberikan do'a restu kepada putra/putri kami.\nAtas perhatian dan kehadirannya, kami sekeluarga sampaikan terima kasih.",
+    hormat: "Shohibul Hajat",
+    namaLabel: "Nama Anak",
+    namaPh: "Muhammad Alfatih"
+  }
+};
+
+let currentAcara = "tahlilan";
+function markAcara(key){
+  currentAcara = key;
+  document.querySelectorAll(".ac-btn").forEach(b=>b.classList.toggle("active", b.dataset.acara === key));
+  document.getElementById("lbl_almarhum").textContent = ACARA[key].namaLabel;
+  document.getElementById("t_almarhum").placeholder = ACARA[key].namaPh;
+  PAGE.filename = "undangan-" + key;
+}
+function setAcara(key){
+  // kalau nama masih kosong / masih nama contoh, ikut ganti ke contoh acara baru;
+  // kalau sudah diketik pengguna, biarkan
+  const namaEl = document.getElementById("t_almarhum");
+  const contohNama = Object.values(ACARA).map(x=>x.namaPh);
+  const gantiNama = !namaEl.value.trim() || contohNama.includes(namaEl.value.trim());
+  markAcara(key);
+  const a = ACARA[key];
+  document.getElementById("t_judul").value = a.judul;
+  document.getElementById("t_pengantar").value = a.pengantar;
+  document.getElementById("t_yangakan").value = a.yangakan;
+  document.getElementById("t_acara").value = a.acara;
+  document.getElementById("t_penutup").value = a.penutup;
+  document.getElementById("t_hormat").value = a.hormat;
+  if(gantiNama) namaEl.value = a.namaPh;
+  if(hasGenerated) generate();
+}
+/* saat Kosongkan / Isi Contoh, kembalikan pilihan acara ke default (teks default = tahlilan) */
+function afterReset(){ markAcara("tahlilan"); }
+
 const EXAMPLE = {
   t_judul: "Yasin & Tahlil",
   t_almarhum: "Almh. Ibu Listiya",
@@ -217,7 +343,7 @@ function generate(){
   const tanpaBuwuhan = checked("t_tanpa_buwuhan");
   const salam = val("t_salam");
   const pengantar = val("t_pengantar");
-  const almarhum = val("t_almarhum") || "Nama Almarhum/Almarhumah";
+  const almarhum = val("t_almarhum") || ACARA[currentAcara].namaLabel;
   const yangakan = val("t_yangakan");
   const penutup = val("t_penutup");
   const wassalam = val("t_wassalam");
