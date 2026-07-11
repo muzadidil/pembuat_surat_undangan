@@ -6,7 +6,7 @@
 <title>Pembuat Surat Undangan</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Great+Vibes&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <style>
   :root{
     --ink:#111111;
@@ -15,6 +15,12 @@
     --line:#d8d8d8;
     --paper:#f5f5f4;
     --white:#ffffff;
+    /* warna template nikah */
+    --wed-bg:#fbf7ee;
+    --wed-green:#1f4d40;
+    --wed-green-soft:#4a6f64;
+    --wed-gold:#b08d43;
+    --wed-gold-soft:#d3bc8a;
   }
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
@@ -87,11 +93,29 @@
   .btn-ghost{background:transparent;border:1px solid var(--line);color:var(--muted);}
   .btn-ghost:hover{border-color:var(--ink);color:var(--ink);}
 
-  /* ===== PREVIEW / KARTU UNDANGAN ===== */
+  /* ===== TEMPLATE SELECTOR ===== */
+  .tpl-select{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:18px;}
+  .tpl-opt{
+    border:1.5px solid var(--line);border-radius:3px;padding:9px 10px;cursor:pointer;
+    text-align:center;transition:all .15s;
+  }
+  .tpl-opt .t{font-size:.8rem;font-weight:700;}
+  .tpl-opt .s{font-size:.64rem;color:var(--muted);margin-top:1px;}
+  .tpl-opt.active{border-color:var(--ink);background:var(--ink);color:var(--white);}
+  .tpl-opt.active .s{color:#c9c9c9;}
+  .tpl-block{display:none;}
+  .tpl-block.active{display:block;}
+
+  /* ===== PREVIEW SHELL ===== */
   .preview-shell{
     background:#e8e8e6;padding:26px 16px;display:flex;justify-content:center;
     overflow:auto;
   }
+  .inv-empty{
+    color:var(--muted);font-size:.85rem;text-align:center;padding:60px 20px;
+  }
+
+  /* ===== KARTU: UMUM ===== */
   #invitation{
     width:420px;min-height:594px;background:var(--white);
     border:1px solid #cfcfcf;
@@ -99,6 +123,7 @@
     position:relative;
     font-family:'Plus Jakarta Sans',sans-serif;
     color:var(--ink);
+    flex-shrink:0;
   }
   #invitation::before{
     content:'';position:absolute;inset:14px;border:1px solid #cfcfcf;pointer-events:none;
@@ -132,49 +157,100 @@
     text-align:center;font-size:.68rem;color:var(--muted);letter-spacing:1px;
     text-transform:uppercase;margin-top:22px;
   }
-  .inv-empty{
-    color:var(--muted);font-size:.85rem;text-align:center;padding:60px 20px;
-  }
 
-  /* ===== TEMPLATE SELECTOR ===== */
-  .tpl-select{display:flex;gap:8px;margin-bottom:18px;}
-  .tpl-opt{
-    flex:1;border:1.5px solid var(--line);border-radius:3px;padding:10px 12px;cursor:pointer;
-    font-size:.78rem;font-weight:600;text-align:center;transition:all .15s;
+  /* ===== KARTU: TAHLILAN (hitam putih, format surat resmi) ===== */
+  #invitation.tahlilan{
+    width:420px;height:594px;min-height:0;padding:0;border:2px solid var(--ink);overflow:hidden;
   }
-  .tpl-opt.active{border-color:var(--ink);background:var(--ink);color:var(--white);}
-  .tpl-block{display:none;}
-  .tpl-block.active{display:block;}
-
-  /* ===== FORMAL / TAHLILAN CARD ===== */
-  #invitation.formal{
-    width:420px;height:594px;padding:0;border:2px solid var(--ink);overflow:hidden;
-  }
-  #invitation.formal::before{
+  #invitation.tahlilan::before{
     content:'';position:absolute;inset:6px;border:1px solid var(--ink);pointer-events:none;
   }
-  .formal-inner{position:relative;padding:16px 22px 18px;font-size:.94em;}
-  .formal-kop{display:flex;justify-content:space-between;align-items:flex-start;font-size:.62rem;line-height:1.4;padding-bottom:8px;border-bottom:2px solid var(--ink);margin-bottom:10px;}
-  .formal-kop-left b,.formal-kop-right b{display:block;font-size:.64rem;}
-  .formal-kop-right{text-align:right;}
-  .formal-title-box{text-align:center;margin-bottom:8px;}
-  .formal-title-box .kicker{font-size:.66rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);}
-  .formal-title-box h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:2rem;margin:0;line-height:1.15;}
-  .formal-title-box .sub{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.1rem;}
-  .formal-divline{border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);padding:4px 0;text-align:center;font-size:.78rem;font-weight:700;margin-bottom:9px;letter-spacing:.5px;}
-  .formal-bismillah{text-align:center;font-family:'Cormorant Garamond',serif;font-size:.95rem;font-weight:600;margin-bottom:8px;}
-  .formal-salam{font-size:.74rem;font-weight:700;margin-bottom:6px;}
-  .formal-body{font-size:.72rem;line-height:1.5;text-align:justify;margin-bottom:8px;white-space:pre-wrap;}
-  .formal-almarhum{text-align:center;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:1.02rem;margin:9px 0;padding:6px 0;border-top:1px dashed var(--line);border-bottom:1px dashed var(--line);}
-  .formal-details{font-size:.72rem;line-height:1.55;margin-bottom:9px;}
-  .formal-details .row{display:flex;gap:8px;}
-  .formal-details .row .lb{width:64px;flex-shrink:0;}
-  .formal-details .row .colon{width:8px;flex-shrink:0;}
-  .formal-closing{font-size:.72rem;line-height:1.5;text-align:justify;margin-bottom:8px;white-space:pre-wrap;}
-  .formal-wassalam{font-size:.74rem;font-weight:700;margin-bottom:14px;}
-  .formal-sign{text-align:right;font-size:.74rem;}
-  .formal-sign .role{margin-bottom:22px;}
-  .formal-sign .name{font-weight:700;text-decoration:underline;}
+  .th-inner{position:relative;padding:12px 22px 12px;}
+  .th-kop{display:flex;justify-content:space-between;align-items:flex-start;font-size:.62rem;line-height:1.45;padding-bottom:6px;border-bottom:2px solid var(--ink);margin-bottom:8px;}
+  .th-kop-left b,.th-kop-right b{display:block;font-size:.64rem;}
+  .th-kop-right{text-align:right;}
+  .th-title-box{text-align:center;margin-bottom:6px;}
+  .th-title-box .kicker{font-size:.62rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--ink-soft);}
+  .th-title-box h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:1.6rem;margin:0;line-height:1.15;}
+  .th-divline{border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);padding:3px 0;text-align:center;font-size:.74rem;font-weight:700;margin-bottom:7px;letter-spacing:.5px;}
+  .th-bismillah{text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.9rem;font-weight:600;margin-bottom:5px;}
+  .th-salam{font-size:.7rem;font-weight:700;margin-bottom:5px;}
+  .th-body{font-size:.68rem;line-height:1.5;text-align:justify;margin-bottom:6px;white-space:pre-wrap;}
+  .th-almarhum{text-align:center;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:1rem;margin:6px 0;padding:5px 0;border-top:1px dashed #999;border-bottom:1px dashed #999;letter-spacing:.4px;}
+  .th-details{font-size:.68rem;line-height:1.55;margin-bottom:7px;padding-left:10px;}
+  .th-details .row{display:flex;gap:8px;}
+  .th-details .row .lb{width:64px;flex-shrink:0;}
+  .th-details .row .colon{width:8px;flex-shrink:0;}
+  .th-details .row .vl{font-weight:600;}
+  .th-closing{font-size:.68rem;line-height:1.5;text-align:justify;margin-bottom:6px;white-space:pre-wrap;}
+  .th-wassalam{font-size:.7rem;font-weight:700;margin-bottom:10px;}
+  .th-sign{text-align:right;font-size:.72rem;}
+  .th-sign .role{margin-bottom:14px;}
+  .th-sign .name{font-weight:700;text-decoration:underline;}
+
+  /* ===== KARTU: KHITANAN (hitam putih, dekoratif) ===== */
+  #invitation.khitanan{
+    width:420px;height:594px;min-height:0;padding:0;border:3px double var(--ink);overflow:hidden;
+  }
+  #invitation.khitanan::before{
+    content:'';position:absolute;inset:9px;border:1px solid var(--ink);pointer-events:none;
+  }
+  .kh-inner{position:relative;height:100%;padding:30px 34px 26px;display:flex;flex-direction:column;text-align:center;}
+  .kh-kicker{font-size:.62rem;letter-spacing:3.5px;text-transform:uppercase;color:var(--ink-soft);margin-bottom:6px;}
+  .kh-title{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:1.95rem;line-height:1.15;margin-bottom:10px;}
+  .kh-orn{display:flex;align-items:center;gap:10px;margin:4px 0 12px;}
+  .kh-orn::before,.kh-orn::after{content:'';flex:1;border-top:1px solid var(--ink);}
+  .kh-orn span{font-size:.62rem;letter-spacing:2px;}
+  .kh-salam{font-size:.72rem;font-weight:700;margin-bottom:8px;}
+  .kh-pembuka{font-size:.68rem;line-height:1.65;color:var(--ink-soft);margin-bottom:12px;white-space:pre-wrap;}
+  .kh-nama{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:1.5rem;line-height:1.25;letter-spacing:.5px;margin-bottom:4px;}
+  .kh-ket{font-size:.68rem;color:var(--ink-soft);margin-bottom:12px;}
+  .kh-yangakan{font-size:.68rem;font-style:italic;color:var(--ink-soft);margin-bottom:8px;}
+  .kh-details{display:inline-block;text-align:left;font-size:.72rem;line-height:1.7;margin:0 auto 12px;}
+  .kh-details .row{display:flex;gap:8px;}
+  .kh-details .row .lb{width:64px;flex-shrink:0;color:var(--muted);}
+  .kh-details .row .colon{width:8px;flex-shrink:0;}
+  .kh-details .row .vl{font-weight:700;}
+  .kh-penutup{font-size:.66rem;line-height:1.6;color:var(--ink-soft);margin-bottom:8px;white-space:pre-wrap;}
+  .kh-wassalam{font-size:.7rem;font-weight:700;margin-bottom:14px;}
+  .kh-sign{margin-top:auto;}
+  .kh-sign .role{font-size:.68rem;color:var(--ink-soft);margin-bottom:2px;}
+  .kh-sign .name{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:1.05rem;}
+
+  /* ===== KARTU: PERNIKAHAN (berwarna) ===== */
+  #invitation.nikah{
+    width:420px;height:594px;min-height:0;padding:0;overflow:hidden;
+    background:var(--wed-bg);
+    border:1px solid var(--wed-gold);
+    color:var(--wed-green);
+  }
+  #invitation.nikah::before{
+    content:'';position:absolute;inset:8px;border:1px solid var(--wed-gold-soft);pointer-events:none;
+  }
+  #invitation.nikah::after{
+    content:'';position:absolute;left:0;right:0;top:0;height:7px;
+    background:linear-gradient(90deg,var(--wed-gold) 0%,var(--wed-gold-soft) 50%,var(--wed-gold) 100%);
+  }
+  .nk-inner{position:relative;height:100%;padding:20px 32px 16px;display:flex;flex-direction:column;text-align:center;}
+  .nk-bismillah{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:.8rem;color:var(--wed-gold);margin-bottom:3px;}
+  .nk-salam{font-size:.62rem;font-weight:700;letter-spacing:.3px;margin-bottom:6px;}
+  .nk-quote{font-size:.58rem;font-style:italic;line-height:1.5;color:var(--wed-green-soft);margin-bottom:8px;white-space:pre-wrap;}
+  .nk-pembuka{font-size:.62rem;line-height:1.5;color:var(--wed-green-soft);margin-bottom:8px;white-space:pre-wrap;}
+  .nk-nama{font-family:'Great Vibes',cursive;font-weight:400;font-size:1.75rem;line-height:1.15;color:var(--wed-green);}
+  .nk-ortu{font-size:.6rem;color:var(--wed-green-soft);margin:1px 0 3px;}
+  .nk-amp{font-family:'Great Vibes',cursive;font-size:1.2rem;color:var(--wed-gold);line-height:1;margin:1px 0;}
+  .nk-orn{display:flex;align-items:center;gap:10px;margin:7px 0 6px;}
+  .nk-orn::before,.nk-orn::after{content:'';flex:1;border-top:1px solid var(--wed-gold-soft);}
+  .nk-orn span{color:var(--wed-gold);font-size:.6rem;letter-spacing:2px;}
+  .nk-acara{margin-bottom:6px;}
+  .nk-acara .h{font-size:.6rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--wed-gold);margin-bottom:1px;}
+  .nk-acara .w{font-size:.7rem;font-weight:700;}
+  .nk-acara .t{font-size:.64rem;color:var(--wed-green-soft);line-height:1.4;}
+  .nk-penutup{font-size:.6rem;line-height:1.5;color:var(--wed-green-soft);margin-bottom:5px;white-space:pre-wrap;}
+  .nk-wassalam{font-size:.62rem;font-weight:700;margin-bottom:6px;}
+  .nk-sign{margin-top:auto;}
+  .nk-sign .role{font-size:.62rem;color:var(--wed-green-soft);margin-bottom:2px;}
+  .nk-sign .name{font-size:.72rem;font-weight:700;color:var(--wed-green);}
 
   .note{
     font-size:.72rem;color:var(--muted);background:var(--paper);border:1px dashed var(--line);
@@ -206,19 +282,29 @@
   <div class="card">
     <div class="card-head">
       <h2>Data Acara</h2>
-      <span class="hint">semua field opsional</span>
+      <span class="hint">kalimat baku sudah terisi otomatis</span>
     </div>
     <div class="card-body">
 
       <div class="tpl-select">
-        <div class="tpl-opt active" id="tplBtnUmum" onclick="setTemplate('umum')">Umum</div>
-        <div class="tpl-opt" id="tplBtnFormal" onclick="setTemplate('formal')">Formal / Tahlilan</div>
+        <div class="tpl-opt active" id="tplBtn-umum" onclick="setTemplate('umum')">
+          <div class="t">Umum</div><div class="s">Syukuran, rapat, dll</div>
+        </div>
+        <div class="tpl-opt" id="tplBtn-tahlilan" onclick="setTemplate('tahlilan')">
+          <div class="t">Tahlilan</div><div class="s">Hitam putih</div>
+        </div>
+        <div class="tpl-opt" id="tplBtn-khitanan" onclick="setTemplate('khitanan')">
+          <div class="t">Khitanan</div><div class="s">Hitam putih</div>
+        </div>
+        <div class="tpl-opt" id="tplBtn-nikah" onclick="setTemplate('nikah')">
+          <div class="t">Pernikahan</div><div class="s">Berwarna elegan</div>
+        </div>
       </div>
 
       <!-- ===== TEMPLATE UMUM ===== -->
-      <div class="tpl-block active" id="blockUmum">
+      <div class="tpl-block active" id="block-umum">
 
-        <div class="section-divider">Judul & Pembuka</div>
+        <div class="section-divider">Judul &amp; Pembuka</div>
         <div class="field">
           <label class="lbl">Kicker <span class="desc">(teks kecil di atas judul)</span></label>
           <input type="text" id="kicker" placeholder="UNDANGAN" />
@@ -229,7 +315,7 @@
         </div>
         <div class="field">
           <label class="lbl">Kalimat Pembuka</label>
-          <textarea id="pembuka" placeholder="Dengan memohon rahmat dan ridho Allah SWT, kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara:"></textarea>
+          <textarea id="pembuka">Dengan memohon rahmat dan ridho Allah SWT, kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara:</textarea>
         </div>
 
         <div class="section-divider">Penyelenggara</div>
@@ -238,7 +324,7 @@
           <input type="text" id="host" placeholder="Keluarga Bapak Ahmad Santoso" />
         </div>
 
-        <div class="section-divider">Waktu & Tempat</div>
+        <div class="section-divider">Waktu &amp; Tempat</div>
         <div class="row2">
           <div class="field">
             <label class="lbl">Tanggal</label>
@@ -261,107 +347,261 @@
         <div class="section-divider">Pesan Penutup</div>
         <div class="field">
           <label class="lbl">Kalimat Penutup</label>
-          <textarea id="penutup" placeholder="Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu."></textarea>
+          <textarea id="penutup">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu.</textarea>
         </div>
         <div class="field">
           <label class="lbl">Teks Footer <span class="desc">(baris paling bawah kartu)</span></label>
-          <input type="text" id="footer" placeholder="Terima kasih atas perhatian dan kehadirannya" />
+          <input type="text" id="footer" value="Terima kasih atas perhatian dan kehadirannya" />
         </div>
 
       </div>
 
-      <!-- ===== TEMPLATE FORMAL / TAHLILAN ===== -->
-      <div class="tpl-block" id="blockFormal">
+      <!-- ===== TEMPLATE TAHLILAN ===== -->
+      <div class="tpl-block" id="block-tahlilan">
 
         <div class="section-divider">Kop Surat</div>
         <div class="field">
           <label class="lbl">Nama Pengirim</label>
-          <input type="text" id="f_pengirim" placeholder="Keluarga Alm. Bpk Sahri" />
+          <input type="text" id="t_pengirim" placeholder="Keluarga Alm. Bpk. Sahri" />
         </div>
         <div class="field">
           <label class="lbl">Alamat Pengirim</label>
-          <input type="text" id="f_alamat" placeholder="Baletbaru" />
+          <input type="text" id="t_alamat" placeholder="Baletbaru" />
         </div>
         <div class="field">
-          <label class="lbl">Kepada Yang Terhormat <span class="desc">(dibiarkan kosong jika tanpa nama tujuan)</span></label>
-          <input type="text" id="f_tujuan" placeholder="Bapak/Ibu/Saudara/i" />
+          <label class="lbl">Kepada Yang Terhormat</label>
+          <input type="text" id="t_tujuan" value="Bapak/Ibu/Saudara/i" />
         </div>
 
         <div class="section-divider">Judul Acara</div>
         <div class="field">
-          <label class="lbl">Kicker <span class="desc">(teks kecil di atas judul)</span></label>
-          <input type="text" id="f_kicker" placeholder="UNDANGAN" />
-        </div>
-        <div class="field">
-          <label class="lbl">Judul Acara</label>
-          <input type="text" id="f_judul" placeholder="Tahlil 1 Tahun" />
+          <label class="lbl">Judul Acara <span class="desc">(mis. Tahlil 7 Hari / 40 Hari / 100 Hari / 1000 Hari)</span></label>
+          <input type="text" id="t_judul" placeholder="Tahlil 40 Hari" />
         </div>
         <div class="field">
           <label class="lbl">Hari, Tanggal <span class="desc">(baris kotak di bawah judul)</span></label>
-          <input type="text" id="f_haritanggal" placeholder="Sabtu, 16 Oktober 2021" />
+          <input type="text" id="t_haritanggal" placeholder="Kamis, 6 Agustus 2026" />
         </div>
 
-        <div class="section-divider">Salam & Kalimat Pengantar</div>
+        <div class="section-divider">Salam &amp; Kalimat Pengantar <span class="desc">(kalimat baku — biasanya tidak diubah)</span></div>
         <div class="field">
           <label class="lbl">Salam Pembuka</label>
-          <input type="text" id="f_salam" placeholder="Assalamu'alaikum Wr.Wb." />
+          <input type="text" id="t_salam" value="Assalamu'alaikum Warahmatullahi Wabarakatuh" />
         </div>
         <div class="field">
           <label class="lbl">Kalimat Pengantar</label>
-          <textarea id="f_pengantar" placeholder="Dengan menyebut nama rahmat Allah SWT, kami selaku keluarga bermaksud mengundang Bapak/Ibu/Saudara/i dalam rangka acara:"></textarea>
+          <textarea id="t_pengantar">Dengan memohon rahmat dan ridho Allah SWT, kami sekeluarga bermaksud mengundang Bapak/Ibu/Saudara/i untuk hadir dan memberikan do'a pada acara tahlil atas wafatnya:</textarea>
         </div>
 
         <div class="section-divider">Data Almarhum / Acara</div>
         <div class="field">
-          <label class="lbl">Nama Almarhum/Almarhumah <span class="desc">(kosongkan jika tidak perlu)</span></label>
-          <input type="text" id="f_almarhum" placeholder="Alm. SAHRI P. ABDUL HADI BIN JUMADIN" />
+          <label class="lbl">Nama Almarhum/Almarhumah</label>
+          <input type="text" id="t_almarhum" placeholder="Alm. SAHRI BIN ABDUL HADI" />
         </div>
         <div class="field">
           <label class="lbl">Kalimat sebelum detail</label>
-          <input type="text" id="f_yangakan" placeholder="Yang Insya Allah akan dilaksanakan pada:" />
+          <input type="text" id="t_yangakan" value="Yang Insya Allah akan dilaksanakan pada:" />
         </div>
         <div class="row2">
           <div class="field">
             <label class="lbl">Hari</label>
-            <input type="text" id="f_hari" placeholder="Sabtu" />
+            <input type="text" id="t_hari" placeholder="Kamis" />
           </div>
           <div class="field">
             <label class="lbl">Tanggal</label>
-            <input type="text" id="f_tanggal" placeholder="16 Oktober 2021" />
+            <input type="text" id="t_tanggal" placeholder="6 Agustus 2026" />
           </div>
         </div>
         <div class="row2">
           <div class="field">
             <label class="lbl">Pukul</label>
-            <input type="text" id="f_pukul" placeholder="16.00 WIB (Ba'da Ashar)" />
+            <input type="text" id="t_pukul" placeholder="18.30 WIB (Ba'da Maghrib)" />
           </div>
           <div class="field">
             <label class="lbl">Tempat</label>
-            <input type="text" id="f_tempat" placeholder="Mushola Fauzul Hasan" />
+            <input type="text" id="t_tempat" placeholder="Kediaman keluarga / Mushola" />
           </div>
         </div>
         <div class="field">
           <label class="lbl">Acara</label>
-          <input type="text" id="f_acara" placeholder="Do'a Tasla dan Tahlil" />
+          <input type="text" id="t_acara" placeholder="Pembacaan Surat Yasin, Tahlil dan Do'a" />
         </div>
 
-        <div class="section-divider">Penutup</div>
+        <div class="section-divider">Penutup <span class="desc">(kalimat baku — biasanya tidak diubah)</span></div>
         <div class="field">
           <label class="lbl">Kalimat Penutup</label>
-          <textarea id="f_penutup" placeholder="Demikian undangan ini kami sampaikan atas perhatian, kerjasama dan kehadirannya sangat kami harapkan. Atas kehadiran dan doanya kami sampaikan terima kasih."></textarea>
+          <textarea id="t_penutup">Merupakan suatu kehormatan dan kebahagiaan bagi kami sekeluarga apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan do'a. Atas perhatian dan kehadirannya, kami sekeluarga menyampaikan terima kasih.</textarea>
         </div>
         <div class="field">
           <label class="lbl">Salam Penutup</label>
-          <input type="text" id="f_wassalam" placeholder="Wassalamu'alaikum Wr.Wb." />
+          <input type="text" id="t_wassalam" value="Wassalamu'alaikum Warahmatullahi Wabarakatuh" />
         </div>
         <div class="row2">
           <div class="field">
             <label class="lbl">Teks Tanda Tangan</label>
-            <input type="text" id="f_hormat" placeholder="Hormat kami," />
+            <input type="text" id="t_hormat" value="Hormat kami," />
           </div>
           <div class="field">
             <label class="lbl">Nama Penanda Tangan</label>
-            <input type="text" id="f_nama_ttd" placeholder="Keluarga Alm. Bpk Sahri" />
+            <input type="text" id="t_nama_ttd" placeholder="Keluarga Alm. Bpk. Sahri" />
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ===== TEMPLATE KHITANAN ===== -->
+      <div class="tpl-block" id="block-khitanan">
+
+        <div class="section-divider">Judul</div>
+        <div class="field">
+          <label class="lbl">Kicker <span class="desc">(teks kecil di atas judul)</span></label>
+          <input type="text" id="k_kicker" value="WALIMATUL KHITAN" />
+        </div>
+        <div class="field">
+          <label class="lbl">Judul Acara</label>
+          <input type="text" id="k_judul" value="Tasyakuran Khitanan" />
+        </div>
+
+        <div class="section-divider">Salam &amp; Pembuka <span class="desc">(kalimat baku — biasanya tidak diubah)</span></div>
+        <div class="field">
+          <label class="lbl">Salam Pembuka</label>
+          <input type="text" id="k_salam" value="Assalamu'alaikum Warahmatullahi Wabarakatuh" />
+        </div>
+        <div class="field">
+          <label class="lbl">Kalimat Pembuka</label>
+          <textarea id="k_pembuka">Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara tasyakuran khitan putra kami:</textarea>
+        </div>
+
+        <div class="section-divider">Data Anak</div>
+        <div class="field">
+          <label class="lbl">Nama Anak</label>
+          <input type="text" id="k_nama" placeholder="Muhammad Rizki Hidayatullah" />
+        </div>
+        <div class="field">
+          <label class="lbl">Keterangan Anak <span class="desc">(mis. "Putra kedua dari Bapak Hasan &amp; Ibu Rina")</span></label>
+          <input type="text" id="k_ket" placeholder="Putra kedua dari Bapak Hasan & Ibu Rina" />
+        </div>
+
+        <div class="section-divider">Waktu &amp; Tempat</div>
+        <div class="field">
+          <label class="lbl">Kalimat sebelum detail</label>
+          <input type="text" id="k_yangakan" value="Yang Insya Allah akan diselenggarakan pada:" />
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label class="lbl">Hari</label>
+            <input type="text" id="k_hari" placeholder="Minggu" />
+          </div>
+          <div class="field">
+            <label class="lbl">Tanggal</label>
+            <input type="text" id="k_tanggal" placeholder="23 Agustus 2026" />
+          </div>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label class="lbl">Pukul</label>
+            <input type="text" id="k_pukul" placeholder="10.00 WIB s.d. selesai" />
+          </div>
+          <div class="field">
+            <label class="lbl">Tempat</label>
+            <input type="text" id="k_tempat" placeholder="Kediaman kami, Jl. Melati No. 8" />
+          </div>
+        </div>
+
+        <div class="section-divider">Penutup <span class="desc">(kalimat baku — biasanya tidak diubah)</span></div>
+        <div class="field">
+          <label class="lbl">Kalimat Penutup</label>
+          <textarea id="k_penutup">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan do'a restu kepada putra kami. Atas kehadiran dan do'a restunya, kami ucapkan terima kasih.</textarea>
+        </div>
+        <div class="field">
+          <label class="lbl">Salam Penutup</label>
+          <input type="text" id="k_wassalam" value="Wassalamu'alaikum Warahmatullahi Wabarakatuh" />
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label class="lbl">Teks Tanda Tangan</label>
+            <input type="text" id="k_hormat" value="Hormat kami," />
+          </div>
+          <div class="field">
+            <label class="lbl">Nama Keluarga</label>
+            <input type="text" id="k_nama_ttd" placeholder="Keluarga Bapak Hasan" />
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ===== TEMPLATE PERNIKAHAN ===== -->
+      <div class="tpl-block" id="block-nikah">
+
+        <div class="section-divider">Pembuka <span class="desc">(kalimat baku — biasanya tidak diubah)</span></div>
+        <div class="field">
+          <label class="lbl">Salam Pembuka</label>
+          <input type="text" id="n_salam" value="Assalamu'alaikum Warahmatullahi Wabarakatuh" />
+        </div>
+        <div class="field">
+          <label class="lbl">Kutipan Ayat</label>
+          <textarea id="n_quote">"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu istri-istri dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya, dan dijadikan-Nya di antaramu rasa kasih dan sayang." (QS. Ar-Rum: 21)</textarea>
+        </div>
+        <div class="field">
+          <label class="lbl">Kalimat Pembuka</label>
+          <textarea id="n_pembuka">Maha Suci Allah yang telah menciptakan makhluk-Nya berpasang-pasangan. Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud menyelenggarakan pernikahan putra-putri kami:</textarea>
+        </div>
+
+        <div class="section-divider">Mempelai</div>
+        <div class="field">
+          <label class="lbl">Nama Mempelai Wanita</label>
+          <input type="text" id="n_wanita" placeholder="Siti Nurhaliza" />
+        </div>
+        <div class="field">
+          <label class="lbl">Keterangan Mempelai Wanita</label>
+          <input type="text" id="n_ortu_w" placeholder="Putri pertama dari Bapak H. Ahmad Fauzi & Ibu Hj. Aminah" />
+        </div>
+        <div class="field">
+          <label class="lbl">Nama Mempelai Pria</label>
+          <input type="text" id="n_pria" placeholder="Rizky Pratama" />
+        </div>
+        <div class="field">
+          <label class="lbl">Keterangan Mempelai Pria</label>
+          <input type="text" id="n_ortu_p" placeholder="Putra kedua dari Bapak Drs. Surya Wijaya & Ibu Ratna Dewi" />
+        </div>
+
+        <div class="section-divider">Akad Nikah</div>
+        <div class="field">
+          <label class="lbl">Waktu Akad</label>
+          <input type="text" id="n_akad_waktu" placeholder="Sabtu, 12 September 2026 · Pukul 08.00 WIB" />
+        </div>
+        <div class="field">
+          <label class="lbl">Tempat Akad</label>
+          <input type="text" id="n_akad_tempat" placeholder="Masjid Raya Al-Falah, Bandung" />
+        </div>
+
+        <div class="section-divider">Resepsi</div>
+        <div class="field">
+          <label class="lbl">Waktu Resepsi</label>
+          <input type="text" id="n_resepsi_waktu" placeholder="Sabtu, 12 September 2026 · Pukul 11.00 – 14.00 WIB" />
+        </div>
+        <div class="field">
+          <label class="lbl">Tempat Resepsi</label>
+          <input type="text" id="n_resepsi_tempat" placeholder="Gedung Serbaguna Graha Mulia, Jl. Asia Afrika No. 45" />
+        </div>
+
+        <div class="section-divider">Penutup <span class="desc">(kalimat baku — biasanya tidak diubah)</span></div>
+        <div class="field">
+          <label class="lbl">Kalimat Penutup</label>
+          <textarea id="n_penutup">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan do'a restu kepada kedua mempelai. Atas kehadiran dan do'a restunya, kami ucapkan terima kasih.</textarea>
+        </div>
+        <div class="field">
+          <label class="lbl">Salam Penutup</label>
+          <input type="text" id="n_wassalam" value="Wassalamu'alaikum Warahmatullahi Wabarakatuh" />
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label class="lbl">Teks Tanda Tangan</label>
+            <input type="text" id="n_hormat" value="Kami yang berbahagia," />
+          </div>
+          <div class="field">
+            <label class="lbl">Nama Kedua Keluarga</label>
+            <input type="text" id="n_nama_ttd" placeholder="Kel. Bpk. H. Ahmad Fauzi & Kel. Bpk. Drs. Surya Wijaya" />
           </div>
         </div>
 
@@ -374,7 +614,7 @@
       </div>
 
       <div class="note">
-        <b>Catatan:</b> pratinjau di kanan mengikuti isian secara langsung. Setelah desain sesuai, klik "Unduh PDF" pada panel kanan.
+        <b>Catatan:</b> kalimat pembuka dan penutup baku sudah terisi otomatis sesuai kebiasaan surat undangan Indonesia — cukup lengkapi nama, tanggal, dan tempat. Setelah kartu dibuat, pratinjau ikut berubah langsung saat Anda mengetik.
       </div>
 
     </div>
@@ -425,15 +665,17 @@ function nl2br(s){ return escapeHtml(s).replace(/\n/g,"<br>"); }
 
 let hasGenerated = false;
 let currentTemplate = "umum";
+const TEMPLATES = ["umum","tahlilan","khitanan","nikah"];
 
 function setTemplate(tpl){
   currentTemplate = tpl;
-  document.getElementById("tplBtnUmum").classList.toggle("active", tpl==="umum");
-  document.getElementById("tplBtnFormal").classList.toggle("active", tpl==="formal");
-  document.getElementById("blockUmum").classList.toggle("active", tpl==="umum");
-  document.getElementById("blockFormal").classList.toggle("active", tpl==="formal");
-  document.getElementById("invitation").className = tpl==="formal" ? "formal" : "";
-  document.getElementById("invitation").innerHTML = emptyMsg();
+  TEMPLATES.forEach(t=>{
+    document.getElementById("tplBtn-"+t).classList.toggle("active", t===tpl);
+    document.getElementById("block-"+t).classList.toggle("active", t===tpl);
+  });
+  const inv = document.getElementById("invitation");
+  inv.className = tpl==="umum" ? "" : tpl;
+  inv.innerHTML = emptyMsg();
   hasGenerated = false;
 }
 
@@ -442,7 +684,15 @@ function emptyMsg(){
 }
 
 function generate(){
-  if(currentTemplate === "formal"){ generateFormal(); return; }
+  if(currentTemplate === "tahlilan"){ generateTahlilan(); }
+  else if(currentTemplate === "khitanan"){ generateKhitanan(); }
+  else if(currentTemplate === "nikah"){ generateNikah(); }
+  else { generateUmum(); }
+  hasGenerated = true;
+}
+
+/* ===== UMUM ===== */
+function generateUmum(){
   const kicker = val("kicker") || "UNDANGAN";
   const judul = val("judul") || "Nama Acara";
   const pembuka = val("pembuka");
@@ -471,7 +721,7 @@ function generate(){
     });
   }
 
-  const html = `
+  document.getElementById("invitation").innerHTML = `
     <div class="inv-kicker">${escapeHtml(kicker)}</div>
     <div class="inv-title">${escapeHtml(judul)}</div>
     <div class="inv-rule"></div>
@@ -481,124 +731,228 @@ function generate(){
     ${penutup ? `<div class="inv-message">${nl2br(penutup)}</div>` : ""}
     ${footer ? `<div class="inv-footer">${escapeHtml(footer)}</div>` : ""}
   `;
-
-  document.getElementById("invitation").innerHTML = html;
-  hasGenerated = true;
-  toast("Undangan dibuat");
 }
 
-function generateFormal(){
-  const pengirim = val("f_pengirim");
-  const alamat = val("f_alamat");
-  const tujuan = val("f_tujuan") || "Bapak/Ibu/Saudara/i";
-  const kicker = val("f_kicker") || "UNDANGAN";
-  const judul = val("f_judul") || "Nama Acara";
-  const haritanggal = val("f_haritanggal");
-  const salam = val("f_salam");
-  const pengantar = val("f_pengantar");
-  const almarhum = val("f_almarhum");
-  const yangakan = val("f_yangakan");
-  const hari = val("f_hari");
-  const tanggal = val("f_tanggal");
-  const pukul = val("f_pukul");
-  const tempat = val("f_tempat");
-  const acara = val("f_acara");
-  const penutup = val("f_penutup");
-  const wassalam = val("f_wassalam");
-  const hormat = val("f_hormat") || "Hormat kami,";
-  const namaTtd = val("f_nama_ttd");
+/* ===== TAHLILAN (hitam putih, format surat) ===== */
+function generateTahlilan(){
+  const pengirim = val("t_pengirim");
+  const alamat = val("t_alamat");
+  const tujuan = val("t_tujuan") || "Bapak/Ibu/Saudara/i";
+  const judul = val("t_judul") || "Tahlil & Do'a";
+  const haritanggal = val("t_haritanggal");
+  const salam = val("t_salam");
+  const pengantar = val("t_pengantar");
+  const almarhum = val("t_almarhum");
+  const yangakan = val("t_yangakan");
+  const penutup = val("t_penutup");
+  const wassalam = val("t_wassalam");
+  const hormat = val("t_hormat") || "Hormat kami,";
+  const namaTtd = val("t_nama_ttd");
 
   let detailRows = "";
-  if(hari) detailRows += `<div class="row"><div class="lb">Hari</div><div class="colon">:</div><div>${escapeHtml(hari)}</div></div>`;
-  if(tanggal) detailRows += `<div class="row"><div class="lb">Tanggal</div><div class="colon">:</div><div>${escapeHtml(tanggal)}</div></div>`;
-  if(pukul) detailRows += `<div class="row"><div class="lb">Pukul</div><div class="colon">:</div><div>${escapeHtml(pukul)}</div></div>`;
-  if(tempat) detailRows += `<div class="row"><div class="lb">Tempat</div><div class="colon">:</div><div>${escapeHtml(tempat)}</div></div>`;
-  if(acara) detailRows += `<div class="row"><div class="lb">Acara</div><div class="colon">:</div><div>${escapeHtml(acara)}</div></div>`;
+  [["Hari","t_hari"],["Tanggal","t_tanggal"],["Pukul","t_pukul"],["Tempat","t_tempat"],["Acara","t_acara"]].forEach(([lb,id])=>{
+    const v = val(id);
+    if(v) detailRows += `<div class="row"><div class="lb">${lb}</div><div class="colon">:</div><div class="vl">${escapeHtml(v)}</div></div>`;
+  });
 
-  const html = `
-    <div class="formal-inner">
-      ${(pengirim||alamat||tujuan) ? `<div class="formal-kop">
-        <div class="formal-kop-left">${pengirim?`<b>${escapeHtml(pengirim)}</b>`:""}${alamat?escapeHtml(alamat):""}</div>
-        <div class="formal-kop-right">Kepada Yang<br><b>${escapeHtml(tujuan)}</b></div>
+  document.getElementById("invitation").innerHTML = `
+    <div class="th-inner">
+      ${(pengirim||alamat||tujuan) ? `<div class="th-kop">
+        <div class="th-kop-left">${pengirim?`<b>${escapeHtml(pengirim)}</b>`:""}${alamat?escapeHtml(alamat):""}</div>
+        <div class="th-kop-right">Kepada Yth.<br><b>${escapeHtml(tujuan)}</b><br>di tempat</div>
       </div>` : ""}
 
-      <div class="formal-title-box">
-        <div class="kicker">${escapeHtml(kicker)}</div>
+      <div class="th-title-box">
+        <div class="kicker">Undangan</div>
         <h1>${escapeHtml(judul)}</h1>
       </div>
-      ${haritanggal ? `<div class="formal-divline">${escapeHtml(haritanggal)}</div>` : ""}
+      ${haritanggal ? `<div class="th-divline">${escapeHtml(haritanggal)}</div>` : ""}
 
-      <div class="formal-bismillah">Bismillahirrohmanirrohim</div>
-      ${salam ? `<div class="formal-salam">${escapeHtml(salam)}</div>` : ""}
-      ${pengantar ? `<div class="formal-body">${nl2br(pengantar)}</div>` : ""}
+      <div class="th-bismillah">Bismillahirrahmanirrahim</div>
+      ${salam ? `<div class="th-salam">${escapeHtml(salam)}</div>` : ""}
+      ${pengantar ? `<div class="th-body">${nl2br(pengantar)}</div>` : ""}
 
-      ${almarhum ? `<div class="formal-almarhum">${escapeHtml(almarhum)}</div>` : ""}
-      ${yangakan ? `<div class="formal-body">${escapeHtml(yangakan)}</div>` : ""}
-      ${detailRows ? `<div class="formal-details">${detailRows}</div>` : ""}
+      ${almarhum ? `<div class="th-almarhum">${escapeHtml(almarhum)}</div>` : ""}
+      ${yangakan ? `<div class="th-body">${escapeHtml(yangakan)}</div>` : ""}
+      ${detailRows ? `<div class="th-details">${detailRows}</div>` : ""}
 
-      ${penutup ? `<div class="formal-closing">${nl2br(penutup)}</div>` : ""}
-      ${wassalam ? `<div class="formal-wassalam">${escapeHtml(wassalam)}</div>` : ""}
+      ${penutup ? `<div class="th-closing">${nl2br(penutup)}</div>` : ""}
+      ${wassalam ? `<div class="th-wassalam">${escapeHtml(wassalam)}</div>` : ""}
 
-      <div class="formal-sign">
+      <div class="th-sign">
         <div class="role">${escapeHtml(hormat)}</div>
         ${namaTtd ? `<div class="name">${escapeHtml(namaTtd)}</div>` : ""}
       </div>
     </div>
   `;
-
-  document.getElementById("invitation").innerHTML = html;
-  hasGenerated = true;
-  toast("Undangan dibuat");
 }
 
+/* ===== KHITANAN (hitam putih, dekoratif) ===== */
+function generateKhitanan(){
+  const kicker = val("k_kicker") || "WALIMATUL KHITAN";
+  const judul = val("k_judul") || "Tasyakuran Khitanan";
+  const salam = val("k_salam");
+  const pembuka = val("k_pembuka");
+  const nama = val("k_nama") || "Nama Anak";
+  const ket = val("k_ket");
+  const yangakan = val("k_yangakan");
+  const penutup = val("k_penutup");
+  const wassalam = val("k_wassalam");
+  const hormat = val("k_hormat") || "Hormat kami,";
+  const namaTtd = val("k_nama_ttd");
+
+  let detailRows = "";
+  [["Hari","k_hari"],["Tanggal","k_tanggal"],["Pukul","k_pukul"],["Tempat","k_tempat"]].forEach(([lb,id])=>{
+    const v = val(id);
+    if(v) detailRows += `<div class="row"><div class="lb">${lb}</div><div class="colon">:</div><div class="vl">${escapeHtml(v)}</div></div>`;
+  });
+
+  document.getElementById("invitation").innerHTML = `
+    <div class="kh-inner">
+      <div class="kh-kicker">${escapeHtml(kicker)}</div>
+      <div class="kh-title">${escapeHtml(judul)}</div>
+      <div class="kh-orn"><span>◆</span></div>
+
+      ${salam ? `<div class="kh-salam">${escapeHtml(salam)}</div>` : ""}
+      ${pembuka ? `<div class="kh-pembuka">${nl2br(pembuka)}</div>` : ""}
+
+      <div class="kh-nama">${escapeHtml(nama)}</div>
+      ${ket ? `<div class="kh-ket">${escapeHtml(ket)}</div>` : ""}
+
+      ${yangakan ? `<div class="kh-yangakan">${escapeHtml(yangakan)}</div>` : ""}
+      ${detailRows ? `<div class="kh-details">${detailRows}</div>` : ""}
+      <div class="kh-orn"><span>◆</span></div>
+
+      ${penutup ? `<div class="kh-penutup">${nl2br(penutup)}</div>` : ""}
+      ${wassalam ? `<div class="kh-wassalam">${escapeHtml(wassalam)}</div>` : ""}
+
+      <div class="kh-sign">
+        <div class="role">${escapeHtml(hormat)}</div>
+        ${namaTtd ? `<div class="name">${escapeHtml(namaTtd)}</div>` : ""}
+      </div>
+    </div>
+  `;
+}
+
+/* ===== PERNIKAHAN (berwarna) ===== */
+function generateNikah(){
+  const salam = val("n_salam");
+  const quote = val("n_quote");
+  const pembuka = val("n_pembuka");
+  const wanita = val("n_wanita") || "Nama Mempelai Wanita";
+  const ortuW = val("n_ortu_w");
+  const pria = val("n_pria") || "Nama Mempelai Pria";
+  const ortuP = val("n_ortu_p");
+  const akadWaktu = val("n_akad_waktu");
+  const akadTempat = val("n_akad_tempat");
+  const resepsiWaktu = val("n_resepsi_waktu");
+  const resepsiTempat = val("n_resepsi_tempat");
+  const penutup = val("n_penutup");
+  const wassalam = val("n_wassalam");
+  const hormat = val("n_hormat") || "Kami yang berbahagia,";
+  const namaTtd = val("n_nama_ttd");
+
+  document.getElementById("invitation").innerHTML = `
+    <div class="nk-inner">
+      <div class="nk-bismillah">Bismillahirrahmanirrahim</div>
+      ${salam ? `<div class="nk-salam">${escapeHtml(salam)}</div>` : ""}
+      ${quote ? `<div class="nk-quote">${nl2br(quote)}</div>` : ""}
+      ${pembuka ? `<div class="nk-pembuka">${nl2br(pembuka)}</div>` : ""}
+
+      <div class="nk-nama">${escapeHtml(wanita)}</div>
+      ${ortuW ? `<div class="nk-ortu">${escapeHtml(ortuW)}</div>` : ""}
+      <div class="nk-amp">&amp;</div>
+      <div class="nk-nama">${escapeHtml(pria)}</div>
+      ${ortuP ? `<div class="nk-ortu">${escapeHtml(ortuP)}</div>` : ""}
+
+      <div class="nk-orn"><span>❦</span></div>
+
+      ${(akadWaktu||akadTempat) ? `<div class="nk-acara">
+        <div class="h">Akad Nikah</div>
+        ${akadWaktu ? `<div class="w">${escapeHtml(akadWaktu)}</div>` : ""}
+        ${akadTempat ? `<div class="t">${escapeHtml(akadTempat)}</div>` : ""}
+      </div>` : ""}
+
+      ${(resepsiWaktu||resepsiTempat) ? `<div class="nk-acara">
+        <div class="h">Resepsi</div>
+        ${resepsiWaktu ? `<div class="w">${escapeHtml(resepsiWaktu)}</div>` : ""}
+        ${resepsiTempat ? `<div class="t">${escapeHtml(resepsiTempat)}</div>` : ""}
+      </div>` : ""}
+
+      <div class="nk-orn"><span>❦</span></div>
+
+      ${penutup ? `<div class="nk-penutup">${nl2br(penutup)}</div>` : ""}
+      ${wassalam ? `<div class="nk-wassalam">${escapeHtml(wassalam)}</div>` : ""}
+
+      <div class="nk-sign">
+        <div class="role">${escapeHtml(hormat)}</div>
+        ${namaTtd ? `<div class="name">${escapeHtml(namaTtd)}</div>` : ""}
+      </div>
+    </div>
+  `;
+}
+
+/* ===== RESET, CONTOH, PDF ===== */
 function resetForm(){
-  ["kicker","judul","pembuka","host","tanggal","jam","tempat","detail","penutup","footer",
-   "f_pengirim","f_alamat","f_tujuan","f_kicker","f_judul","f_haritanggal","f_salam","f_pengantar",
-   "f_almarhum","f_yangakan","f_hari","f_tanggal","f_pukul","f_tempat","f_acara","f_penutup","f_wassalam","f_hormat","f_nama_ttd"]
-    .forEach(id=>document.getElementById(id).value="");
+  document.querySelectorAll("#block-"+currentTemplate+" input, #block-"+currentTemplate+" textarea").forEach(el=>{
+    el.value = el.defaultValue;
+  });
   document.getElementById("invitation").innerHTML = emptyMsg();
   hasGenerated = false;
-  toast("Form dikosongkan");
+  toast("Form dikembalikan ke awal");
 }
 
-const EXAMPLE_UMUM = {
-  kicker: "UNDANGAN",
-  judul: "Syukuran Rumah Baru",
-  pembuka: "Dengan memohon rahmat dan ridho Allah SWT, kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara:",
-  host: "Keluarga Bapak Ahmad Santoso",
-  tanggal: "2026-08-15",
-  jam: "19:00",
-  tempat: "Jl. Merdeka No. 12, Kel. Sukamaju, Bandung",
-  detail: "Dress code: Bebas rapi\nKonfirmasi kehadiran: 0812-3456-7890",
-  penutup: "Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu.",
-  footer: "Terima kasih atas perhatian dan kehadirannya"
-};
-
-const EXAMPLE_FORMAL = {
-  f_pengirim: "Keluarga Alm. Bpk Sahri",
-  f_alamat: "Baletbaru",
-  f_tujuan: "Bapak/Ibu/Saudara/i",
-  f_kicker: "UNDANGAN",
-  f_judul: "Tahlil 1 Tahun",
-  f_haritanggal: "Sabtu, 16 Oktober 2021",
-  f_salam: "Assalamu'alaikum Wr.Wb.",
-  f_pengantar: "Dengan menyebut nama rahmat Allah SWT, kami selaku keluarga bermaksud mengundang Bapak/Ibu/Saudara/i dalam rangka acara:",
-  f_almarhum: "Alm. SAHRI P. ABDUL HADI BIN JUMADIN",
-  f_yangakan: "Yang Insya Allah akan dilaksanakan pada:",
-  f_hari: "Sabtu",
-  f_tanggal: "16 Oktober 2021",
-  f_pukul: "16.00 WIB (Ba'da Ashar)",
-  f_tempat: "Mushola Fauzul Hasan",
-  f_acara: "Do'a Tasla dan Tahlil",
-  f_penutup: "Demikian undangan ini kami sampaikan atas perhatian, kerjasama dan kehadirannya sangat kami harapkan. Atas kehadiran dan doanya kami sampaikan terima kasih.",
-  f_wassalam: "Wassalamu'alaikum Wr.Wb.",
-  f_hormat: "Hormat kami,",
-  f_nama_ttd: ""
+const EXAMPLES = {
+  umum: {
+    kicker: "UNDANGAN",
+    judul: "Syukuran Rumah Baru",
+    host: "Keluarga Bapak Ahmad Santoso",
+    tanggal: "2026-08-15",
+    jam: "19:00",
+    tempat: "Jl. Merdeka No. 12, Kel. Sukamaju, Bandung",
+    detail: "Dress code: Bebas rapi\nKonfirmasi kehadiran: 0812-3456-7890"
+  },
+  tahlilan: {
+    t_pengirim: "Keluarga Alm. Bpk. Sahri",
+    t_alamat: "Baletbaru, Sukowono",
+    t_judul: "Tahlil 40 Hari",
+    t_haritanggal: "Kamis, 6 Agustus 2026",
+    t_almarhum: "Alm. SAHRI BIN ABDUL HADI",
+    t_hari: "Kamis",
+    t_tanggal: "6 Agustus 2026",
+    t_pukul: "18.30 WIB (Ba'da Maghrib)",
+    t_tempat: "Kediaman keluarga, Baletbaru",
+    t_acara: "Pembacaan Surat Yasin, Tahlil dan Do'a",
+    t_nama_ttd: "Keluarga Alm. Bpk. Sahri"
+  },
+  khitanan: {
+    k_nama: "Muhammad Rizki Hidayatullah",
+    k_ket: "Putra kedua dari Bapak Hasan Basri & Ibu Rina Marlina",
+    k_hari: "Minggu",
+    k_tanggal: "23 Agustus 2026",
+    k_pukul: "10.00 WIB s.d. selesai",
+    k_tempat: "Kediaman kami, Jl. Melati No. 8, Cirebon",
+    k_nama_ttd: "Keluarga Bapak Hasan Basri"
+  },
+  nikah: {
+    n_wanita: "Siti Nurhaliza",
+    n_ortu_w: "Putri pertama dari Bapak H. Ahmad Fauzi & Ibu Hj. Aminah",
+    n_pria: "Rizky Pratama",
+    n_ortu_p: "Putra kedua dari Bapak Drs. Surya Wijaya & Ibu Ratna Dewi",
+    n_akad_waktu: "Sabtu, 12 September 2026 · Pukul 08.00 WIB",
+    n_akad_tempat: "Masjid Raya Al-Falah, Bandung",
+    n_resepsi_waktu: "Sabtu, 12 September 2026 · Pukul 11.00 – 14.00 WIB",
+    n_resepsi_tempat: "Gedung Serbaguna Graha Mulia, Jl. Asia Afrika No. 45",
+    n_nama_ttd: "Kel. Bpk. H. Ahmad Fauzi & Kel. Bpk. Drs. Surya Wijaya"
+  }
 };
 
 function fillExample(){
-  const data = currentTemplate === "formal" ? EXAMPLE_FORMAL : EXAMPLE_UMUM;
-  Object.entries(data).forEach(([id, value])=>{
+  // kembalikan kalimat baku dulu, lalu isi data contoh
+  document.querySelectorAll("#block-"+currentTemplate+" input, #block-"+currentTemplate+" textarea").forEach(el=>{
+    el.value = el.defaultValue;
+  });
+  Object.entries(EXAMPLES[currentTemplate]).forEach(([id, value])=>{
     document.getElementById(id).value = value;
   });
   generate();
@@ -610,7 +964,7 @@ function downloadPdf(){
   const el = document.getElementById("invitation");
   const opt = {
     margin: 0,
-    filename: 'undangan.pdf',
+    filename: 'undangan-' + currentTemplate + '.pdf',
     image: { type: 'jpeg', quality: 0.98 },
     html2canvas: { scale: 2, useCORS: true },
     jsPDF: { unit: 'mm', format: 'a5', orientation: 'portrait' }
@@ -626,6 +980,11 @@ function toast(msg){
   clearTimeout(toastT);
   toastT=setTimeout(()=>t.classList.remove("show"),1900);
 }
+
+/* pratinjau langsung: setelah kartu pertama dibuat, ketikan apa pun memperbarui kartu */
+document.querySelectorAll(".tpl-block input, .tpl-block textarea").forEach(el=>{
+  el.addEventListener("input", ()=>{ if(hasGenerated) generate(); });
+});
 </script>
 </body>
 </html>
